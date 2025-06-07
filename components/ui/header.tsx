@@ -19,7 +19,7 @@ export default function Header() {
   const router = useRouter();
 
   const navigateSettings = () => {
-    router.push("/etcmf/settings");
+    router.push("/dashboard/settings");
   };
 
   return (

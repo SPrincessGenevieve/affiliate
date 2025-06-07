@@ -35,9 +35,9 @@ export default function TierOne() {
           <div className="flex gap-2">
             <div className="flex items-center justify-center">
               <Circle
-                color="#DBEAFE"
+                color="#D1FAE5"
                 size={15}
-                className="bg-[#DBEAFE] flex items-center justify-center rounded-full"
+                className="bg-[#D1FAE5] flex items-center justify-center rounded-full"
               ></Circle>
             </div>
             <div>
@@ -58,9 +58,9 @@ export default function TierOne() {
           <div className="flex gap-2">
             <div className="flex items-center justify-center">
               <Circle
-                color="#DBEAFE"
+                color="#EDE9FE"
                 size={15}
-                className="bg-[#DBEAFE] flex items-center justify-center rounded-full"
+                className="bg-[#EDE9FE] flex items-center justify-center rounded-full"
               ></Circle>
             </div>
             <div>
@@ -77,13 +77,7 @@ export default function TierOne() {
       <Card className="w-full">
         <CardContent className="flex flex-col gap-4">
           <div className="flex gap-2">
-            <div className="flex items-center justify-center">
-              <Circle
-                color="#DBEAFE"
-                size={15}
-                className="bg-[#DBEAFE] flex items-center justify-center rounded-full"
-              ></Circle>
-            </div>
+           
             <div>
               <Label className="font-normal text-gray-600">Total AUM</Label>
               <Label className="font-bold text-2xl text-[#8B1D24]">£2.5M</Label>

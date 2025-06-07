@@ -12,7 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Dot } from "lucide-react";
 import React from "react";
-import "@/app/globals.css"
+import "@/app/globals.css";
 
 export default function TierSix() {
   return (
@@ -43,7 +43,7 @@ export default function TierSix() {
             </div>
           </div>
           <div className="w-full p-4">
-            <Button className=" bg-[#8B1D24] w-full text-white">
+            <Button className=" bg-[#8B1D24] hover:bg-[hsl(358,47%,27%)] w-full text-white">
               Commission Calculator
             </Button>
           </div>
@@ -74,7 +74,18 @@ export default function TierSix() {
             </div>
             <div className="flex flex-col gap-2">
               <Label className="text-gray-600">Investment Term</Label>
-              <Input placeholder=""></Input>
+              <Select defaultValue="1">
+                <SelectTrigger className="w-full">
+                  <SelectValue></SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 Year</SelectItem>
+                  <SelectItem value="2">2 Year</SelectItem>
+                  <SelectItem value="3">3 Year</SelectItem>
+                  <SelectItem value="5">5 Year</SelectItem>
+                  <SelectItem value="10">10 Year</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <Separator></Separator>
@@ -152,7 +163,7 @@ export default function TierSix() {
             </div>
           </div>
           <div className="w-full p-4">
-            <Button className="w-full bg-transparent text-[#8B1D24] border border-[#8B1D24]">
+            <Button className="w-full hover:bg-[#8B1D24] hover:text-white bg-transparent text-[#8B1D24] border border-[#8B1D24]">
               Browse All Resources
             </Button>
           </div>

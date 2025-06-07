@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
-  Archive,
-  ArchiveX,
+  Speech,
   LayoutDashboard,
-  Settings,
+  CircleHelp,
+  HandHelping,
+  Headset,
 } from "lucide-react";
 
 import {
@@ -21,13 +22,15 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import "@/app/globals.css";
+import { Button } from "@/components/ui/button";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "My Referrals", url: "/dashboard/referrals", icon: Archive },
+  { title: "My Referrals", url: "/dashboard/referrals", icon: HandHelping },
 
-  { title: "Help Center", url: "/dashboard/help-center", icon: Settings },
-  { title: "Contact Us", url: "/dashboard/contact-us", icon: ArchiveX },
+  { title: "Help Center", url: "/dashboard/help-center", icon: CircleHelp },
+  { title: "Contact Us", url: "/dashboard/contact-us", icon: Speech },
+  { title: "", url: "", icon: Headset },
 ];
 
 export function AppSidebar() {
@@ -156,6 +159,21 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
+        {!collapsed && (
+          <div className="p-4">
+            <div className="bg-[#F9FAFB] rounded-[5px] p-2  flex flex-col gap-2">
+              <Label className="w-full flex text-[16px] justify-center items-center">
+                Need Help?
+              </Label>
+              <Label className="w-full text-gray-500 flex font-normal text-[12px]">
+                Contact your dedicated affiliate manager for assistance.
+              </Label>
+              <Button className="bg-transparent border text-[#8B1D24] border-[#8B1D24] hover:bg-[#8B1D24] hover:text-white">
+                Schedule Call
+              </Button>
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

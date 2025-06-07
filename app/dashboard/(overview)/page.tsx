@@ -14,11 +14,13 @@ export default function Dashboard() {
       <TierOne></TierOne>
       <TierTwo></TierTwo>
       <TierThree></TierThree>
-      <div className="w-full tier-4-5-cont flex gap-4 max-h-[450px] h-screen justify-evenly">
-        <div className="w-full h-full min-h-[450px]">
-          <TierFour></TierFour>
+      <div className="w-full tier-4-5-cont flex gap-4 max-h-[450px] h-full justify-evenly">
+        <div className="w-full max-h-[450px] h-screen">
+          <div className="w-full h-full min-h-[450px]">
+            <TierFour></TierFour>
+          </div>
         </div>
-          <TierFive></TierFive>
+        <TierFive></TierFive>
       </div>
       <TierSix></TierSix>
     </div>

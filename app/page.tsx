@@ -28,7 +28,8 @@ export default function Home() {
   };
 
   return (
-    <Card className="w-full h-full flex items-center rounded-none card-cont ">
+    <div className="w-full h-full p-20 login-cont flex items-center justify-center">
+      <Card className="w-full h-full flex items-center rounded-none card-cont ">
       <CardContent className="w-[90%] h-auto">
         <div>
           <div className=" w-full p-4 h-30 flex items-center justify-center">
@@ -75,5 +76,6 @@ export default function Home() {
         </div>
       </CardContent>
     </Card>
+    </div>
   );
 }

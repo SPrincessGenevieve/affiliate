@@ -210,7 +210,7 @@
   .body-cont{
     padding: 2vh;
   }
-  .forgot-cont{
+  .forgot-cont, .login-cont{
     padding: 2vh;
   }
 }

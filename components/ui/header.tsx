@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +14,19 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import "@/app/globals.css";
 import { Label } from "./label";
+import SpinnerIcon from "@/app/images/Spinner";
 
 export default function Header() {
   const router = useRouter();
+  const [loadingLogout, setLoadingLogout] = useState(false);
 
   const navigateSettings = () => {
     router.push("/dashboard/settings");
+  };
+
+  const navigateLogOut = () => {
+    setLoadingLogout(true);
+    router.push("/");
   };
 
   return (
@@ -83,8 +90,16 @@ export default function Header() {
                 <DropdownMenuItem className="flex gap-2 ">
                   <p>Help & Support</p>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex gap-2 ">
-                  <p className="text-red-500">Sign Out</p>
+                <DropdownMenuItem
+                  onClick={navigateLogOut}
+                  className="flex gap-2 "
+                >
+                  <p className="text-red-500 flex gap-2 items-center justify-center">
+                    {loadingLogout && (
+                      <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+                    )}
+                    Sign Out
+                  </p>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>

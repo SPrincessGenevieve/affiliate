@@ -46,7 +46,7 @@ export default function TierFiveTable() {
               <Label
                 className={`w-6 h-6 text-center flex items-center justify-center rounded-full bg-[#F3F4F6] ${
                   selectedRow === item.rank && "bg-[#2E5257] text-white"
-                } ${item.rank === 1 && "bg-[#FEF3C7] text-[#2E5257]"}`}
+                } ${item.rank === 1 && "bg-[#C4AD93] text-[#fff]"}`}
               >
                 {item.rank}
               </Label>
@@ -76,7 +76,7 @@ export default function TierFiveTable() {
                 <Label
                   className={cn(
                     "cursor-pointer font-normal text-center flex w-auto  rounded-full p-1 px-2 justify-center items-center  transition-colors ",
-                    item.rank === 1 ? "bg-[#FEF3C7] " : "bg-[#F3F4F6]"
+                    item.rank === 1 ? "bg-[#C4AD93] text-white" : "bg-[#F3F4F6]"
                   )}
                 >
                   {item.tier}

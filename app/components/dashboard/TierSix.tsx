@@ -44,7 +44,7 @@ export default function TierSix() {
           </div>
           <div className="w-full p-4">
             <Button className=" bg-[#2E5257] hover:bg-[hsl(358,47%,27%)] w-full text-white">
-              Commission Calculator
+              Send Invitation
             </Button>
           </div>
         </CardContent>

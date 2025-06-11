@@ -14,8 +14,15 @@ import { Separator } from "@/components/ui/separator";
 import React from "react";
 import "@/app/globals.css";
 import TierFiveTable from "./tier-five-table";
+import { useRouter } from "next/navigation";
 
 export default function TierFour() {
+  const router = useRouter();
+
+  const navigateReferral = () => {
+    router.push("/dashboard/referrals");
+  };
+
   return (
     <Card className="m-0 p-0 w-full h-full flex ">
       <CardContent className="p-0 m-0 flex flex-col  justify-between h-full w-full">
@@ -42,6 +49,7 @@ export default function TierFour() {
         <Separator></Separator>
         <div className="h-[10%] w-full flex items-center justify-center">
           <Button
+            onClick={navigateReferral}
             variant={"ghost"}
             className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer"
           >

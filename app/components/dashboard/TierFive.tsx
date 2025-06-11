@@ -36,7 +36,7 @@ export default function TierFive() {
                             : item.status === "Rejected"
                             ? "bg-[#FEE2E2] text-[#B91C1C]"
                             : item.status === "Pending"
-                            ? "bg-[#FEF3C7] text-[#92400E]"
+                            ? "bg-[#C4AD93] text-[#fff]"
                             : ""
                         } rounded-3xl px-2 py-1 text-[12px] font-medium`}
                       >

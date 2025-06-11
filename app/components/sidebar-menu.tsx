@@ -22,7 +22,6 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import "@/app/globals.css";
-import { Button } from "@/components/ui/button";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
@@ -116,7 +115,7 @@ export function AppSidebar() {
                   const isActive = pathname === item.url;
                   const showSupportLabel = item.title === "Help Center";
                   return (
-                    <>
+                    <div key={item.url}>
                       {showSupportLabel && !collapsed && (
                         <Label className="px-4 pt-6 pb-2 text-[12px] text-gray-500">
                           SUPPORT
@@ -124,7 +123,6 @@ export function AppSidebar() {
                       )}
                       <Link
                         href={item.url}
-                        key={item.url}
                         className={`text-black ${
                           collapsed === true
                             ? "pl-0 w-full  flex justify-center items-center"
@@ -132,7 +130,7 @@ export function AppSidebar() {
                         } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none 
         ${
           isActive
-            ? "bg-[#F3E8E9] text-black border-l-3 border-[#2E5257]"
+            ? "bg-[#2e525725] text-black border-l-3 border-[#2E5257]"
             : "hover:bg-[#F9FAFB]"
         }`}
                       >
@@ -152,7 +150,7 @@ export function AppSidebar() {
                           </Label>
                         )}
                       </Link>
-                    </>
+                    </div>
                   );
                 })}
               </SidebarMenu>

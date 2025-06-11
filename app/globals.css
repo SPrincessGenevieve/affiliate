@@ -120,25 +120,27 @@
     @apply bg-background text-foreground;
   }
 }
-.scrollbar-hide-referral {
-  overflow-y: scroll;             /* enables vertical scroll */
-  -ms-overflow-style: none;      /* IE and Edge */
-  scrollbar-width: none;         /* Firefox */
+
+/* .scrollbar-hide-referral {
+  overflow-y: scroll;            
+  -ms-overflow-style: none;     
+  scrollbar-width: none;      
 }
 
 .scrollbar-hide-referral::-webkit-scrollbar:vertical {
-  display: none;                 /* Chrome, Safari, Opera - vertical scrollbar only */
-}
+  display: none;                
+} */
+
 @media (max-width: 1140px) {
-  .tier-4-5-cont{
+  .tier-4-5-cont {
     flex-direction: column;
     max-height: 100%;
   }
-  .tier-five-cont{
+  .tier-five-cont {
     width: 100%;
     max-width: 100%;
   }
-  .tier-six-cont{
+  .tier-six-cont {
     flex-wrap: wrap;
   }
 }
@@ -149,9 +151,20 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
-  .tier-three-cont{
+  .tier-three-cont {
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+@media (max-height: 645px) {
+  .image-bg {
+    display: none;
+  }
+  .main-card-cont,
+  .body-cont {
+    height: 100%;
+  }
+
 }
 
 @media (max-width: 782px) {
@@ -160,11 +173,45 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
   }
-  .layout_scroll{
+  .layout_scroll {
     padding: 5px;
   }
-  .children-sidebar-cont{
+  .children-sidebar-cont {
     margin-top: 5px;
+  }
+  .image-bg {
+    display: none;
+  }
+  .login-cont {
+    padding: 4vh;
+  }
+  .main-card-cont {
+    padding: 2vh;
+    height: 100%;
+    width: 100%;
+    /* min-height: 100%; */
+  }
+  .main-cont {
+    height: 100%;
+    width: auto;
+  }
+  .card-cont {
+    width: 90%;
+    height: 90%;
+  }
+  .cont-body {
+    height: 100vh;
+  }
+  .form-register-cont {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+  .body-cont{
+    padding: 2vh;
+  }
+  .forgot-cont{
+    padding: 2vh;
   }
 }
 
@@ -176,15 +223,17 @@
   }
 }
 
-@media (max-width: 658px){
-  .table-auto{
+@media (max-width: 658px) {
+  .table-auto {
     max-width: 500px;
+  }
+    .body-cont{
+    padding: 0;
   }
 }
 
 @media (max-width: 485px) {
-  .filter-tier-three{
+  .filter-tier-three {
     flex-direction: column;
   }
 }
-

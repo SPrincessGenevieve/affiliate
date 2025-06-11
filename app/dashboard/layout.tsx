@@ -5,7 +5,6 @@ import { AppSidebar } from "../components/sidebar-menu";
 import Header from "@/components/ui/header";
 import { useEffect, useState } from "react";
 import { useUserContext } from "../context/UserContext";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function DashboardLayout({
   children,
@@ -32,8 +31,18 @@ export default function DashboardLayout({
           <div className="w-full h-[55px] bg-white shadow-sm z-20">
             <Header></Header>
           </div>
-          <div className="w-full h-full flex gap-2 bg-[red] ">
-            <ScrollArea className="w-full h-auto bg-[#F9FAFB]  p-4 layout_scroll">
+          <div className="w-full h-full flex px-4 gap-2 pb-4 overflow-hidden">
+             <div className="w-full h-auto  flex bg-[#F9FAFB]">
+                <div className="w-[100%] mt-4 flex justify-center children-sidebar-cont">
+                  <AppSidebar />
+                  <div
+                    className={`children-cont flex h-full w-full justify-center items-start px-4 rounded-3xl overflow-y-auto `}
+                  >
+                    {children}
+                  </div>
+                </div>
+              </div>
+            {/* <ScrollArea className="w-full h-auto bg-[#F9FAFB]  p-4 layout_scroll">
               <div className="w-full h-auto  flex bg-[#F9FAFB]">
                 <div className="w-[100%] mt-4 flex justify-center children-sidebar-cont">
                   <AppSidebar />
@@ -44,7 +53,7 @@ export default function DashboardLayout({
                   </div>
                 </div>
               </div>
-            </ScrollArea>
+            </ScrollArea> */}
           </div>
         </div>
       </div>

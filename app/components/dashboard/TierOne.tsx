@@ -21,7 +21,7 @@ export default function TierOne() {
               <Label className="font-normal text-gray-600">
                 Commission Rate
               </Label>
-              <Label className="font-bold text-2xl text-[#8B1D24]">1.0%</Label>
+              <Label className="font-bold text-2xl text-[#2E5257]">1.0%</Label>
             </div>
           </div>
           <div className="flex justify-between">
@@ -42,7 +42,7 @@ export default function TierOne() {
             </div>
             <div>
               <Label className="font-normal text-gray-600">Next Payment</Label>
-              <Label className="font-bold text-2xl text-[#8B1D24]">
+              <Label className="font-bold text-2xl text-[#2E5257]">
                 £2,500
               </Label>
             </div>
@@ -65,7 +65,7 @@ export default function TierOne() {
             </div>
             <div>
               <Label className="font-normal text-gray-600">Total Clients</Label>
-              <Label className="font-bold text-2xl text-[#8B1D24]">42</Label>
+              <Label className="font-bold text-2xl text-[#2E5257]">42</Label>
             </div>
           </div>
           <div className="flex justify-between">
@@ -80,7 +80,7 @@ export default function TierOne() {
            
             <div>
               <Label className="font-normal text-gray-600">Total AUM</Label>
-              <Label className="font-bold text-2xl text-[#8B1D24]">£2.5M</Label>
+              <Label className="font-bold text-2xl text-[#2E5257]">£2.5M</Label>
             </div>
           </div>
           <div className="flex justify-between">

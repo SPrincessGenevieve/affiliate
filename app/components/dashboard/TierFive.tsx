@@ -49,7 +49,7 @@ export default function TierFive() {
                   </div>
                   <Label
                     className={`text-[20px]  ${
-                      item.amount <= 0 ? "text-gray-400" : "text-[#8B1D24]"
+                      item.amount <= 0 ? "text-gray-400" : "text-[#2E5257]"
                     } font-bold`}
                   >
                     £{formatToK(item.amount)}
@@ -63,7 +63,7 @@ export default function TierFive() {
         <div className="w-full h-[10%]">
           <Button
             variant={"ghost"}
-            className="text-[#8B1D24] font-normal h-10 w-full hover:underline cursor-pointer"
+            className="text-[#2E5257] font-normal h-10 w-full hover:underline cursor-pointer"
           >
             View All Referrals
           </Button>

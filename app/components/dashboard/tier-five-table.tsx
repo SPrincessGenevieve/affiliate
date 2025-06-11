@@ -31,7 +31,7 @@ export default function TierFiveTable() {
         </TableRow>
       </TableHeader>
       <TableBody className="">
-        {affiliate_leaderboard.map((item) => (
+        {affiliate_leaderboard.slice(0, 6).map((item) => (
           <TableRow
             key={item.rank}
             onClick={() => setSelectedRow(item.rank)}
@@ -45,8 +45,8 @@ export default function TierFiveTable() {
             <TableCell>
               <Label
                 className={`w-6 h-6 text-center flex items-center justify-center rounded-full bg-[#F3F4F6] ${
-                  selectedRow === item.rank && "bg-[#8B1D24] text-white"
-                } ${item.rank === 1 && "bg-[#FEF3C7] text-[#8B1D24]"}`}
+                  selectedRow === item.rank && "bg-[#2E5257] text-white"
+                } ${item.rank === 1 && "bg-[#FEF3C7] text-[#2E5257]"}`}
               >
                 {item.rank}
               </Label>
@@ -56,7 +56,7 @@ export default function TierFiveTable() {
                 <AvatarImage src={""}></AvatarImage>
                 <AvatarFallback
                   className={`cursor-pointer font-normal transition-colors text-gray-500 ${
-                    selectedRow === item.rank && "bg-[#8B1D24] text-white"
+                    selectedRow === item.rank && "bg-[#2E5257] text-white"
                   }`}
                 >
                   JW

@@ -15,7 +15,7 @@ export default function TierTwo() {
             <div className="bg-[#10B981] h-10 w-10 rounded-full flex items-center justify-center">
               <Label className="text-white text-xl">1</Label>
             </div>
-            <div className="bg-[#8B1D24] h-10 w-10 rounded-full flex items-center justify-center">
+            <div className="bg-[#2E5257] h-10 w-10 rounded-full flex items-center justify-center">
               <Label className="text-white text-xl">2</Label>
             </div>
             <div className="bg-[#D1D1D1] h-10 w-10 rounded-full flex items-center justify-center">

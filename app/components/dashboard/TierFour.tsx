@@ -43,7 +43,7 @@ export default function TierFour() {
         <div className="h-[10%] w-full flex items-center justify-center">
           <Button
             variant={"ghost"}
-            className="text-[#8B1D24] font-normal w-full h-10 hover:underline cursor-pointer"
+            className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer"
           >
             View Full Leaderboard
           </Button>

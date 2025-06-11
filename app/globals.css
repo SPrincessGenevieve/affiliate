@@ -120,7 +120,15 @@
     @apply bg-background text-foreground;
   }
 }
+.scrollbar-hide-referral {
+  overflow-y: scroll;             /* enables vertical scroll */
+  -ms-overflow-style: none;      /* IE and Edge */
+  scrollbar-width: none;         /* Firefox */
+}
 
+.scrollbar-hide-referral::-webkit-scrollbar:vertical {
+  display: none;                 /* Chrome, Safari, Opera - vertical scrollbar only */
+}
 @media (max-width: 1140px) {
   .tier-4-5-cont{
     flex-direction: column;

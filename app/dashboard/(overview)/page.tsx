@@ -9,7 +9,7 @@ import React from "react";
 
 export default function Dashboard() {
   return (
-    <div className="w-full flex flex-col gap-4 dashboard-cont">
+    <div className="w-full h-full flex flex-col gap-4 dashboard-cont">
       <Greetings></Greetings>
       <TierOne></TierOne>
       <TierTwo></TierTwo>

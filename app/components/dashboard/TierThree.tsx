@@ -25,7 +25,7 @@ export default function TierThree() {
                 <Button
                   className={`h-7 rounded-full text-[12px] ${
                     item === "Quarterly"
-                      ? "bg-[#F3E8E9] text-[#8B1D24] "
+                      ? "bg-[#F3E8E9] text-[#2E5257] "
                       : "bg-[#F3F4F6] text-gray-600 "
                   } hover:bg-gray-200`}
                   key={index}

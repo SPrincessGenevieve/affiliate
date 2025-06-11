@@ -43,7 +43,7 @@ export default function TierSix() {
             </div>
           </div>
           <div className="w-full p-4">
-            <Button className=" bg-[#8B1D24] hover:bg-[hsl(358,47%,27%)] w-full text-white">
+            <Button className=" bg-[#2E5257] hover:bg-[hsl(358,47%,27%)] w-full text-white">
               Commission Calculator
             </Button>
           </div>
@@ -102,7 +102,7 @@ export default function TierSix() {
           <Separator></Separator>
           <div className="flex justify-between gap-2 p-4">
             <Label className="text-gray-600 font-bold">Total (Year 1)</Label>
-            <Label className="text-[#8B1D24] font-bold">£1,500</Label>
+            <Label className="text-[#2E5257] font-bold">£1,500</Label>
           </div>
         </CardContent>
       </Card>
@@ -163,7 +163,7 @@ export default function TierSix() {
             </div>
           </div>
           <div className="w-full p-4">
-            <Button className="w-full hover:bg-[#8B1D24] hover:text-white bg-transparent text-[#8B1D24] border border-[#8B1D24]">
+            <Button className="w-full hover:bg-[#2E5257] hover:text-white bg-transparent text-[#2E5257] border border-[#2E5257]">
               Browse All Resources
             </Button>
           </div>

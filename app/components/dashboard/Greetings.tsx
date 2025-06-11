@@ -14,9 +14,9 @@ export default function Greetings() {
             Your performance this month is up by 15% compared to last month.
           </Label>
         </div>
-        <div>
+        {/* <div>
           <Button variant={"ghost"}>View Reports</Button>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );

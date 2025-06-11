@@ -63,7 +63,7 @@ export function AppSidebar() {
   return (
     <Card className="">
       <CardContent
-        className={`rounded-3xl p-0 m-0 mt-0 h-screen  ${
+        className={`rounded-3xl p-0 m-0 mt-0 h-full  ${
           collapsed ? "w-16" : "w-60 sidebar_width transition-all ease-in-out"
         } bg-[white] border-0 rounded-none`}
       >
@@ -132,7 +132,7 @@ export function AppSidebar() {
                         } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none 
         ${
           isActive
-            ? "bg-[#F3E8E9] text-black border-l-3 border-[#8B1D24]"
+            ? "bg-[#F3E8E9] text-black border-l-3 border-[#2E5257]"
             : "hover:bg-[#F9FAFB]"
         }`}
                       >
@@ -159,7 +159,7 @@ export function AppSidebar() {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        {!collapsed && (
+        {/* {!collapsed && (
           <div className="p-4">
             <div className="bg-[#F9FAFB] rounded-[5px] p-2  flex flex-col gap-2">
               <Label className="w-full flex text-[16px] justify-center items-center">
@@ -168,12 +168,12 @@ export function AppSidebar() {
               <Label className="w-full text-gray-500 flex font-normal text-[12px]">
                 Contact your dedicated affiliate manager for assistance.
               </Label>
-              <Button className="bg-transparent border text-[#8B1D24] border-[#8B1D24] hover:bg-[#8B1D24] hover:text-white">
+              <Button className="bg-transparent border text-[#2E5257] border-[#2E5257] hover:bg-[#2E5257] hover:text-white">
                 Schedule Call
               </Button>
             </div>
           </div>
-        )}
+        )} */}
       </CardContent>
     </Card>
   );

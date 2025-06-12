@@ -17,9 +17,9 @@ export default function TierFive() {
     <Card className="m-0 p-0 w-full flex max-w-[400px] tier-five-cont">
       <CardContent className="p-0 flex flex-col w-full h-full">
         <div className="w-full h-[90%]">
-          <Label className="text-[16px] px-4 pb-5">Recent Referrals</Label>
+          <Label className="text-[16px] px-4 py-5">Recent Referrals</Label>
           <Separator></Separator>
-          <ScrollArea className="h-screen max-h-[320px] p-4 flex flex-col gap-2">
+          <ScrollArea className="h-screen max-h-[340px]  p-4 flex flex-col gap-2">
             <div className="w-full flex flex-col gap-4">
               {recent_refferal.map((item, index) => (
                 <div

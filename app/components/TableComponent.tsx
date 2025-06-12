@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const ITEMS_PER_PAGE = 15;
+const ITEMS_PER_PAGE = 12;
 
 interface TableItem {
   rank: number;
@@ -129,7 +129,7 @@ export default function TableComponent({
   );
 
   return (
-    <div className="w-full h-full flex flex-col justify-between ">
+    <div className="w-full h-full flex flex-col justify-between relative">
       <Table className="">
         {caption && <TableCaption>{caption}</TableCaption>}
         <TableHeader>
@@ -155,7 +155,7 @@ export default function TableComponent({
         </TableBody>
       </Table>
 
-      <div className="mt-4 flex justify-end">
+      <div className="mt-4 flex justify-end w-full h-auto bg-white">
         <Pagination>
           <PaginationContent>
             <PaginationItem>

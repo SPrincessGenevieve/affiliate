@@ -143,6 +143,10 @@
   .tier-six-cont {
     flex-wrap: wrap;
   }
+  .tier-4-cont,
+  .tier-5-cont {
+    width: 100%;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -153,6 +157,10 @@
   }
   .tier-three-cont {
     grid-template-columns: repeat(1, 1fr);
+    height: 100%;
+  }
+  .aum-cont {
+    height: 100%;
   }
 }
 
@@ -161,13 +169,37 @@
     display: none;
   }
   .main-card-cont,
-  .body-cont {
+  .tier-4-5-cont {
     height: 100%;
   }
-
 }
 
 @media (max-width: 782px) {
+  .multi-cont {
+    padding: 10px;
+  }
+
+  .multi-cont-2{
+    padding: 30px;
+  }
+
+  .settings-cont,
+  .settings-cont-2,
+  .settings-tab {
+    flex-direction: column;
+  }
+  .twofa-cont {
+    border: 0;
+  }
+  .toggle-switch {
+    display: flex;
+  }
+  .toggle-label {
+    display: none;
+  }
+  .profile-billing-cont {
+    min-height: 100vh;
+  }
   .tier-one-cont {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -207,10 +239,11 @@
     grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
   }
-  .body-cont{
+  .body-cont {
     padding: 2vh;
   }
-  .forgot-cont, .login-cont{
+  .forgot-cont,
+  .login-cont {
     padding: 2vh;
   }
 }
@@ -227,7 +260,7 @@
   .table-auto {
     max-width: 500px;
   }
-    .body-cont{
+  .body-cont {
     padding: 0;
   }
 }

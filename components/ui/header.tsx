@@ -15,12 +15,26 @@ import Image from "next/image";
 import "@/app/globals.css";
 import { Label } from "./label";
 import SpinnerIcon from "@/app/images/Spinner";
+import CustomerSupport from "@/app/components/support/CustomerSupport";
+import { useUserContext } from "@/app/context/UserContext";
 
 export default function Header() {
   const router = useRouter();
   const [loadingLogout, setLoadingLogout] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { setUserDetails } = useUserContext();
 
   const navigateSettings = () => {
+    setUserDetails({
+      activeSettingsTab: "profile",
+    });
+    router.push("/dashboard/settings");
+  };
+
+  const navigateBilling = () => {
+    setUserDetails({
+      activeSettingsTab: "billing",
+    });
     router.push("/dashboard/settings");
   };
 
@@ -29,11 +43,20 @@ export default function Header() {
     router.push("/");
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDashboard = () => {
+    router.push("/dashboard");
+  };
+
   return (
     <div className=" px-8 py-2 w-full h-auto flex justify-between items-center cont-header ">
-      <div className="flex gap-2 w-full items-center municipality_cont">
+      <div className=" flex gap-2 w-full items-center municipality_cont">
         <Image
-          className="w-[40] h-[40] rounded-full"
+          onClick={handleDashboard}
+          className="cursor-pointer w-[40] h-[40] rounded-full"
           width={400}
           height={400}
           src={
@@ -54,7 +77,7 @@ export default function Header() {
                   <Avatar className="w-[40px] h-[40px]">
                     <AvatarImage
                       src={
-                        "https://scontent.fmnl14-1.fna.fbcdn.net/v/t39.30808-1/464115817_3669993786645187_3329516257053704408_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=109&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeE25rlhBG6vtaeITU36P4l0yjfTumkzSqzKN9O6aTNKrEqQCV91fZFZzDnTm-8J_F12wqy7Ws72BuDKp0-yGdDI&_nc_ohc=s-OGCxNLAiYQ7kNvwHj0fbp&_nc_oc=AdnPdm8Y3wZvQEi5N_edzGIYqIZVZCt7dj9dsVUbzNegTCPwSRW0MWD4Wba7ZQxW7-U&_nc_zt=24&_nc_ht=scontent.fmnl14-1.fna&_nc_gid=CDnyRWLvAOXLx4ABoVLpmQ&oh=00_AfEjPQcWog2PMWOXnFdx5Et28aO1EBN_lTMfbRAJll0qkg&oe=681BAC50"
+                        "https://i.etsystatic.com/iap/b979b5/6846594779/iap_640x640.6846594779_kn1iey1x.jpg?version=0"
                       }
                     ></AvatarImage>
                     <AvatarFallback></AvatarFallback>
@@ -84,10 +107,13 @@ export default function Header() {
                 >
                   <p>Profile Settings</p>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex gap-2 ">
+                <DropdownMenuItem
+                  onClick={navigateBilling}
+                  className="flex gap-2 "
+                >
                   <p>Billing Information</p>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="flex gap-2 ">
+                <DropdownMenuItem onClick={handleOpen} className="flex gap-2 ">
                   <p>Help & Support</p>
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -104,6 +130,7 @@ export default function Header() {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+          <CustomerSupport open={open} onOpenChange={setOpen}></CustomerSupport>
         </div>
       </div>
     </div>

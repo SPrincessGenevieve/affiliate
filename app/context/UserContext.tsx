@@ -10,12 +10,14 @@ import {
 
 type UserContextType = {
   isOpen: boolean;
+  activeSettingsTab: string;
   setUserDetails: (details: Partial<UserContextType>) => void;
   
 };
 
 const defaultUserContext: UserContextType = {
   isOpen: true,
+  activeSettingsTab: "",
   setUserDetails: () => {},
 };
 

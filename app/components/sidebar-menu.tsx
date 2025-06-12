@@ -26,10 +26,6 @@ import "@/app/globals.css";
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "My Referrals", url: "/dashboard/referrals", icon: HandHelping },
-
-  { title: "Help Center", url: "/dashboard/help-center", icon: CircleHelp },
-  { title: "Contact Us", url: "/dashboard/contact-us", icon: Speech },
-  { title: "", url: "", icon: Headset },
 ];
 
 export function AppSidebar() {
@@ -60,104 +56,107 @@ export function AppSidebar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
   return (
-    <Card className="">
-      <CardContent
-        className={`rounded-3xl p-0 m-0 mt-0 h-full  ${
-          collapsed ? "w-16" : "w-60 sidebar_width transition-all ease-in-out"
-        } bg-[white] border-0 rounded-none`}
-      >
-        <div
-          className={`flex w-full justify-between ${
-            collapsed ? "flex-col" : "flex-row"
-          }`}
+    <div className="max-w-[245px] h-full relative">
+      <Card className="bg-[white] h-full ">
+        <CardContent
+          className={`rounded-3xl p-0 m-0 mt-0 h-auto  ${
+            collapsed ? "w-16" : "w-60 sidebar_width transition-all ease-in-out"
+          } bg-[white] border-0 rounded-none`}
         >
           <div
-            onClick={handleCollapse}
-            className="cursor-pointer flex flex-col gap-2 items-center justify-center w-full p-2"
+            className={`flex w-full justify-between ${
+              collapsed ? "flex-col" : "flex-row"
+            }`}
           >
-            <Avatar className="h-auto w-auto max-h-20 max-w-20 border">
-              <AvatarImage
-                src={
-                  "https://play-lh.googleusercontent.com/zpUiqoOvCo7k_9-M4KS2LYaYNJCGxA0jytnbo2LU902wATuhphtCtbPrJEqAfzZCBt0=w240-h480-rw"
-                }
-              ></AvatarImage>
-              <AvatarFallback>VA</AvatarFallback>
-            </Avatar>
             <div
-              className={`${collapsed ? "hidden transition ease-in-out" : ""}`}
+              onClick={handleCollapse}
+              className="cursor-pointer flex flex-col gap-2 items-center justify-center w-full p-2"
             >
-              <Label
-                className={`text-black text-center text-[16px] font-medium w-full `}
+              <Avatar className="h-auto w-auto max-h-20 max-w-20 border">
+                <AvatarImage
+                  src={
+                    "https://i.etsystatic.com/iap/b979b5/6846594779/iap_640x640.6846594779_kn1iey1x.jpg?version=0"
+                  }
+                ></AvatarImage>
+                <AvatarFallback>VA</AvatarFallback>
+              </Avatar>
+              <div
+                className={`${
+                  collapsed ? "hidden transition ease-in-out" : ""
+                }`}
               >
-                Sarah Johnson
-              </Label>
-              <p
-                className={`text-[12px] text-center font-normal text-gray-500 w-full `}
-              >
-                Silver Tier Affiliate
-              </p>
+                <Label
+                  className={`text-black text-center text-[16px] font-medium w-full `}
+                >
+                  Sarah Johnson
+                </Label>
+                <p
+                  className={`text-[12px] text-center font-normal text-gray-500 w-full `}
+                >
+                  Silver Tier Affiliate
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <Separator></Separator>
-        <Label
-          className={`my-4 px-4 text-gray-500 text-[12px] ${
-            collapsed ? "hidden" : ""
-          }`}
-        >
-          MAIN MENU
-        </Label>
-        <SidebarContent className="mt-2">
-          <SidebarGroup className="">
-            <SidebarGroupContent className="">
-              <SidebarMenu className="overflow-hidden p-0 gap-0">
-                {items.map((item) => {
-                  const isActive = pathname === item.url;
-                  const showSupportLabel = item.title === "Help Center";
-                  return (
-                    <div key={item.url}>
-                      {showSupportLabel && !collapsed && (
-                        <Label className="px-4 pt-6 pb-2 text-[12px] text-gray-500">
-                          SUPPORT
-                        </Label>
-                      )}
-                      <Link
-                        href={item.url}
-                        className={`text-black ${
-                          collapsed === true
-                            ? "pl-0 w-full  flex justify-center items-center"
-                            : "pl-10"
-                        } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none 
+          <Separator></Separator>
+          <Label
+            className={`my-4 px-4 text-gray-500 text-[12px] ${
+              collapsed ? "hidden" : ""
+            }`}
+          >
+            MAIN MENU
+          </Label>
+          <SidebarContent className="mt-2">
+            <SidebarGroup className="">
+              <SidebarGroupContent className="">
+                <SidebarMenu className="overflow-hidden p-0 gap-0">
+                  {items.map((item) => {
+                    const isActive = pathname === item.url;
+                    const showSupportLabel = item.title === "Help Center";
+                    return (
+                      <div key={item.url}>
+                        {showSupportLabel && !collapsed && (
+                          <Label className="px-4 pt-6 pb-2 text-[12px] text-gray-500">
+                            SUPPORT
+                          </Label>
+                        )}
+                        <Link
+                          href={item.url}
+                          className={`text-black ${
+                            collapsed === true
+                              ? "pl-0 w-full  flex justify-center items-center"
+                              : "pl-10"
+                          } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none 
         ${
           isActive
             ? "bg-[#2e525725] text-black border-l-3 border-[#2E5257]"
             : "hover:bg-[#F9FAFB]"
         }`}
-                      >
-                        <div className={`${collapsed ? "" : "hidden"}`}>
-                          <item.icon
-                            size={30}
-                            className={`w-auto h-[25px] ${
-                              isActive
-                                ? "stroke-black"
-                                : "stroke-black group-hover:stroke-[#0B6540]"
-                            }`}
-                          />
-                        </div>
-                        {!collapsed && (
-                          <Label className="text-[16px] font-normal">
-                            {item.title}
-                          </Label>
-                        )}
-                      </Link>
-                    </div>
-                  );
-                })}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-        {/* {!collapsed && (
+                        >
+                          <div className={`${collapsed ? "" : "hidden"}`}>
+                            <item.icon
+                              size={30}
+                              className={`w-auto h-[25px] ${
+                                isActive
+                                  ? "stroke-black"
+                                  : "stroke-black group-hover:stroke-[#0B6540]"
+                              }`}
+                            />
+                          </div>
+                          {!collapsed && (
+                            <Label className="text-[16px] font-normal">
+                              {item.title}
+                            </Label>
+                          )}
+                        </Link>
+                      </div>
+                    );
+                  })}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          </SidebarContent>
+          {/* {!collapsed && (
           <div className="p-4">
             <div className="bg-[#F9FAFB] rounded-[5px] p-2  flex flex-col gap-2">
               <Label className="w-full flex text-[16px] justify-center items-center">
@@ -172,7 +171,8 @@ export function AppSidebar() {
             </div>
           </div>
         )} */}
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

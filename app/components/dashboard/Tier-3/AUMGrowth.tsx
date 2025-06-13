@@ -32,11 +32,11 @@ import "@/app/globals.css";
 const chartConfig = {
   vintage: {
     label: "Vintage",
-    color: "#8B1D24",
+    color: "#8466C5",
   },
   rare: {
     label: "Rare",
-    color: "#8B1D24",
+    color: "#8466C5",
   },
 } satisfies ChartConfig;
 
@@ -121,14 +121,14 @@ export default function AUMGrowth() {
                   stroke="var(--color-rare)"
                   stackId="a"
                 />
-                <Area
+                {/* <Area
                   dataKey="vintage"
                   type="natural"
                   fill="url(#fillVintage)"
                   fillOpacity={0.4}
                   stroke="var(--color-vintage)"
                   stackId="a"
-                />
+                /> */}
               </AreaChart>
             </ChartContainer>
           </div>

@@ -11,7 +11,6 @@ export default function Security() {
       <div className="w-full h-full">
         <div className="mb-4 pb-2 border-b flex justify-between items-center settings-cont-2 gap-2">
           <Label className=" text-neutral-400">UPDATE PASSWORD</Label>
-          <Button className="bg-[#2E5257]">CHANGE PASSWORD</Button>
         </div>
         <div className="w-full max-w-[500px] gap-2 flex flex-col">
           <div className="flex flex-col gap-2">
@@ -77,6 +76,11 @@ export default function Security() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="w-full my-4">
+        <Button className="max-w-[500px] w-full bg-[#2E5257]">
+          CHANGE PASSWORD
+        </Button>
       </div>
     </div>
   );

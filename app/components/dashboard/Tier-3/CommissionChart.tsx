@@ -28,11 +28,11 @@ const chartConfig = {
   },
   vintage: {
     label: "Vintage",
-    color: "#8B1D24",
+    color: "#8466C5",
   },
   rare: {
     label: "Rare",
-    color: "#8B1D24",
+    color: "#8466C5",
   },
 } satisfies ChartConfig;
 
@@ -122,13 +122,7 @@ export function CommissionChart() {
             stroke="var(--color-rare)"
             stackId="a"
           />
-          <Area
-            dataKey="vintage"
-            type="natural"
-            fill="url(#fillVintage)"
-            stroke="var(--color-vintage)"
-            stackId="a"
-          />
+         
           <ChartLegend content={<ChartLegendContent />} />
         </AreaChart>
       </ChartContainer>

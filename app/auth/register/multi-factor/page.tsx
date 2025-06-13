@@ -29,7 +29,7 @@ export default function MultiFactor() {
 
   const handleNotReady = () => {
     setLoadingNotReady(true);
-    setLoadingNotReady(false)
+    setLoadingNotReady(false);
     setOpen(true);
   };
 
@@ -49,7 +49,7 @@ export default function MultiFactor() {
   };
 
   return (
-    <div className="w-full h-full p-20 multi-cont ">
+    <div className="w-full h-full flex flex-col justify-evenly multi-cont ">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="w-full flex flex-col">
           <DialogTitle>Missing Extra Layer</DialogTitle>
@@ -71,90 +71,84 @@ export default function MultiFactor() {
           </div>
         </DialogContent>
       </Dialog>
-      <Card className="h-auto min-h-full w-full rounded-none overflow-y-auto">
-        <CardContent className="flex flex-col gap-4 p-20 multi-cont-2">
-          <div className="w-full flex items-center justify-center p-4 ">
-            <Image
-              src={Logo}
-              className="h-auto w-auto max-w-60"
-              width={400}
-              height={400}
-              alt="logo"
-            ></Image>
-          </div>
-          <div className="w-full">
-            <Progress value={40}></Progress>
-          </div>
-          <div className="w-full flex justify-center items-center">
-            <div className="gap-4 w-full flex flex-col justify-center items-center">
-              <Label className="text-center text-[20px]">
-                Secure your Account (Optional)
-              </Label>
-              <Label className="text-center font-light">
-                You can add an extra layer of security to protect sensitive
-                actions like checkout, selling, withdrawals, etc...
-              </Label>
-              <div className="w-full flex flex-col gap-4">
-                <Card
-                  onClick={() => setSelected("mfa")}
-                  className={`border-2 hover:border-[#C4AD93] transition ease-in-out ${
-                    selected === "mfa" && "border-2 border-[#C4AD93]"
-                  }`}
-                >
-                  <CardContent className="flex gap-4 items-center">
-                    <div>
-                      <ShieldCheck color="#C4AD93"></ShieldCheck>
-                    </div>
-                    <div>
-                      <Label className="text-[16px]">
-                        Authenticator App (MFA)
-                      </Label>
-                      <Label className="text-[12px] font-light text-neutral-500">
-                        Use Google Authenticator or any Authy for codes.
-                      </Label>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card
-                  onClick={() => setSelected("sms")}
-                  className={`${
-                    selected === "sms" && "border-2 border-[#C4AD93]"
-                  } border-2 hover:border-[#C4AD93] transition ease-in-out`}
-                >
-                  <CardContent className="flex gap-4 items-center">
-                    <div>
-                      <ShieldCheck color="#C4AD93"></ShieldCheck>
-                    </div>
-                    <div>
-                      <Label className="text-[16px]">SMS/ Text Message</Label>
-                      <Label className="text-[12px] font-light text-neutral-500">
-                        Receive a code via text message.
-                      </Label>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-center my-2 ">
-            <Label
-              className="cursor-pointer flex justify-center items-center"
-              onClick={handleNotReady}
+      <div className="w-full flex items-center justify-center p-4 ">
+        <Image
+          src={Logo}
+          className="h-auto w-auto max-w-60"
+          width={400}
+          height={400}
+          alt="logo"
+        ></Image>
+      </div>
+      <div className="w-full">
+        <Progress value={40}></Progress>
+      </div>
+      <div className="w-full flex justify-center items-center">
+        <div className="gap-4 w-full flex flex-col justify-center items-center">
+          <Label className="text-center text-[20px]">
+            Secure your Account (Optional)
+          </Label>
+          <Label className="text-center font-light">
+            You can add an extra layer of security to protect sensitive actions
+            like checkout, selling, withdrawals, etc...
+          </Label>
+          <div className="w-full flex flex-col gap-4">
+            <Card
+              onClick={() => setSelected("mfa")}
+              className={`border-2 hover:border-[#C4AD93] transition ease-in-out ${
+                selected === "mfa" && "border-2 border-[#C4AD93]"
+              }`}
             >
-              <div className="w-5 flex justify-center items-center">
-                {loadingNotReady && (
-                  <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
-                )}{" "}
-              </div>
-              Not Ready? You can set this up later.
-            </Label>
+              <CardContent className="flex gap-4 items-center">
+                <div>
+                  <ShieldCheck color="#C4AD93"></ShieldCheck>
+                </div>
+                <div>
+                  <Label className="text-[16px]">Authenticator App (MFA)</Label>
+                  <Label className="text-[12px] font-light text-neutral-500">
+                    Use Google Authenticator or any Authy for codes.
+                  </Label>
+                </div>
+              </CardContent>
+            </Card>
+            <Card
+              onClick={() => setSelected("sms")}
+              className={`${
+                selected === "sms" && "border-2 border-[#C4AD93]"
+              } border-2 hover:border-[#C4AD93] transition ease-in-out`}
+            >
+              <CardContent className="flex gap-4 items-center">
+                <div>
+                  <ShieldCheck color="#C4AD93"></ShieldCheck>
+                </div>
+                <div>
+                  <Label className="text-[16px]">SMS/ Text Message</Label>
+                  <Label className="text-[12px] font-light text-neutral-500">
+                    Receive a code via text message.
+                  </Label>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-          <Button onClick={handleRegister} className="bg-[#2E5257] w-full">
-            {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>}{" "}
-            Register <ArrowRight></ArrowRight>
-          </Button>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+      <div className="flex justify-center my-2 ">
+        <Label
+          className="cursor-pointer flex justify-center items-center"
+          onClick={handleNotReady}
+        >
+          <div className="w-5 flex justify-center items-center">
+            {loadingNotReady && (
+              <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+            )}{" "}
+          </div>
+          Not Ready? You can set this up later.
+        </Label>
+      </div>
+      <Button onClick={handleRegister} className="bg-[#2E5257] w-full">
+        {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>} Register{" "}
+        <ArrowRight></ArrowRight>
+      </Button>
     </div>
   );
 }

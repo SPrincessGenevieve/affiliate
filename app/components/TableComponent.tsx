@@ -18,7 +18,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
-import { ChevronsLeft, ChevronsRight } from "lucide-react";
+import {
+  ArrowDownNarrowWide,
+  ArrowUpNarrowWide,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const ITEMS_PER_PAGE = 12;
@@ -52,6 +57,8 @@ export default function TableComponent({
 }: TableComponentProps) {
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedFilter, setSelectedFilter] = useState("");
+  const [isFiltered, setIsFiltered] = useState(false);
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
   const paginatedData = data.slice(
@@ -137,9 +144,87 @@ export default function TableComponent({
             <TableHead>Rank</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Tier</TableHead>
-            <TableHead>AUM</TableHead>
-            <TableHead>Commission</TableHead>
-            <TableHead>YoY Growth</TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">
+                AUM
+                <Button
+                  variant={"ghost"}
+                  onClick={() => {
+                    if (selectedFilter !== "") {
+                      setSelectedFilter("");
+                    } else {
+                      setSelectedFilter("aum");
+                    }
+                  }}
+                >
+                  {selectedFilter === "aum" ? (
+                    <ArrowUpNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowUpNarrowWide>
+                  ) : (
+                    <ArrowDownNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowDownNarrowWide>
+                  )}
+                </Button>
+              </div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">
+                Commission
+                <Button
+                  variant={"ghost"}
+                  onClick={() => {
+                    if (selectedFilter !== "") {
+                      setSelectedFilter("");
+                    } else {
+                      setSelectedFilter("commission");
+                    }
+                  }}
+                >
+                  {selectedFilter === "commission" ? (
+                    <ArrowUpNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowUpNarrowWide>
+                  ) : (
+                    <ArrowDownNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowDownNarrowWide>
+                  )}
+                </Button>
+              </div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">
+                YoY Growth
+                <Button
+                  variant={"ghost"}
+                  onClick={() => {
+                    if (selectedFilter !== "") {
+                      setSelectedFilter("");
+                    } else {
+                      setSelectedFilter("yoy");
+                    }
+                  }}
+                >
+                  {selectedFilter === "yoy" ? (
+                    <ArrowUpNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowUpNarrowWide>
+                  ) : (
+                    <ArrowDownNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowDownNarrowWide>
+                  )}
+                </Button>
+              </div>
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

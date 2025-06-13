@@ -45,7 +45,7 @@ export default function Authenticator() {
   };
 
   return (
-    <div className="w-full h-full p-20 multi-cont overflow-auto">
+    <div className="w-full h-full flex flex-col justify-evenly multi-cont overflow-auto">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogTitle>Registration Successful</DialogTitle>
@@ -55,27 +55,23 @@ export default function Authenticator() {
         </DialogContent>
       </Dialog>
 
-      <Card className=" h-auto min-h-full w-full rounded-none overflow-y-auto">
-        <CardContent className="flex flex-col gap-4 p-20 multi-cont-2">
-          <div className="w-full flex items-center justify-center p-4 ">
-            <Image
-              src={Logo}
-              className="h-auto w-auto max-w-60"
-              width={400}
-              height={400}
-              alt="logo"
-            ></Image>
-          </div>
-          <div className="w-full">
-            <Progress value={next ? 70 : 50}></Progress>
-          </div>
-          {next ? (
-            <AuthenticatorVerify onClick={handleVerify}></AuthenticatorVerify>
-          ) : (
-            <AuthenticatorGuide onClick={handleNext}></AuthenticatorGuide>
-          )}
-        </CardContent>
-      </Card>
+      <div className="w-full flex items-center justify-center p-4 ">
+        <Image
+          src={Logo}
+          className="h-auto w-auto max-w-60"
+          width={400}
+          height={400}
+          alt="logo"
+        ></Image>
+      </div>
+      <div className="w-full">
+        <Progress value={next ? 70 : 50}></Progress>
+      </div>
+      {next ? (
+        <AuthenticatorVerify onClick={handleVerify}></AuthenticatorVerify>
+      ) : (
+        <AuthenticatorGuide onClick={handleNext}></AuthenticatorGuide>
+      )}
     </div>
   );
 }

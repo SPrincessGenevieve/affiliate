@@ -14,7 +14,7 @@ export default function TierFive() {
   };
 
   return (
-    <Card className="m-0 p-0 w-full flex max-w-[400px] tier-five-cont">
+    <Card className="m-0 p-0 w-full flex tier-five-cont">
       <CardContent className="p-0 flex flex-col w-full h-full">
         <div className="w-full h-[90%]">
           <Label className="text-[16px] px-4 py-5">Recent Referrals</Label>

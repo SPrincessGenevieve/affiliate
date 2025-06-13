@@ -40,7 +40,7 @@ export default function SMS() {
   };
 
   return (
-    <div className="w-full h-full p-20 multi-cont ">
+    <div className="w-full h-full flex flex-col  multi-cont ">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogTitle>Registration Successful</DialogTitle>
@@ -49,68 +49,58 @@ export default function SMS() {
           </DialogDescription>
         </DialogContent>
       </Dialog>
-      <Card className="h-auto min-h-full w-full rounded-none overflow-y-auto">
-        <CardContent className="flex flex-col gap-4 p-20 multi-cont-2">
-          <div className="w-full flex items-center justify-center p-4 ">
-            <Image
-              src={Logo}
-              className="h-auto w-auto max-w-60"
-              width={400}
-              height={400}
-              alt="logo"
-            ></Image>
-          </div>
+      <div className="w-full h-[30%] flex items-center justify-center p-4 ">
+        <Image
+          src={Logo}
+          className="h-auto w-auto max-w-60"
+          width={400}
+          height={400}
+          alt="logo"
+        ></Image>
+      </div>
 
-          <div className="w-full flex flex-col gap-4 justify-center items-center">
-            {verify ? (
-              <>
-                <div className="w-full">
-                  <Progress value={80}></Progress>
+      <div className="w-full flex flex-col gap-4 justify-center items-center">
+        {verify ? (
+          <>
+            <div className="w-full">
+              <Progress value={80}></Progress>
+            </div>
+            <div className="w-full flex flex-col justify-center items-center gap-4">
+              <ThumbsUp color="#2E5257" size={40}></ThumbsUp>
+              <div className="w-full flex flex-col justify-center items-center gap-4">
+                <p>Enter the 6-digit code sent.</p>
+                <div className="flex gap-1 justify-center items-center">
+                  <MessageSquare color="#2E5257"></MessageSquare>
+                  <p className="text-gray-500"></p>
                 </div>
-                <div className="w-full flex flex-col justify-center items-center gap-4">
-                  <ThumbsUp color="#2E5257" size={40}></ThumbsUp>
-                  <div className="w-full flex flex-col justify-center items-center gap-4">
-                    <p>Enter the 6-digit code sent.</p>
-                    <div className="flex gap-1 justify-center items-center">
-                      <MessageSquare color="#2E5257"></MessageSquare>
-                      <p className="text-gray-500"></p>
-                    </div>
-                  </div>
-                  <div className="w-full">
-                    <Input
-                      className="h-10 w-full text-center"
-                      placeholder="1 2 3 4 5 6"
-                    ></Input>
-                  </div>
-                  <Button
-                    className="bg-[#2E5257] w-full"
-                    onClick={handleVerify}
-                  >
-                    Verify
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="w-full">
-                  <Progress value={60}></Progress>
-                </div>
-                <div className="w-full">
-                  <Label className="font-light">Enter your phone number</Label>
-                </div>
-                <PhoneInput></PhoneInput>
-                <Button
-                  onClick={handleSendCode}
-                  className="bg-[#2E5257] w-full"
-                >
-                  {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>}{" "}
-                  Send Code <ArrowRight></ArrowRight>
-                </Button>
-              </>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+              </div>
+              <div className="w-full">
+                <Input
+                  className="h-10 w-full text-center"
+                  placeholder="1 2 3 4 5 6"
+                ></Input>
+              </div>
+              <Button className="bg-[#2E5257] w-full" onClick={handleVerify}>
+                Verify
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="w-full">
+              <Progress value={60}></Progress>
+            </div>
+            <div className="w-full">
+              <Label className="font-light">Enter your phone number</Label>
+            </div>
+            <PhoneInput></PhoneInput>
+            <Button onClick={handleSendCode} className="bg-[#2E5257] w-full">
+              {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>} Send
+              Code <ArrowRight></ArrowRight>
+            </Button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

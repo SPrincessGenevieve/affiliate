@@ -9,7 +9,7 @@ export const recent_refferal = [
     name: "Emily Carter",
     status: "Approved",
     date: "2025-02-03",
-    amount: 42000,
+    amount: 43000,
   },
   {
     name: "Michael Thompson",

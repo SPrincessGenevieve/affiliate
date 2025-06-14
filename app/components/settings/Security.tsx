@@ -26,6 +26,11 @@ export default function Security() {
             <Input type="password"></Input>
           </div>
         </div>
+        <div className="w-full my-4">
+          <Button className="max-w-[500px] w-full bg-[#2E5257]">
+            CHANGE PASSWORD
+          </Button>
+        </div>
       </div>
       <div className="w-full h-full flex flex-col mt-8">
         <div className="mb-4 pb-4 border-b flex justify-between items-center">
@@ -76,11 +81,6 @@ export default function Security() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="w-full my-4">
-        <Button className="max-w-[500px] w-full bg-[#2E5257]">
-          CHANGE PASSWORD
-        </Button>
       </div>
     </div>
   );

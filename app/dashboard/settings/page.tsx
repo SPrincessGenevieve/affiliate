@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import React, { useEffect, useState } from "react";
-import { Edit } from "lucide-react";
+import { ArrowLeft, Edit } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Profile from "@/app/components/settings/Profile";
 import Billing from "@/app/components/settings/Billing";
@@ -10,10 +10,12 @@ import "@/app/globals.css";
 import Image from "next/image";
 import { useUserContext } from "@/app/context/UserContext";
 import Security from "@/app/components/settings/Security";
+import { useRouter } from "next/navigation";
 
 export default function Settings() {
   const { activeSettingsTab, setUserDetails } = useUserContext();
   const [selected, setSelected] = useState(activeSettingsTab);
+  const router = useRouter()
   const btnTab = ["profile", "security", "billing"];
 
   useEffect(() => {
@@ -32,6 +34,10 @@ export default function Settings() {
     });
     setSelected(item);
   };
+
+  const navigateDashboard = () =>{
+    router.push("/dashboard")
+  }
 
   return (
     <div className="flex w-full h-full gap-4 settings-cont">
@@ -66,7 +72,10 @@ export default function Settings() {
           </div>
         </div>
       </div>
-      <div className="w-full h-auto flex flex-col profile-billing-cont shadow-xl bg-white rounded-2xl p-8 overflow-y-auto">
+      <div className="w-full h-auto flex flex-col profile-billing-cont shadow-xl bg- rounded-2xl p-2 px-8 overflow-y-auto bg-white">
+        <div className="my-4">
+          <Button onClick={navigateDashboard} className="" variant={"ghost"}><ArrowLeft></ArrowLeft> Dashboard</Button>
+        </div>
         <div className="flex settings-tab w-auto">
           {btnTab.map((item, index) => (
             <Button
@@ -82,7 +91,7 @@ export default function Settings() {
             </Button>
           ))}
         </div>
-        <div className="w-full h-auto py-4 pt-10 gap-8 flex flex-col justify-evenly settings-content">
+        <div className="w-full h-auto py-4 pt-5 gap-8 flex flex-col justify-evenly settings-content">
           {selected === "profile" ? (
             <>
               <Profile></Profile>

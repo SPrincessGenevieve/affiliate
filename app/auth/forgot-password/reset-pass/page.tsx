@@ -64,8 +64,8 @@ export default function ResetPass() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col gap-2 justify-evenly">
-      <div className=" w-full p-4 h-30 my-10 flex items-center justify-center">
+    <div className="w-full h-full flex flex-col gap-2 justify-center">
+      <div className=" w-full p-4 h-30 flex items-center justify-center">
         <Image
           src={Logo}
           className="h-auto w-auto max-w-60"
@@ -74,13 +74,13 @@ export default function ResetPass() {
           alt="logo"
         ></Image>
       </div>
-      <div className="w-full text-center my-4 flex flex-col justify-center items-center">
+      <div className="w-full text-center flex flex-col justify-center items-center">
         <Label className="text-[30px] text-center">Reset Password</Label>
         <Label className="font-thin text-gray-500">
           Please kindly set your new password
         </Label>
       </div>
-      <div className="flex flex-col gap-4 h-full">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Label>New Password</Label>
           <Input type="password"></Input>

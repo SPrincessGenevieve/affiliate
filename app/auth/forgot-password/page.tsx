@@ -27,8 +27,8 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="w-full h-full forgot-cont flex flex-col items-center">
-       <div className=" w-full p-4 h-30 my-10 flex items-center justify-center">
+    <div className="w-full h-full forgot-cont flex flex-col items-center justify-center">
+       <div className=" w-full p-4 h-30 flex items-center justify-center">
         <Image
           src={Logo}
           className="h-auto w-auto max-w-60"
@@ -37,8 +37,8 @@ export default function ForgotPassword() {
           alt="logo"
         ></Image>
       </div>
-      <div className="w-full h-full flex flex-col gap-2">
-        <div className="w-full h-[30%] text-center my-4 flex flex-col justify-center items-center">
+      <div className="w-full flex flex-col gap-2">
+        <div className="w-full text-center gap-4 flex flex-col justify-center items-center">
           <Label className="text-[30px] text-center">
             Forgot your password?
           </Label>
@@ -46,7 +46,7 @@ export default function ForgotPassword() {
             Enter your email so we can send your password reset link.
           </Label>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-8">
           <div className="flex flex-col gap-2">
             <Label>Email</Label>
             <Input placeholder="example@gmail.com"></Input>

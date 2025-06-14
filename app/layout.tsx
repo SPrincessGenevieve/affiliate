@@ -24,8 +24,8 @@ export default function RootLayout({
                   className={`w-full h-full image-bg bg-cover bg-center bg-[url(./images/auth_2.jpg)]`}
                 ></div>
                 <div className="w-full h-full bg-[#F3F4F6] flex items-center justify-center overflow-auto">
-                  <div className="w-[90%] h-[90%] bg-[white] flex items-center justify-center rounded-2xl">
-                    <div className="w-[70%] h-full">{children}</div>
+                  <div className="w-[90%] h-[90%] overflow-auto bg-[white] flex items-center justify-center rounded-2xl">
+                    <div className="w-[70%] h-full ">{children}</div>
                   </div>
                   <Toaster></Toaster>
                 </div>

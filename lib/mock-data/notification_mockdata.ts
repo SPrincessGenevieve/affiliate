@@ -12,50 +12,50 @@ export const NotificationMockdata = [
   {
     icon: MessageSquareMore,
     read: false,
-    title: "Dispute Request",
+    title: "Investor Inquiry",
     description:
-      "A dispute has been filed for Violation #TICK78901 by John Smith. Reason: 'The traffic light was malfunctioning.' Please review and take action.",
+      "A new inquiry has been submitted by John Smith regarding Investment #WINE78901. Message: 'What is the projected ROI for Château Margaux 2015?' Please respond promptly.",
   },
   {
     icon: SquareKanban,
     read: true,
-    title: "Dispute Request",
+    title: "Investor Inquiry",
     description:
-      "A dispute has been filed for Violation #TICK78901 by John Smith. Reason: 'The traffic light was malfunctioning.' Please review and take action.",
+      "A new inquiry has been submitted by John Smith regarding Investment #WINE78901. Message: 'What is the projected ROI for Château Margaux 2015?' Please respond promptly.",
   },
   {
     icon: ClipboardList,
     read: false,
-    title: "New Violation Issued",
+    title: "New Wine Investment Listed",
     description:
-      "A new traffic violation has been issued by Officer John Doe. Violation ID: #TICK12345, Offense: Speeding (80 km/h in a 50 km/h zone).",
+      "A new wine investment has been added to the platform: Château Lafite Rothschild 2018. Investment ID: #WINE12345. Expected ROI: 12% over 5 years.",
   },
   {
     icon: AlarmClock,
     read: false,
-    title: "Payment Due Reminder",
+    title: "Upcoming Dividend Payout",
     description:
-      "Reminder: Payment for Violation #TICK56789 is due in 3 days. Offense: Running a red light. Amount: $150. Please follow up with the violator if needed.",
+      "Reminder: The dividend payout for Investment #WINE56789 is scheduled in 3 days. Estimated return: $150. Review your portfolio for details.",
   },
   {
     icon: Banknote,
     read: false,
-    title: "Payment Received",
+    title: "Investment Return Received",
     description:
-      "Payment received for Traffic Violation #TICK12345. Amount: $100.00. The violation is now marked as resolved.",
+      "You’ve received a return of $100.00 for Wine Investment #WINE12345. Funds have been added to your wallet.",
   },
   {
     icon: OctagonAlert,
     read: true,
-    title: "System Maintenance or Updates",
+    title: "Platform Maintenance Notice",
     description:
-      "Scheduled Maintenance: The system will be down for maintenance on March 30th from 2:00 AM to 4:00 AM. Please save your work before this time.",
+      "Scheduled Maintenance: The wine investment portal will be offline on March 30th from 2:00 AM to 4:00 AM. Please complete transactions beforehand.",
   },
   {
     icon: FileWarning,
     read: true,
-    title: "Unresolved Violations",
+    title: "Pending Investment Reviews",
     description:
-      "You have 5 unresolved traffic violations that require follow-up. Please review Violation IDs: #TICK12345, #TICK67890, #TICK45678, #TICK56789, and #TICK67801.",
+      "You have 5 wine investments pending performance review. Please review Investment IDs: #WINE12345, #WINE67890, #WINE45678, #WINE56789, and #WINE67801.",
   },
 ];

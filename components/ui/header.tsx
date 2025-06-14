@@ -17,6 +17,9 @@ import { Label } from "./label";
 import SpinnerIcon from "@/app/images/Spinner";
 import CustomerSupport from "@/app/components/support/CustomerSupport";
 import { useUserContext } from "@/app/context/UserContext";
+import { Button } from "./button";
+import { Bell, ChevronDown } from "lucide-react";
+import ToggleNotif from "@/app/components/header/ToggleNotif";
 
 export default function Header() {
   const router = useRouter();
@@ -70,6 +73,26 @@ export default function Header() {
       </div>
       <div className="w-full flex gap-8 justify-end items-center avatar-cont">
         <div className="w-auto flex gap-2 justify-center items-center">
+          <DropdownMenu modal={false}>
+            <DropdownMenuTrigger asChild>
+              <div className="flex gap-2 items-center">
+                <div className="rounded-full p-2">
+                  <Bell color="black"></Bell>
+                </div>
+                <ChevronDown size={17} color="gray"></ChevronDown>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-full max-w-[400px] h-full ml-[2%] mr-0  notif-cont">
+              <DropdownMenuLabel>Notification</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <div className="px-2 py-1">
+                  <ToggleNotif />
+                </div>
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className="border-none text-[12px] w-auto text-white flex gap-2 justify-center items-center">

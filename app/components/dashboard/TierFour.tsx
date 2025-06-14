@@ -11,16 +11,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import React from "react";
+import React, { useState } from "react";
 import "@/app/globals.css";
 import TierFiveTable from "./tier-five-table";
 import { useRouter } from "next/navigation";
+import SpinnerIcon from "@/app/images/Spinner";
 
 export default function TierFour() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const navigateReferral = () => {
-    router.push("/dashboard/referrals");
+    setLoading(true);
+    setTimeout(() => {
+      router.push("/dashboard/referrals");
+    }, 3000);
   };
 
   return (
@@ -53,6 +58,7 @@ export default function TierFour() {
             variant={"ghost"}
             className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer"
           >
+            {loading && <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>}
             View Full Leaderboard
           </Button>
         </div>

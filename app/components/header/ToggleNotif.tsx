@@ -14,7 +14,7 @@ import { NotificationMockdata } from "@/lib/mock-data/notification_mockdata";
 
 export default function ToggleNotif() {
   return (
-    <Tabs defaultValue="all" className="w-auto max-w-[400px]">
+    <Tabs defaultValue="all" className="w-auto max-w-[300px] max-h-[90%]">
       <TabsList className="w-full flex">
         <TabsTrigger value="all" className="w-auto">
           All
@@ -49,7 +49,7 @@ export default function ToggleNotif() {
                 <div
                   key={index}
                   className={`${
-                    item.read ? "" : "border border-green-500"
+                    item.read ? "" : "bg-neutral-100 border border-neutral-300"
                   } my-1 cursor-pointer w-full h-auto py-2 flex gap-2 hover:bg-gray-200 transition rounded-xl px-2`}
                 >
                   <div>
@@ -81,7 +81,7 @@ export default function ToggleNotif() {
                 <div
                   key={index}
                   className={` ${
-                    item.read ? "hidden" : "border border-green-500"
+                    item.read ? "hidden" : "bg-neutral-100 border border-neutral-300"
                   } my-1 cursor-pointer w-full h-auto py-2 flex gap-2  hover:bg-gray-200 transition rounded-xl px-2`}
                 >
                   <div>

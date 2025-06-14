@@ -1,16 +1,29 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { recent_refferal } from "@/lib/mock-data/recent_refferals";
-import React from "react";
-import "@/app/globals.css"
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import "@/app/globals.css";
+import SpinnerIcon from "@/app/images/Spinner";
 
 export default function TierFive() {
   const formatToK = (amount: number) => {
     if (!amount) return "0";
     return `${Math.round(amount / 1000)}K`;
+  };
+
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const navigateReferral = () => {
+    setLoading(true);
+    setTimeout(() => {
+      router.push("/dashboard/referrals");
+    }, 3000);
   };
 
   return (
@@ -62,9 +75,11 @@ export default function TierFive() {
         <Separator></Separator>
         <div className="w-full h-[10%]">
           <Button
+            onClick={navigateReferral}
             variant={"ghost"}
             className="text-[#2E5257] font-normal h-10 w-full hover:underline cursor-pointer"
           >
+            {loading && <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>}
             View All Referrals
           </Button>
         </div>

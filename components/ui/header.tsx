@@ -17,7 +17,6 @@ import { Label } from "./label";
 import SpinnerIcon from "@/app/images/Spinner";
 import CustomerSupport from "@/app/components/support/CustomerSupport";
 import { useUserContext } from "@/app/context/UserContext";
-import { Button } from "./button";
 import { Bell, ChevronDown } from "lucide-react";
 import ToggleNotif from "@/app/components/header/ToggleNotif";
 
@@ -55,8 +54,8 @@ export default function Header() {
   };
 
   return (
-    <div className=" px-8 py-2 w-full h-auto flex justify-between items-center cont-header ">
-      <div className=" flex gap-2 w-full items-center municipality_cont">
+    <div className="px-8 py-2 w-full h-auto flex justify-between items-center cont-header ">
+      <div className=" flex gap-2 w-full items-center affiliate_cont">
         <Image
           onClick={handleDashboard}
           className="cursor-pointer w-[40] h-[40] rounded-full"
@@ -67,7 +66,7 @@ export default function Header() {
           }
           alt=""
         ></Image>
-        <p className="text-gray-500 font-semibold bg-[#F3F4F6] municipality text-[12px] w-auto p-2 rounded-[5px]">
+        <p className="text-gray-500 font-semibold bg-[#F3F4F6] affiliate text-[12px] w-auto p-2 rounded-[5px]">
           Affiliate Portal
         </p>
       </div>

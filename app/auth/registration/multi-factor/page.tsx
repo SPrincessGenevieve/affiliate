@@ -40,9 +40,9 @@ export default function MultiFactor() {
 
   const handleRegister = () => {
     if (selected === "mfa") {
-      router.push("/auth/register/multi-factor/authenticator");
+      router.push("/auth/registration/multi-factor/authenticator");
     } else if (selected === "sms") {
-      router.push("/auth/register/multi-factor/sms");
+      router.push("/auth/registration/multi-factor/sms");
     } else {
       setOpen(true);
     }
@@ -54,7 +54,7 @@ export default function MultiFactor() {
         <DialogContent className="w-full flex flex-col">
           <DialogTitle>Missing Extra Layer</DialogTitle>
           <DialogDescription>
-            You're about to skip two-factor authentication. Are you sure you
+            You&quot;re about to skip two-factor authentication. Are you sure you
             want to proceed?
           </DialogDescription>
           <div className="gap-2 flex justify-end items-center w-full">

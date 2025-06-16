@@ -62,7 +62,7 @@ export default function CustomerSupport({ open, onOpenChange }: SupportProps) {
           </DialogTitle>
           <DialogDescription className=" text-justify ">
             To submit a ticket, simply fill out the form with your issue or
-            question and hit "Submit". One of our team members will review your
+            question and hit &quot;Submit&quot;. One of our team members will review your
             request and get in touch with you within 24 hours.
           </DialogDescription>
           <div className="w-full h-20 flex justify-center">

@@ -11,11 +11,12 @@ import Image from "next/image";
 import { useUserContext } from "@/app/context/UserContext";
 import Security from "@/app/components/settings/Security";
 import { useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Settings() {
   const { activeSettingsTab, setUserDetails } = useUserContext();
   const [selected, setSelected] = useState(activeSettingsTab);
-  const router = useRouter()
+  const router = useRouter();
   const btnTab = ["profile", "security", "billing"];
 
   useEffect(() => {
@@ -35,9 +36,9 @@ export default function Settings() {
     setSelected(item);
   };
 
-  const navigateDashboard = () =>{
-    router.push("/dashboard")
-  }
+  const navigateDashboard = () => {
+    router.push("/dashboard");
+  };
 
   return (
     <div className="flex w-full h-full gap-4 settings-cont">
@@ -72,11 +73,13 @@ export default function Settings() {
           </div>
         </div>
       </div>
-      <div className="w-full h-auto flex flex-col profile-billing-cont shadow-xl bg- rounded-2xl p-2 px-8 overflow-y-auto bg-white">
+      <div className="w-full h-full flex flex-col profile-billing-cont shadow-xl bg- rounded-2xl p-2 px-8 overflow-y-auto bg-white">
         <div className="my-4">
-          <Button onClick={navigateDashboard} className="" variant={"ghost"}><ArrowLeft></ArrowLeft> Dashboard</Button>
+          <Button onClick={navigateDashboard} className="" variant={"ghost"}>
+            <ArrowLeft></ArrowLeft> Dashboard
+          </Button>
         </div>
-        <div className="flex settings-tab w-auto">
+        <div className="flex settings-tab w-auto settings-desktop">
           {btnTab.map((item, index) => (
             <Button
               value={item}
@@ -105,6 +108,32 @@ export default function Settings() {
           )}
         </div>
       </div>
+      <div className="w-full min-h-15 hidden bottom-settings">
+        <div className="justify-center h-15 settings-mobile hidden absolute bottom-0 left-0 w-full">
+          <Card className="w-full flex p-0 rounded-none">
+            <CardContent className="flex p-0 h-15">
+              {btnTab.map((item, index) => (
+                <div key={index} className="w-full h-full">
+                  <Button
+                    value={item}
+                    onClick={() => handleUpdateTab(item)}
+                    className={`w-full h-full rounded-none capitalize border-b-4 border-white ${
+                      item === selected ? "border-[#2E5257] border-b-4" : ""
+                    }`}
+                    variant={"ghost"}
+                  >
+                    {item === "security" ? "Password & Security" : item}
+                  </Button>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
     </div>
   );
+}
+
+{
+  /*  */
 }

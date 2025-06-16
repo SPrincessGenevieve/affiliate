@@ -44,18 +44,18 @@ export const NotificationMockdata = [
     description:
       "You’ve received a return of $100.00 for Wine Investment #WINE12345. Funds have been added to your wallet.",
   },
-  {
-    icon: OctagonAlert,
-    read: true,
-    title: "Platform Maintenance Notice",
-    description:
-      "Scheduled Maintenance: The wine investment portal will be offline on March 30th from 2:00 AM to 4:00 AM. Please complete transactions beforehand.",
-  },
-  {
-    icon: FileWarning,
-    read: true,
-    title: "Pending Investment Reviews",
-    description:
-      "You have 5 wine investments pending performance review. Please review Investment IDs: #WINE12345, #WINE67890, #WINE45678, #WINE56789, and #WINE67801.",
-  },
+  // {
+  //   icon: OctagonAlert,
+  //   read: true,
+  //   title: "Platform Maintenance Notice",
+  //   description:
+  //     "Scheduled Maintenance: The wine investment portal will be offline on March 30th from 2:00 AM to 4:00 AM. Please complete transactions beforehand.",
+  // },
+  // {
+  //   icon: FileWarning,
+  //   read: true,
+  //   title: "Pending Investment Reviews",
+  //   description:
+  //     "You have 5 wine investments pending performance review. Please review Investment IDs: #WINE12345, #WINE67890, #WINE45678, #WINE56789, and #WINE67801.",
+  // },
 ];

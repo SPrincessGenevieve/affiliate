@@ -8,18 +8,78 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
 import { useState } from "react";
 import SpinnerIcon from "./images/Spinner";
+import { postLogin } from "@/lib/services/postData";
+import { getCSRF } from "@/lib/services/getData";
+import { toast } from "sonner";
+import { useUserContext } from "./context/UserContext";
 
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [loadingForgotPass, setLoadingForgotPass] = useState(false);
+  const { setUserDetails } = useUserContext();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  const handleSignIn = () => {
+  const handleSignIn = async () => {
     setLoading(true);
-    router.push("/dashboard");
+    try {
+      const responseCSRF = await getCSRF();
+      const responseLogin = await postLogin(email, password);
+      setSuccess("Successfully logged in.");
+      SuccessLogin(router);
+      setUserDetails({
+        isLoggedIn: true,
+      });
+      router.push("/dashboard");
+    } catch (err: any) {
+      const nonFieldErrors = err?.response?.data?.non_field_errors[0];
+      setError(nonFieldErrors || "Invalid email or password");
+      toast.custom(
+        (t) => (
+          <div className="w-full max-w-md bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-lg shadow-lg p-4">
+            <div className={`text-sm font-medium text-[red]`}>
+              Update Failed!
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              {nonFieldErrors || "Unable to log in with provided credentials."}
+            </div>
+          </div>
+        ),
+        {
+          duration: 3000, // prevents auto-close
+        }
+      );
+      console.error("Login error:", err);
+      setUserDetails({
+        isLoggedIn: false,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  const SuccessLogin = (router: ReturnType<typeof useRouter>) => {
+    toast.custom(() => (
+      <div className="w-full max-w-md bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-lg shadow-lg p-4">
+        <div className="text-sm font-medium text-[#2E5257]">
+          Logged in successfully!
+        </div>
+        <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          Welcome back! Redirecting to your dashboard...
+        </div>
+      </div>
+    ));
+
+    // Redirect after a delay to let the toast show
+    setTimeout(() => {
+      router.push("/dashboard");
+    }, 2000);
   };
 
   const handleForgotPassword = () => {
@@ -41,11 +101,18 @@ export default function Home() {
       <div className="flex flex-col gap-4 h-auto mt-5 p-4">
         <div className="flex flex-col gap-2">
           <Label className="font-normal">Email</Label>
-          <Input></Input>
+          <Input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          ></Input>
         </div>
         <div className="flex flex-col gap-2">
           <Label className="font-normal">Password</Label>
-          <Input type="password"></Input>
+          <Input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+          ></Input>
         </div>
         <div>
           <Button
@@ -66,7 +133,7 @@ export default function Home() {
           {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>} Login{" "}
           <ArrowRight></ArrowRight>
         </Button>
-        <Link href={"/auth/register"} className="font-light text-center">
+        <Link href={"/auth/registration"} className="font-light text-center">
           You do not have an account yet? Create an account here.
         </Link>
       </div>

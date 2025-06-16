@@ -175,6 +175,25 @@
 }
 
 @media (max-width: 782px) {
+  .settings-desktop{
+    display: none;
+  }
+  .settings-mobile, .bottom-settings{
+    display: flex;
+  }
+  .affiliate{
+    display: none;
+  }
+  .desktop{
+    display: none;
+  }
+  .mobile{
+    display: flex;
+  }
+  .content-cont{
+    padding-bottom: 0;
+    padding: 0;
+  }
   .multi-cont {
     padding: 10px;
   }
@@ -238,9 +257,6 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     gap: 1rem;
-  }
-  .body-cont {
-    padding: 2vh;
   }
   .forgot-cont,
   .login-cont {

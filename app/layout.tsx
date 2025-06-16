@@ -15,7 +15,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className="bg-[#F3F4F6] w-full h-screen">
+      <body className="bg-[#F3F4F6] p-0 w-full h-screen">
         <UserProvider>
           <div className="w-full h-full flex">
             {!isDashboard ? (
@@ -31,8 +31,8 @@ export default function RootLayout({
                 </div>
               </>
             ) : (
-              <div className="w-full overflow-y-auto h-full flex flex-col items-center justify-center body-cont">
-                {children}
+              <div className="p-0 m-0 w-full overflow-y-auto h-full flex flex-col items-center justify-center body-cont">
+                <div className="p-0 m-0 w-full h-full">{children}</div>
                 <Toaster></Toaster>
               </div>
             )}

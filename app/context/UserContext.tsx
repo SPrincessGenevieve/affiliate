@@ -8,15 +8,29 @@ import {
   useEffect,
 } from "react";
 
+export type UserRegistration = {
+  email: string;
+  password1: string;
+  password2: string;
+  first_name: string;
+  middle_name?: string;
+  last_name: string;
+  birth_date: string | null;
+  phone_number: string;
+};
+
 type UserContextType = {
   isOpen: boolean;
+  isLoggedIn: boolean;
+  sessionid: string;
   activeSettingsTab: string;
   setUserDetails: (details: Partial<UserContextType>) => void;
-  
 };
 
 const defaultUserContext: UserContextType = {
   isOpen: true,
+  isLoggedIn: false,
+  sessionid: "",
   activeSettingsTab: "",
   setUserDetails: () => {},
 };

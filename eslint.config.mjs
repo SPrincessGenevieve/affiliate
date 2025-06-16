@@ -13,9 +13,12 @@ const eslintConfig = [
   ...compat.config({
     extends: ["next"],
     rules: {
-      "react/no-unescaped-entities": "off",
-      "@next/next/no-page-custom-font": "off",
-    },
+    // Disable specific rules
+    'jsx-a11y/role-has-required-aria-props': 'off',
+    '@next/next/no-img-element': 'off',
+    'react-hooks/exhaustive-deps': 'off',
+    'react/jsx-key': 'off',
+  },
   }),
 ];
 

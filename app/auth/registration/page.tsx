@@ -74,6 +74,7 @@ export default function RegisterForm() {
     setLoading(true);
     try {
       const responseCSRF = await getCSRF();
+      const csrfToken = responseCSRF?.data?.csrfToken;
       const formattedBirthDate = data.birthDate
         ? format(data.birthDate, "yyyy-MM-dd")
         : null;
@@ -87,6 +88,7 @@ export default function RegisterForm() {
         last_name: data.lastName,
         birth_date: formattedBirthDate,
         phone_number: data.phoneNumber,
+        csrfToken: csrfToken,
       });
       setSuccess(true);
       setOpen(true);

@@ -24,12 +24,18 @@ export default function ForgotPassword() {
     router.push("/");
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     setLoadingSend(true);
     try {
-      const responseCSRF = getCSRF();
-      const responseSendEmail = postResetPassword(email);
-      router.push("/auth/forgot-password/check-email");
+      const responseCSRF = await getCSRF();
+      const csrfToken = responseCSRF?.data?.csrfToken;
+      const responseSendEmail = postResetPassword(email, csrfToken);
+      if (
+        responseCSRF.status === 200 &&
+        (await responseSendEmail).status === 200
+      ) {
+        router.push("/auth/forgot-password/check-email");
+      }
     } catch (error) {
       toast.custom(
         (t) => (

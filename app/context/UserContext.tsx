@@ -17,11 +17,12 @@ export type UserRegistration = {
   last_name: string;
   birth_date: string | null;
   phone_number: string;
+  csrfToken: string
 };
 
 type UserContextType = {
   isOpen: boolean;
-  isLoggedIn: boolean;
+  isLoggedIn: boolean | null;
   sessionid: string;
   activeSettingsTab: string;
   setUserDetails: (details: Partial<UserContextType>) => void;
@@ -29,7 +30,7 @@ type UserContextType = {
 
 const defaultUserContext: UserContextType = {
   isOpen: true,
-  isLoggedIn: false,
+  isLoggedIn: null,
   sessionid: "",
   activeSettingsTab: "",
   setUserDetails: () => {},

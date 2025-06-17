@@ -6,7 +6,9 @@ import { AppSidebar } from "../components/sidebar-menu";
 import Header from "@/components/ui/header";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useUserContext } from "../context/UserContext";
 import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
+import SignIn from "../components/authenticator/SignIn";
 
 export default function DashboardLayout({
   children,
@@ -15,63 +17,70 @@ export default function DashboardLayout({
 }>) {
   const [children_visibility, setChildrenVisibility] = useState("");
   const pathname = usePathname();
+  const { isLoggedIn } = useUserContext();
 
   const isSettings =
     pathname.includes("/dashboard/settings") ||
     pathname.includes("/dashboard/billing");
 
-
-
-
   return (
     <SidebarProvider className="relative bg-[#F6F6F6] flex w-full h-full">
-      <div className="flex  w-full h-full bg-[#F6F6F6]">
-        <div
-          className={`w-full h-full flex items-center flex-col  overflow-auto ${children_visibility}`}
-        >
-          <div className="w-full h-[55px] bg-white shadow-sm z-20">
-            <Header></Header>
-          </div>
-          <div className="w-full h-full flex px-4 gap-2 pb-4 overflow-hidden content-cont">
-            <div className="w-full h-auto  flex bg-[#F9FAFB] desktop">
-              <div className="w-[100%] mt-4 flex justify-center children-sidebar-cont">
-                {!isSettings && <AppSidebar />}
-                <div
-                  className={`children-cont flex h-full w-full justify-center items-start px-4 rounded-3xl overflow-y-auto `}
-                >
-                  {children}
-                </div>
+      {isLoggedIn ? (
+        <>
+          {" "}
+          <div className="flex  w-full h-full bg-[#F6F6F6]">
+            <div
+              className={`w-full h-full flex items-center flex-col  overflow-auto ${children_visibility}`}
+            >
+              <div className="w-full h-[55px] bg-white shadow-sm z-20">
+                <Header></Header>
               </div>
-            </div>
-
-            <div className="w-full h-auto relative  flex mobile hidden">
-              <div className="w-[100%] mt-4 flex flex-col-reverse justify-center children-sidebar-cont">
-                <div className="w-full mt-5">
-                  {!isSettings && <AppSidebarMobile />}
+              <div className="w-full h-full flex px-4 gap-2 pb-4 overflow-hidden content-cont">
+                <div className="w-full h-auto  flex bg-[#F9FAFB] desktop">
+                  <div className="w-[100%] mt-4 flex justify-center children-sidebar-cont">
+                    {!isSettings && <AppSidebar />}
+                    <div
+                      className={`children-cont flex h-full w-full justify-center items-start px-4 rounded-3xl overflow-y-auto `}
+                    >
+                      {children}
+                    </div>
+                  </div>
                 </div>
-                <div
-                  className={`children-cont flex h-full w-full justify-center items-start px-4 rounded-3xl overflow-y-auto `}
-                >
-                  {children}
-                </div>
-              </div>
-            </div>
 
-            {/* <ScrollArea className="w-full h-auto bg-[#F9FAFB]  p-4 layout_scroll">
-              <div className="w-full h-auto  flex bg-[#F9FAFB]">
-                <div className="w-[100%] mt-4 flex justify-center children-sidebar-cont">
-                  <AppSidebar />
-                  <div
-                    className={`children-cont flex h-full w-full justify-center items-start px-4 rounded-3xl overflow-y-auto `}
-                  >
-                    {children}
+                <div className="w-full h-auto relative  mobile hidden">
+                  <div className="w-[100%] mt-4 flex flex-col-reverse justify-center children-sidebar-cont">
+                    <div className="w-full mt-5">
+                      {!isSettings && <AppSidebarMobile />}
+                    </div>
+                    <div
+                      className={`children-cont flex h-full w-full justify-center items-start px-4 rounded-3xl overflow-y-auto `}
+                    >
+                      {children}
+                    </div>
                   </div>
                 </div>
               </div>
-            </ScrollArea> */}
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      ) : isLoggedIn === false ? (
+        <>
+          <div className="z-50 flex w-full h-full bg-[#ffffff]  absolute">
+            <div
+              className={`w-full h-full image-bg bg-cover bg-center bg-[url(./images/auth_2.jpg)]`}
+            ></div>
+            <div className="w-full h-full bg-[#F3F4F6] flex items-center justify-center overflow-auto">
+              <div className="w-[90%] h-[90%] overflow-auto bg-[white] flex items-center justify-center rounded-2xl">
+                <SignIn></SignIn>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : <>
+      <div className="z-50 flex w-full h-full bg-[#ffffff]  absolute">
+            
+          </div>
+      </>}
     </SidebarProvider>
   );
 }

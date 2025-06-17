@@ -18,8 +18,9 @@ export default function EmailVerified() {
       if (!verifyKey) return;
 
       try {
-        await getCSRF();
-        const response = await postVerifyEmail(verifyKey);
+        const responseCSRF = await getCSRF();
+        const csrfToken = responseCSRF?.data?.csrfToken;
+        const response = await postVerifyEmail(verifyKey, csrfToken);
         if (response.status === 200) {
           setTimeout(() => {
             router.replace("/dashboard");

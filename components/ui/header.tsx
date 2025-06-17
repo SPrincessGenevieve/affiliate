@@ -24,7 +24,7 @@ export default function Header() {
   const router = useRouter();
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [open, setOpen] = useState(false);
-  const { setUserDetails } = useUserContext();
+  const { setUserDetails, isLoggedIn } = useUserContext();
 
   const navigateSettings = () => {
     setUserDetails({
@@ -42,6 +42,9 @@ export default function Header() {
 
   const navigateLogOut = () => {
     setLoadingLogout(true);
+    setUserDetails({
+      isLoggedIn: false
+    })
     router.push("/");
   };
 

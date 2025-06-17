@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Logo from "./images/auth_2.jpg";
 import "./globals.css";
 import { UserProvider } from "./context/UserContext";
+import { useUserContext } from "./context/UserContext";
 
 export default function RootLayout({
   children,
@@ -12,6 +13,7 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isDashboard = pathname.includes("/dashboard");
+  const { isLoggedIn } = useUserContext()
 
   return (
     <html lang="en">

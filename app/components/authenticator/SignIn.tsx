@@ -9,13 +9,14 @@ import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import SpinnerIcon from "./images/Spinner";
+import SpinnerIcon from "@/app/images/Spinner";
 import { postLogin } from "@/lib/services/postData";
 import { getCSRF } from "@/lib/services/getData";
 import { toast } from "sonner";
-import { useUserContext } from "./context/UserContext";
+import { useUserContext } from "@/app/context/UserContext";
 
-export default function Home() {
+
+export default function SignIn() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [loadingForgotPass, setLoadingForgotPass] = useState(false);
@@ -87,7 +88,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center  h-full">
+    <div className="flex flex-col justify-center w-full max-w-[600px] h-full">
       <div className=" w-full h-30 flex items-center justify-center">
         <Image
           src={Logo}

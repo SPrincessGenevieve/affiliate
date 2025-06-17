@@ -29,13 +29,10 @@ export default function Home() {
     setLoading(true);
     try {
       const responseCSRF = await getCSRF();
-      const responseLogin = await postLogin(email, password);
+      const csrfToken = responseCSRF?.data?.csrfToken;
+      const responseLogin = await postLogin(email, password, csrfToken);
       setSuccess("Successfully logged in.");
       SuccessLogin(router);
-      setUserDetails({
-        isLoggedIn: true,
-      });
-      router.push("/dashboard");
     } catch (err: any) {
       const nonFieldErrors = err?.response?.data?.non_field_errors[0];
       setError(nonFieldErrors || "Invalid email or password");
@@ -63,6 +60,8 @@ export default function Home() {
     }
   };
 
+
+  
 
   const SuccessLogin = (router: ReturnType<typeof useRouter>) => {
     toast.custom(() => (

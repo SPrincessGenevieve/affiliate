@@ -6,15 +6,18 @@ import React, { useState } from "react";
 import SpinnerIcon from "@/app/images/Spinner";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Logo from "@/app/images/logo.png"
+import Logo from "@/app/images/logo.png";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-
+import { postResetPassword } from "@/lib/services/postData";
+import { toast } from "sonner";
+import { getCSRF } from "@/lib/services/getData";
 
 export default function ForgotPassword() {
   const router = useRouter();
   const [loadingLogin, setLoadingLogin] = useState(false);
   const [loadingSend, setLoadingSend] = useState(false);
+  const [email, setEmail] = useState("");
 
   const navigateBackLogin = () => {
     setLoadingLogin(true);
@@ -23,12 +26,35 @@ export default function ForgotPassword() {
 
   const handleSend = () => {
     setLoadingSend(true);
-    router.push("/auth/forgot-password/reset-pass");
+    try {
+      const responseCSRF = getCSRF();
+      const responseSendEmail = postResetPassword(email);
+      router.push("/auth/forgot-password/check-email");
+    } catch (error) {
+      toast.custom(
+        (t) => (
+          <div className="w-full max-w-md bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-lg shadow-lg p-4">
+            <div className={`text-sm font-medium text-red-600`}>
+              Password update request failed.
+            </div>
+            <div className={`text-sm text-gray-600 dark:text-gray-400 mt-1`}>
+              We couldn’t process your password update request. Try again
+              shortly.
+            </div>
+          </div>
+        ),
+        {
+          duration: 5000,
+        }
+      );
+    } finally {
+      setLoadingSend(false);
+    }
   };
 
   return (
     <div className="w-full h-full forgot-cont flex flex-col items-center justify-center">
-       <div className=" w-full p-4 h-30 flex items-center justify-center">
+      <div className=" w-full p-4 h-30 flex items-center justify-center">
         <Image
           src={Logo}
           className="h-auto w-auto max-w-60"
@@ -49,7 +75,11 @@ export default function ForgotPassword() {
         <div className="flex flex-col gap-4 mt-8">
           <div className="flex flex-col gap-2">
             <Label>Email</Label>
-            <Input placeholder="example@gmail.com"></Input>
+            <Input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="example@gmail.com"
+            ></Input>
           </div>
           <Button onClick={handleSend} className="w-full bg-[#2E5257]">
             {loadingSend && <SpinnerIcon strokeColor="white"></SpinnerIcon>}

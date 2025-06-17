@@ -12,5 +12,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"], // secure all /dashboard routes
+  matcher: ["/dashboard/:path*"],
 };

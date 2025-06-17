@@ -1,14 +1,23 @@
 import api from "../axiosAuth";
 import { UserRegistration } from "@/app/context/UserContext";
 
-export const postLogin = (email: string, password: string) =>
-  api.post("/api/v1/base/auth/login/", { email, password });
+export const postLogin = (email: string, password: string, csrfToken: string) =>
+  api.post(
+    "/api/v1/base/auth/login/",
+    { email, password },
+    {
+      headers: {
+        "X-CSRFToken": csrfToken,
+      },
+      withCredentials: true,
+    }
+  );
 
 export const postRegistration = (data: UserRegistration) =>
   api.post("/api/v1/base/auth/registration", data);
 
 export const postVerifyEmail = (key: string) =>
-  api.post("/api/v1/base/auth/registration/account-confirm-email/", {key});
+  api.post("/api/v1/base/auth/registration/account-confirm-email/", { key });
 
 export const postUpdatePassword = (
   new_password1: string,

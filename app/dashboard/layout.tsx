@@ -4,7 +4,7 @@ import "@/app/globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "../components/sidebar-menu";
 import Header from "@/components/ui/header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useUserContext } from "../context/UserContext";
 import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
@@ -17,11 +17,19 @@ export default function DashboardLayout({
 }>) {
   const [children_visibility, setChildrenVisibility] = useState("");
   const pathname = usePathname();
-  const { isLoggedIn } = useUserContext();
+  const { isLoggedIn, setUserDetails } = useUserContext();
 
   const isSettings =
     pathname.includes("/dashboard/settings") ||
     pathname.includes("/dashboard/billing");
+
+  useEffect(() => {
+    if (isLoggedIn === null) {
+      setUserDetails({
+        isLoggedIn: false,
+      });
+    }
+  });
 
   return (
     <SidebarProvider className="relative bg-[#F6F6F6] flex w-full h-full">
@@ -76,11 +84,11 @@ export default function DashboardLayout({
             </div>
           </div>
         </>
-      ) : <>
-      <div className="z-50 flex w-full h-full bg-[#ffffff]  absolute">
-            
-          </div>
-      </>}
+      ) : (
+        <>
+          <div className="z-50 flex w-full h-full bg-[#ffffff]  absolute"></div>
+        </>
+      )}
     </SidebarProvider>
   );
 }

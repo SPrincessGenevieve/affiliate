@@ -40,7 +40,7 @@ export default function Home() {
         (t) => (
           <div className="w-full max-w-md bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-lg shadow-lg p-4">
             <div className={`text-sm font-medium text-[red]`}>
-              Update Failed!
+              Login Failed!
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
               {nonFieldErrors || "Unable to log in with provided credentials."}
@@ -60,8 +60,6 @@ export default function Home() {
     }
   };
 
-
-  
 
   const SuccessLogin = (router: ReturnType<typeof useRouter>) => {
     toast.custom(() => (

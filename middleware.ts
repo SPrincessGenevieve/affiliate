@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   console.log("🔍 Middleware sees sessionid: " + session?.value);
 
   if (!session && request.nextUrl.pathname.startsWith("/dashboard")) {
-    alert("❌ No session, redirecting to login.");
+    console.log("❌ No session, redirecting to login.");
     return NextResponse.redirect(new URL("/", request.url));
   }
 

@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import { useUserContext } from "../context/UserContext";
 import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
 import SignIn from "../components/authenticator/SignIn";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
   children,
@@ -18,6 +19,7 @@ export default function DashboardLayout({
   const [children_visibility, setChildrenVisibility] = useState("");
   const pathname = usePathname();
   const { isLoggedIn, setUserDetails } = useUserContext();
+  const router = useRouter()
 
   const isSettings =
     pathname.includes("/dashboard/settings") ||
@@ -28,6 +30,7 @@ export default function DashboardLayout({
       setUserDetails({
         isLoggedIn: false,
       });
+      router.replace("/")
     }
   });
 

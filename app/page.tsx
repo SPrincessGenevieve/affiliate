@@ -77,7 +77,7 @@ export default function Home() {
 
     // Redirect after a delay to let the toast show
     setTimeout(() => {
-      router.push("/dashboard");
+      router.replace("/dashboard");
     }, 2000);
   };
 
@@ -97,45 +97,57 @@ export default function Home() {
           alt="logo"
         ></Image>
       </div>
-      <div className="flex flex-col gap-4 h-auto mt-5 p-4">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSignIn();
+        }}
+        className="flex flex-col gap-4 h-auto mt-5 p-4"
+      >
         <div className="flex flex-col gap-2">
           <Label className="font-normal">Email</Label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></Input>
+            type="email"
+            required
+          />
         </div>
+
         <div className="flex flex-col gap-2">
           <Label className="font-normal">Password</Label>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-          ></Input>
+            required
+          />
         </div>
+
         <div>
           <Button
             variant={"ghost"}
+            type="button"
             onClick={handleForgotPassword}
             className="font-light p-0 text-left gap-2 flex items-center justify-center"
           >
             {loadingForgotPass && (
               <div className="w-5 h-full flex items-center">
-                <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+                <SpinnerIcon strokeColor="#2E5257" />
               </div>
             )}
             Forgot Password?
           </Button>
         </div>
 
-        <Button onClick={handleSignIn} className="bg-[#2E5257]">
-          {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>} Login{" "}
-          <ArrowRight></ArrowRight>
+        <Button type="submit" className="bg-[#2E5257]">
+          {loading && <SpinnerIcon strokeColor="white" />} Login <ArrowRight />
         </Button>
+
         <Link href={"/auth/registration"} className="font-light text-center">
           You do not have an account yet? Create an account here.
         </Link>
-      </div>
+      </form>
     </div>
   );
 }

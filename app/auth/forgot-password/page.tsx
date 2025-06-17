@@ -78,19 +78,28 @@ export default function ForgotPassword() {
             Enter your email so we can send your password reset link.
           </Label>
         </div>
+
         <div className="flex flex-col gap-4 mt-8">
-          <div className="flex flex-col gap-2">
-            <Label>Email</Label>
-            <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@gmail.com"
-            ></Input>
-          </div>
-          <Button onClick={handleSend} className="w-full bg-[#2E5257]">
-            {loadingSend && <SpinnerIcon strokeColor="white"></SpinnerIcon>}
-            Send Email
-          </Button>
+          <form
+            className="flex flex-col gap-2"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSend();
+            }}
+          >
+            <div className="flex flex-col gap-2">
+              <Label>Email</Label>
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="example@gmail.com"
+              ></Input>
+            </div>
+            <Button type="submit" className="w-full bg-[#2E5257]">
+              {loadingSend && <SpinnerIcon strokeColor="white"></SpinnerIcon>}
+              Send Email
+            </Button>
+          </form>
           <Button
             onClick={navigateBackLogin}
             variant={"ghost"}

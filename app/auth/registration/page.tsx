@@ -157,6 +157,7 @@ export default function RegisterForm() {
         <form
           className="flex flex-col gap-8"
           onSubmit={form.handleSubmit(onSubmit)}
+          
         >
           <div className="grid grid-cols-2 gap-2 form-register-cont">
             <FormField

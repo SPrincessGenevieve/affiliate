@@ -15,7 +15,6 @@ import { getCSRF } from "@/lib/services/getData";
 import { toast } from "sonner";
 import { useUserContext } from "@/app/context/UserContext";
 
-
 export default function SignIn() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -105,6 +104,7 @@ export default function SignIn() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Input>
+          
         </div>
         <div className="flex flex-col gap-2">
           <Label className="font-normal">Password</Label>

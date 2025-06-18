@@ -154,10 +154,15 @@ export default function ResetPassword() {
                 </FormItem>
               )}
             ></FormField>
+
+            <Button type="submit" className="bg-[#2E5257] mt-4">
+              {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>}
+              Reset Password
+            </Button>
             <Link
               href={"/"}
               onClick={() => setLoadingLogin(true)}
-              className="font-light text-[14px] p-0 text-left gap-2 flex items-center justify-center"
+              className="font-light text-[14px] p-0 mt-4 text-left gap-2 flex items-center justify-center"
             >
               {loadingLogin && (
                 <div className="w-5 h-full flex items-center">
@@ -166,11 +171,6 @@ export default function ResetPassword() {
               )}
               <ChevronLeft></ChevronLeft> Back to Login
             </Link>
-
-            <Button type="submit" className="bg-[#2E5257] mt-4">
-              {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>}
-              Reset Password
-            </Button>
           </div>
         </form>
       </Form>

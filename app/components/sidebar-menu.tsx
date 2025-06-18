@@ -93,7 +93,7 @@ export function AppSidebar() {
                 <p
                   className={`text-[12px] text-center font-normal text-gray-500 w-full `}
                 >
-                  Silver Tier Affiliate
+                  Vintage Cru Affiliate
                 </p>
               </div>
             </div>

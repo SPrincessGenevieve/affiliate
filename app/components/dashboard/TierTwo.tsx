@@ -7,7 +7,7 @@ import "@/app/globals.css";
 export default function TierTwo() {
   return (
     <Card>
-      <CardContent className="w-full flex flex-col gap-8">
+      <CardContent className="w-full flex flex-col gap-4">
         <Label className="text-[16px]">Tier Progress</Label>
         <div className="w-full h-auto relative flex justify-center items-center">
           <Progress value={40} className="w-full   absolute z-10"></Progress>
@@ -41,23 +41,23 @@ export default function TierTwo() {
         </div>
         <div className="flex justify-between items-center">
           <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px]">Bronze</Label>
+            <Label className="text-[11px]">Vintage</Label>
             <Label className="text-gray-600 text-[11px]">£500K</Label>
           </div>
           <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px]">Silver</Label>
+            <Label className="text-[11px] text-center">Vintage Cru</Label>
             <Label className="text-gray-600 text-[11px]">£1M</Label>
           </div>
           <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px]">Gold</Label>
+            <Label className="text-[11px] text-center">Vintage Vault</Label>
             <Label className="text-gray-600 text-[11px]">£3M</Label>
           </div>
           <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px]">Platinum</Label>
+            <Label className="text-[11px] text-center">Vintage Enclosure</Label>
             <Label className="text-gray-600 text-[11px]">£5M</Label>
           </div>
           <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px]">Diamond</Label>
+            <Label className="text-[11px] text-center">Vintage Associate</Label>
             <Label className="text-gray-600 text-[11px]">£10M</Label>
           </div>
         </div>

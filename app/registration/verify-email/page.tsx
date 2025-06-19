@@ -23,7 +23,7 @@ export default function EmailVerified() {
         const response = await postVerifyEmail(verifyKey, csrfToken);
         if (response.status === 200) {
           setTimeout(() => {
-            router.replace("/dashboard");
+            router.replace("/");
           }, 2000);
         }
       } catch (error) {
@@ -43,7 +43,7 @@ export default function EmailVerified() {
       <div className="w-auto h-60">
         <DotLottieReact src="/verified_email.lottie" autoplay />
       </div>
-      <Label>Redirecting to dashboard...</Label>
+      <Label>Redirecting to login...</Label>
     </div>
   );
 }

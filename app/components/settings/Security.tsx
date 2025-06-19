@@ -1,34 +1,100 @@
+"use client";
+import SpinnerIcon from "@/app/images/Spinner";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { getCSRF } from "@/lib/services/getData";
+import { postChangePassword } from "@/lib/services/postData";
 import { MessageSquare, Smartphone } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Security() {
+  const [newPassword, setNewPassword] = useState("");
+  const [cofirmPassword, setConfirmPassword] = useState("");
+  const [open, setOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleUpdatePassword = async () => {
+    setLoading(true);
+    try {
+      const responseCSRF = await getCSRF();
+      const csrfToken = responseCSRF?.data?.csrfToken;
+      const responseUpdate = await postChangePassword(
+        newPassword,
+        cofirmPassword,
+        csrfToken
+      );
+      setOpen(true);
+      setIsSuccess(true);
+    } catch (error: any) {
+      const err = error.response.data.new_password2;
+      setOpen(true);
+      setIsSuccess(false);
+      setMessage(err);
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="w-full h-full flex flex-col items-center  justify-between">
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogTitle
+            className={`${!isSuccess ? "text-[#8B1D24]" : "text-[#055E45]"}`}
+          >
+            {!isSuccess ? "Update Failed" : "Updated Password"}
+          </DialogTitle>
+          <DialogDescription>
+            {isSuccess
+              ? "Your password has been updated successfully."
+              : message || "Please check your current password and try again."}
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
       <div className="w-full h-full">
         <div className="mb-4 pb-2 border-b flex justify-between items-center settings-cont-2 gap-2">
           <Label className=" text-neutral-400">UPDATE PASSWORD</Label>
         </div>
         <div className="w-full max-w-[500px] gap-2 flex flex-col">
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <Label>Current Password</Label>
             <Input type="password"></Input>
-          </div>
+          </div> */}
           <div className="flex flex-col gap-2">
             <Label>New Password</Label>
-            <Input type="password"></Input>
+            <Input
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              type="password"
+            ></Input>
           </div>
           <div className="flex flex-col gap-2">
             <Label>Re-enter Password</Label>
-            <Input type="password"></Input>
+            <Input
+              value={cofirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              type="password"
+            ></Input>
           </div>
         </div>
         <div className="w-full my-4">
-          <Button className="max-w-[500px] w-full bg-[#2E5257]">
-            CHANGE PASSWORD
+          <Button
+            onClick={handleUpdatePassword}
+            className="max-w-[500px] w-full bg-[#2E5257]"
+          >
+            {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>} CHANGE
+            PASSWORD
           </Button>
         </div>
       </div>

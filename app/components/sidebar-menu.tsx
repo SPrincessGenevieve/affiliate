@@ -22,6 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import "@/app/globals.css";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
@@ -31,7 +32,7 @@ const items = [
 export function AppSidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
-  const { setUserDetails, isOpen } = useUserContext();
+  const { setUserDetails, isOpen, user_profile } = useUserContext();
 
   const handleCollapse = () => {
     const newCollapsed = !collapsed;
@@ -55,6 +56,7 @@ export function AppSidebar() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <div className="max-w-[245px] h-full relative">
       <Card className="bg-[white] h-full ">
@@ -72,28 +74,39 @@ export function AppSidebar() {
               onClick={handleCollapse}
               className="cursor-pointer flex flex-col gap-2 items-center justify-center w-full p-2"
             >
-              <Avatar className="h-auto w-auto max-h-20 max-w-20 border">
-                <AvatarImage
-                  src={
-                    "https://i.etsystatic.com/iap/b979b5/6846594779/iap_640x640.6846594779_kn1iey1x.jpg?version=0"
-                  }
-                ></AvatarImage>
-                <AvatarFallback>VA</AvatarFallback>
-              </Avatar>
+              {user_profile.profile_picture === "" ||
+              user_profile.profile_picture === null ? (
+                <>
+                  <div className="w-20 h-20">
+                    <DotLottieReact src="/profile.lottie" loop autoplay />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Avatar className="h-auto w-auto max-h-20 max-w-20 border">
+                    <AvatarImage
+                      src={user_profile.profile_picture || ""}
+                    ></AvatarImage>
+                    <AvatarFallback></AvatarFallback>
+                  </Avatar>
+                </>
+              )}
+
               <div
                 className={`${
                   collapsed ? "hidden transition ease-in-out" : ""
                 }`}
               >
                 <Label
-                  className={`text-black text-center text-[16px] font-medium w-full `}
+                  className={`text-black text-center text-[14px] font-medium w-full `}
                 >
-                  Sarah Johnson
+                  {user_profile.first_name} {user_profile.middle_name}{" "}
+                  {user_profile.last_name}
                 </Label>
                 <p
                   className={`text-[12px] text-center font-normal text-gray-500 w-full `}
                 >
-                  Vintage Cru Affiliate
+                  {user_profile.level}
                 </p>
               </div>
             </div>
@@ -126,7 +139,7 @@ export function AppSidebar() {
                             collapsed === true
                               ? "pl-0 w-full  flex justify-center items-center"
                               : "pl-10"
-                          } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none 
+                          } flex items-center gap-2 py-3 text-[14px] transition ease-in-out rounded-none 
         ${
           isActive
             ? "bg-[#2e525725] text-black border-l-3 border-[#2E5257]"
@@ -144,7 +157,7 @@ export function AppSidebar() {
                             />
                           </div>
                           {!collapsed && (
-                            <Label className="text-[16px] font-normal">
+                            <Label className="text-[12px] font-normal">
                               {item.title}
                             </Label>
                           )}
@@ -159,7 +172,7 @@ export function AppSidebar() {
           {/* {!collapsed && (
           <div className="p-4">
             <div className="bg-[#F9FAFB] rounded-[5px] p-2  flex flex-col gap-2">
-              <Label className="w-full flex text-[16px] justify-center items-center">
+              <Label className="w-full flex text-[14px] justify-center items-center">
                 Need Help?
               </Label>
               <Label className="w-full text-gray-500 flex font-normal text-[12px]">

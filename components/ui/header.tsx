@@ -19,12 +19,13 @@ import CustomerSupport from "@/app/components/support/CustomerSupport";
 import { useUserContext } from "@/app/context/UserContext";
 import { Bell, ChevronDown } from "lucide-react";
 import ToggleNotif from "@/app/components/header/ToggleNotif";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function Header() {
   const router = useRouter();
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [open, setOpen] = useState(false);
-  const { setUserDetails, isLoggedIn } = useUserContext();
+  const { setUserDetails, isLoggedIn, user_profile } = useUserContext();
 
   const navigateSettings = () => {
     setUserDetails({
@@ -43,8 +44,8 @@ export default function Header() {
   const navigateLogOut = () => {
     setLoadingLogout(true);
     setUserDetails({
-      isLoggedIn: false
-    })
+      isLoggedIn: false,
+    });
     router.push("/");
   };
 
@@ -98,30 +99,37 @@ export default function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className="border-none text-[12px] w-auto text-white flex gap-2 justify-center items-center">
-                <div className="w-full flex gap-2 justify-center items-center">
-                  <Avatar className="w-[40px] h-[40px]">
-                    <AvatarImage
-                      src={
-                        "https://i.etsystatic.com/iap/b979b5/6846594779/iap_640x640.6846594779_kn1iey1x.jpg?version=0"
-                      }
-                    ></AvatarImage>
-                    <AvatarFallback></AvatarFallback>
-                  </Avatar>{" "}
-                  <div>
-                    <p className="text-[14px] font-semibold greetings-name text-[black]">
-                      Sarah Johnson
-                    </p>
-                  </div>
-                </div>
+                {user_profile.profile_picture === null ||
+                user_profile.profile_picture === "" ? (
+                  <>
+                    <div className="w-[40px] h-[40px]">
+                      <DotLottieReact src="/profile.lottie" loop autoplay />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-full flex gap-2 justify-center items-center">
+                      <Avatar className="w-[40px] h-[40px]">
+                        <AvatarImage
+                          src={user_profile.profile_picture}
+                        ></AvatarImage>
+                        <AvatarFallback></AvatarFallback>
+                      </Avatar>{" "}
+                    </div>
+                  </>
+                )}
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
               <DropdownMenuLabel>
                 <div className="w-full flex gap-2 items-center">
-                  <p>Sarah Johnson</p>
+                  <p className="text-[14px]">
+                    {user_profile.first_name} {user_profile.middle_name}{" "}
+                    {user_profile.last_name}
+                  </p>
                 </div>
                 <Label className="text-[12px] font-normal text-gray-400">
-                  sarahjohnson@example.com
+                  {user_profile.email}
                 </Label>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -130,27 +138,33 @@ export default function Header() {
                   onClick={navigateSettings}
                   className="flex gap-2 "
                 >
-                  <p>Profile Settings</p>
+                  <Label className="text-[12px] font-normal">
+                    Profile Settings
+                  </Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={navigateBilling}
                   className="flex gap-2 "
                 >
-                  <p>Billing Information</p>
+                  <Label className="text-[12px] font-normal">
+                    Billing Information
+                  </Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleOpen} className="flex gap-2 ">
-                  <p>Help & Support</p>
+                  <Label className="text-[12px] font-normal">
+                    Help & Support
+                  </Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={navigateLogOut}
                   className="flex gap-2 "
                 >
-                  <p className="text-red-500 flex gap-2 items-center justify-center">
+                  <Label className="text-red-500 text-[12px] font-normal flex gap-2 items-center justify-center">
                     {loadingLogout && (
                       <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
                     )}
                     Sign Out
-                  </p>
+                  </Label>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>

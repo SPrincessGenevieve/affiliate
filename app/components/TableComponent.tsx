@@ -25,18 +25,9 @@ import {
   ChevronsRight,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { TableItem } from "@/lib/type";
 
 const ITEMS_PER_PAGE = 12;
-
-interface TableItem {
-  rank: number;
-  name: string;
-  initials: string;
-  tier: string;
-  portfolio: string;
-  income: string;
-  change: number;
-}
 
 interface TableComponentProps {
   data: TableItem[];
@@ -78,6 +69,7 @@ export default function TableComponent({
         selected ? "bg-[#F3F4F6]" : "font-normal"
       }`}
     >
+      {/* Rank */}
       <TableCell>
         <div className="flex items-center">
           <p
@@ -89,19 +81,21 @@ export default function TableComponent({
           </p>
         </div>
       </TableCell>
+
+      {/* My Client */}
       <TableCell
         className={`flex items-center gap-2 ${
           selected ? "font-bold" : "font-normal"
         }`}
       >
         <Avatar>
-          <AvatarImage src="" alt={item.name} />
+          <AvatarImage src="" alt={item.my_clients} />
           <AvatarFallback
             className={` ${
               selected ? "bg-[#2E5257] text-white" : "font-normal"
             }`}
           >
-            {item.name
+            {item.my_clients
               .split(" ")
               .map((word) => word[0])
               .join("")
@@ -109,29 +103,46 @@ export default function TableComponent({
               .toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        {item.name}
+        {item.my_clients}
       </TableCell>
 
+      {/* Login Date & Time */}
       <TableCell>
         <div className="flex">
-          <p
-            className={`px-2 rounded-2xl ${
-              item.tier === "Diamond"
-                ? "bg-[#C4AD93] text-[#fff]"
-                : "bg-[#F3F4F6] text-gray-800"
-            }`}
-          >
-            {item.tier}
-          </p>
+          <p>{item.last_login_date_time}</p>
         </div>
       </TableCell>
-      <TableCell className="font-semibold">{item.portfolio}</TableCell>
-      <TableCell>{item.income}</TableCell>
-      <TableCell
-        className={item.change < 0 ? "text-red-500" : "text-green-500"}
-      >
-        {item.change}%
+
+      {/* Tier */}
+      <TableCell className="">
+        <div
+          className={`px-2 font-semibold h-7 flex items-center justify-center rounded-2xl text-center ${
+            item.rank === 1
+              ? "bg-[#C4AD93] text-[#fff]"
+              : "bg-[#F3F4F6] text-gray-800"
+          }`}
+        >
+          {item.tier}
+        </div>
       </TableCell>
+
+      {/* Market Value */}
+      <TableCell className="">{item.market_value}</TableCell>
+
+      {/* Total Cases */}
+      <TableCell className="">{item.total_cases}</TableCell>
+
+      {/* Cases Sold */}
+      <TableCell className="">{item.cases_sold}</TableCell>
+
+      {/* Realised Profit Loss */}
+      <TableCell className="">{item.realised_profit_loss}</TableCell>
+
+      {/* Percent Profit Loss */}
+      <TableCell className="">{item.percent_profit_loss}</TableCell>
+
+      {/* My Commission Annual */}
+      <TableCell className="">{item.my_commission_annual}</TableCell>
     </TableRow>
   );
 
@@ -142,11 +153,36 @@ export default function TableComponent({
         <TableHeader>
           <TableRow className="">
             <TableHead>Rank</TableHead>
-            <TableHead>Name</TableHead>
+            <TableHead>My Clients</TableHead>
+            <TableHead>Last Login Date/Time</TableHead>
             <TableHead>Tier</TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                AUM
+                Market Value
+                <Button variant={"ghost"}>
+                  {selectedFilter === "aum" ? (
+                    <ArrowUpNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowUpNarrowWide>
+                  ) : (
+                    <ArrowDownNarrowWide
+                      strokeWidth={1.5}
+                      size={20}
+                    ></ArrowDownNarrowWide>
+                  )}
+                </Button>
+              </div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">Total Cases</div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">Cases Sold</div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">
+                Realised Profit/Loss
                 <Button
                   variant={"ghost"}
                   onClick={() => {
@@ -173,18 +209,9 @@ export default function TableComponent({
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                Commission
-                <Button
-                  variant={"ghost"}
-                  onClick={() => {
-                    if (selectedFilter !== "") {
-                      setSelectedFilter("");
-                    } else {
-                      setSelectedFilter("commission");
-                    }
-                  }}
-                >
-                  {selectedFilter === "commission" ? (
+                %Profit/Loss
+                <Button variant={"ghost"}>
+                  {selectedFilter === "aum" ? (
                     <ArrowUpNarrowWide
                       strokeWidth={1.5}
                       size={20}
@@ -200,18 +227,9 @@ export default function TableComponent({
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                YoY Growth
-                <Button
-                  variant={"ghost"}
-                  onClick={() => {
-                    if (selectedFilter !== "") {
-                      setSelectedFilter("");
-                    } else {
-                      setSelectedFilter("yoy");
-                    }
-                  }}
-                >
-                  {selectedFilter === "yoy" ? (
+                My Commission (Annual)
+                <Button variant={"ghost"}>
+                  {selectedFilter === "commission" ? (
                     <ArrowUpNarrowWide
                       strokeWidth={1.5}
                       size={20}
@@ -287,7 +305,7 @@ export default function TableComponent({
                           page === currentPage
                             ? "bg-[#2E5257] text-white font-bold"
                             : ""
-                        }`}
+                        } text-[12px]`}
                       >
                         {page}
                       </Button>

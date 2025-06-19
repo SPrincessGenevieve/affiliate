@@ -4,13 +4,14 @@ import "@/app/globals.css";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "../components/sidebar-menu";
 import Header from "@/components/ui/header";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useUserContext } from "../context/UserContext";
 import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
 import SignIn from "../components/authenticator/SignIn";
 import { useRouter } from "next/navigation";
 import SpinnerIcon from "../images/Spinner";
+import { getCSRF, getUser } from "@/lib/services/getData";
 
 export default function DashboardLayout({
   children,
@@ -21,6 +22,8 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const { isLoggedIn, setUserDetails } = useUserContext();
   const router = useRouter();
+
+  const hasFetched = useRef(false);
 
   const isSettings =
     pathname.includes("/dashboard/settings") ||
@@ -36,9 +39,20 @@ export default function DashboardLayout({
       });
       router.replace("/");
     }
+
+    const fetchData = async () => {
+      try {
+        const responseCSRF = await getCSRF();
+        const responseUser = await getUser();
+        setUserDetails({
+          user_profile: responseUser.data.detail,
+        });
+      } catch (error) {}
+    };
+    fetchData();
   });
 
-  console.log("Login: ", isLoggedIn);
+  console.log(isLoggedIn);
 
   return (
     <SidebarProvider className="relative bg-[#F6F6F6] flex w-full h-full">

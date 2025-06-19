@@ -15,18 +15,26 @@ import Image from "next/image";
 interface PhoneInputProps {
   defaultCountry?: CountryCode;
   defaultNumber?: string;
-  onChange?: (fullNumber: string, isValid: boolean) => void;
-  country?: CountryCode; // controlled prop
-  number?: string; // controlled prop
+
+  // For react-hook-form support
+  value?: string;
+  onChange?: (value: string) => void;
+
+  // Optional controlled country/number behavior
+  country?: CountryCode;
+  number?: string;
+
+  // Callbacks for custom behavior
   onCountryChange?: (country: CountryCode) => void;
-  onNumberChange?: (number: string) => void;
+  onNumberChange?: (number: string, isValid: boolean) => void;
+
   onKeyDown?: (e: any) => void;
 }
 
 export default function PhoneInput({
-  //   defaultCountry = "GB",
   defaultCountry = "PH",
   defaultNumber = "",
+  value,
   onChange,
   onKeyDown,
   country: controlledCountry,
@@ -34,16 +42,14 @@ export default function PhoneInput({
   onCountryChange,
   onNumberChange,
 }: PhoneInputProps) {
-  const [country, setCountry] = useState<CountryCode>(
-    controlledCountry ?? defaultCountry
-  );
+  const [country, setCountry] = useState<CountryCode>(controlledCountry ?? defaultCountry);
   const [number, setNumber] = useState(controlledNumber ?? defaultNumber);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const validCountryCodes = new Set(getCountries());
 
-  // Sync controlled props with internal state
+  // Sync props with state if controlled
   useEffect(() => {
     if (controlledCountry) setCountry(controlledCountry);
   }, [controlledCountry]);
@@ -52,22 +58,23 @@ export default function PhoneInput({
     if (controlledNumber !== undefined) setNumber(controlledNumber);
   }, [controlledNumber]);
 
-  const fullNumber = `+${getCountryCallingCode(country)}${number}`;
-  const parsedNumber = parsePhoneNumberFromString(fullNumber);
-  const isValid = parsedNumber?.isValid() ?? false;
-
-  // Notify parent of changes
   useEffect(() => {
-    onChange?.(fullNumber, isValid);
-  }, [fullNumber, isValid, onChange]);
+    if (value !== undefined) setNumber(value);
+  }, [value]);
+
+  const fullNumber = `+${getCountryCallingCode(country)}${number}`;
+  const parsed = parsePhoneNumberFromString(fullNumber);
+  const isValid = parsed?.isValid() ?? false;
+
+  // Notify custom handler
+  useEffect(() => {
+    if (onNumberChange) onNumberChange(number, isValid);
+  }, [number, country]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
       }
     }
@@ -85,13 +92,18 @@ export default function PhoneInput({
 
   function handleNumberInputChange(newNumber: string) {
     const numericValue = newNumber.replace(/\D/g, "");
-    if (onNumberChange) onNumberChange(numericValue);
-    else setNumber(numericValue);
+
+    // internal state
+    setNumber(numericValue);
+
+    // react-hook-form-compatible onChange
+    if (onChange) onChange(numericValue);
+
+    // your custom logic will be triggered via useEffect
   }
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      {/* <label className="text-sm font-medium">Phone Number</label> */}
       <div className="flex gap-2 relative" ref={dropdownRef}>
         {/* Country selector dropdown */}
         <button
@@ -110,9 +122,7 @@ export default function PhoneInput({
                 width={400}
                 height={400}
               />
-              <span>
-                +{getCountryCallingCode(selectedCountry.code as CountryCode)}
-              </span>
+              <span>+{getCountryCallingCode(selectedCountry.code as CountryCode)}</span>
             </>
           ) : (
             <span>Select country</span>
@@ -124,12 +134,7 @@ export default function PhoneInput({
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
 
@@ -165,7 +170,7 @@ export default function PhoneInput({
           </div>
         )}
 
-        {/* Phone number input with validity check */}
+        {/* Phone number input */}
         <div className="flex gap-2 items-center w-full">
           <Input
             className="h-10 flex-1 w-full"
@@ -177,7 +182,7 @@ export default function PhoneInput({
             onKeyDown={onKeyDown}
           />
           <span className="text-sm text-gray-500">
-            {isValid && <Check color="green" />}
+            {isValid && <></>}
           </span>
         </div>
       </div>

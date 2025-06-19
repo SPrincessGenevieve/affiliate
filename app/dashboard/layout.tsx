@@ -10,6 +10,7 @@ import { useUserContext } from "../context/UserContext";
 import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
 import SignIn from "../components/authenticator/SignIn";
 import { useRouter } from "next/navigation";
+import SpinnerIcon from "../images/Spinner";
 
 export default function DashboardLayout({
   children,
@@ -19,7 +20,7 @@ export default function DashboardLayout({
   const [children_visibility, setChildrenVisibility] = useState("");
   const pathname = usePathname();
   const { isLoggedIn, setUserDetails } = useUserContext();
-  const router = useRouter()
+  const router = useRouter();
 
   const isSettings =
     pathname.includes("/dashboard/settings") ||
@@ -27,15 +28,30 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (isLoggedIn === null) {
+      return;
+    }
+    if (isLoggedIn === false) {
       setUserDetails({
         isLoggedIn: false,
       });
-      router.replace("/")
+      router.replace("/");
     }
   });
 
+  console.log("Login: ", isLoggedIn);
+
   return (
     <SidebarProvider className="relative bg-[#F6F6F6] flex w-full h-full">
+      {isLoggedIn === null && (
+        <>
+          <div className="absolute w-full h-full flex items-center justify-center z-60">
+            <div className="w-20">
+              <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+            </div>
+          </div>
+          <div className="w-full h-full flex items-center justify-center absolute blur-3xl bg-[#ffffff] z-50"></div>
+        </>
+      )}
       {isLoggedIn ? (
         <>
           {" "}

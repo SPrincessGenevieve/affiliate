@@ -17,14 +17,37 @@ export type UserRegistration = {
   last_name: string;
   birth_date: string | null;
   phone_number: string;
-  csrfToken: string
+  csrfToken: string;
 };
+
+export type UserProfile = {
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  profile_picture: string | null;
+  birth_date: string | null;
+  csrfToken: string;
+};
+
+export type UserUpdate = {
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  phone_number: string;
+  profile_picture: string | null;
+  birth_date: string | null;
+  csrfToken: string;
+};
+
 
 type UserContextType = {
   isOpen: boolean;
   isLoggedIn: boolean | null;
   sessionid: string;
   activeSettingsTab: string;
+  user_profile: UserProfile;
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
@@ -33,6 +56,16 @@ const defaultUserContext: UserContextType = {
   isLoggedIn: null,
   sessionid: "",
   activeSettingsTab: "",
+  user_profile: {
+    first_name: "",
+    middle_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    birth_date: null,
+    profile_picture: null,
+    csrfToken: "",
+  },
   setUserDetails: () => {},
 };
 

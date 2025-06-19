@@ -54,8 +54,6 @@ export default function DashboardLayout({
 
   console.log(isLoggedIn);
 
-
-
   return (
     <SidebarProvider className="relative bg-[#F6F6F6] flex w-full h-full">
       {isLoggedIn === null && (

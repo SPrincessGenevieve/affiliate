@@ -22,6 +22,7 @@ import { Separator } from "@/components/ui/separator";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import "@/app/globals.css";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
@@ -55,6 +56,7 @@ export function AppSidebar() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   return (
     <div className="max-w-[245px] h-full relative">
       <Card className="bg-[white] h-full ">
@@ -72,14 +74,24 @@ export function AppSidebar() {
               onClick={handleCollapse}
               className="cursor-pointer flex flex-col gap-2 items-center justify-center w-full p-2"
             >
-              <Avatar className="h-auto w-auto max-h-20 max-w-20 border">
-                <AvatarImage
-                  src={
-                    "https://i.etsystatic.com/iap/b979b5/6846594779/iap_640x640.6846594779_kn1iey1x.jpg?version=0"
-                  }
-                ></AvatarImage>
-                <AvatarFallback>VA</AvatarFallback>
-              </Avatar>
+              {user_profile.profile_picture === "" ||
+              user_profile.profile_picture === null ? (
+                <>
+                  <div className="w-20 h-20">
+                    <DotLottieReact src="/profile.lottie" loop autoplay />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <Avatar className="h-auto w-auto max-h-20 max-w-20 border">
+                    <AvatarImage
+                      src={user_profile.profile_picture || ""}
+                    ></AvatarImage>
+                    <AvatarFallback></AvatarFallback>
+                  </Avatar>
+                </>
+              )}
+
               <div
                 className={`${
                   collapsed ? "hidden transition ease-in-out" : ""
@@ -88,7 +100,8 @@ export function AppSidebar() {
                 <Label
                   className={`text-black text-center text-[14px] font-medium w-full `}
                 >
-                  {user_profile.first_name} {user_profile.middle_name} {user_profile.last_name}
+                  {user_profile.first_name} {user_profile.middle_name}{" "}
+                  {user_profile.last_name}
                 </Label>
                 <p
                   className={`text-[12px] text-center font-normal text-gray-500 w-full `}

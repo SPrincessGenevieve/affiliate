@@ -19,6 +19,7 @@ import CustomerSupport from "@/app/components/support/CustomerSupport";
 import { useUserContext } from "@/app/context/UserContext";
 import { Bell, ChevronDown } from "lucide-react";
 import ToggleNotif from "@/app/components/header/ToggleNotif";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function Header() {
   const router = useRouter();
@@ -98,17 +99,25 @@ export default function Header() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div className="border-none text-[12px] w-auto text-white flex gap-2 justify-center items-center">
-                <div className="w-full flex gap-2 justify-center items-center">
-                  <Avatar className="w-[40px] h-[40px]">
-                    <AvatarImage
-                      src={
-                        "https://i.etsystatic.com/iap/b979b5/6846594779/iap_640x640.6846594779_kn1iey1x.jpg?version=0"
-                      }
-                    ></AvatarImage>
-                    <AvatarFallback></AvatarFallback>
-                  </Avatar>{" "}
-                  
-                </div>
+                {user_profile.profile_picture === null ||
+                user_profile.profile_picture === "" ? (
+                  <>
+                    <div className="w-[40px] h-[40px]">
+                      <DotLottieReact src="/profile.lottie" loop autoplay />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-full flex gap-2 justify-center items-center">
+                      <Avatar className="w-[40px] h-[40px]">
+                        <AvatarImage
+                          src={user_profile.profile_picture}
+                        ></AvatarImage>
+                        <AvatarFallback></AvatarFallback>
+                      </Avatar>{" "}
+                    </div>
+                  </>
+                )}
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
@@ -129,16 +138,22 @@ export default function Header() {
                   onClick={navigateSettings}
                   className="flex gap-2 "
                 >
-                  <Label className="text-[12px] font-normal">Profile Settings</Label>
+                  <Label className="text-[12px] font-normal">
+                    Profile Settings
+                  </Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={navigateBilling}
                   className="flex gap-2 "
                 >
-                  <Label className="text-[12px] font-normal">Billing Information</Label>
+                  <Label className="text-[12px] font-normal">
+                    Billing Information
+                  </Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleOpen} className="flex gap-2 ">
-                  <Label className="text-[12px] font-normal">Help & Support</Label>
+                  <Label className="text-[12px] font-normal">
+                    Help & Support
+                  </Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={navigateLogOut}

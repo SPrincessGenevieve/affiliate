@@ -29,12 +29,32 @@ import { format } from "date-fns";
 import SpinnerIcon from "@/app/images/Spinner";
 import { Button } from "@/components/ui/button";
 
+const calculateAge = (birthDate: Date): number => {
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+
+  // Adjust age if birthday hasn't occurred yet this year
+  if (
+    today.getMonth() < birthDate.getMonth() ||
+    (today.getMonth() === birthDate.getMonth() &&
+      today.getDate() < birthDate.getDate())
+  ) {
+    age--;
+  }
+
+  return age;
+};
+
 const formSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   middleName: z.string().min(1, 'Input "N/A" if not applicable'),
   lastName: z.string().min(1, "Last name is required"),
   email: z.string().email("Invalid email"),
-  birthDate: z.date({ required_error: "Birthdate is required" }),
+  birthDate: z
+    .date({ required_error: "Birthdate is required" })
+    .refine((date) => calculateAge(date) >= 18, {
+      message: "You must be at least 18 years old",
+    }),
   phoneNumber: z.string().min(1, "Phone number is required"),
   profilePicture: z.string().nullable().optional(),
 });
@@ -77,26 +97,13 @@ export default function Profile() {
 
   const [isFailed, setIsFailed] = useState(false);
 
-  const calculateAge = (birthDate: Date): number => {
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-
-    // Adjust age if birthday hasn't occurred yet this year
-    if (
-      today.getMonth() < birthDate.getMonth() ||
-      (today.getMonth() === birthDate.getMonth() &&
-        today.getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
-
-    return age;
-  };
-
   const birthDateValue = formData.watch("birthDate");
   const age = birthDateValue ? calculateAge(birthDateValue) : 0;
 
   const handleUpdate = async (data: FormData) => {
+    if (age < 18) {
+      return;
+    }
     setLoading(true);
     try {
       const responseCSRF = await getCSRF();

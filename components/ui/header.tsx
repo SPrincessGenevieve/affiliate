@@ -102,8 +102,8 @@ export default function Header() {
                 {user_profile.profile_picture === null ||
                 user_profile.profile_picture === "" ? (
                   <>
-                    <div className="w-[40px] h-[40px]">
-                      <DotLottieReact src="/profile.lottie" loop autoplay />
+                    <div className="relative w-10 h-10 flex items-center justify-center">
+                      <DotLottieReact className="absolute w-[70px] h-[70px]" src="/profile.lottie" loop autoplay />
                     </div>
                   </>
                 ) : (

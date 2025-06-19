@@ -41,21 +41,19 @@ export default function ReferralFilter({
           </Button>
         </MenubarTrigger>
         <MenubarContent>
-          {["diamond", "platinum", "silver", "bronze"].map((action) => (
+          {[
+            "Vintage",
+            "Vintage Cru",
+            "Vintage Vault",
+            "Vintage Enclosure",
+            "Vintage Associate",
+          ].map((action) => (
             <MenubarCheckboxItem
               key={action}
               checked={filters.action[action as FilterType]} // Type assertion here
               onCheckedChange={() => onFilterChange("action", action)}
             >
-              <p className="capitalize">
-                {action === "diamond"
-                  ? "Diamond"
-                  : action === "platinum"
-                  ? "Platinum"
-                  : action === "silver"
-                  ? "Silver"
-                  : action}
-              </p>
+              <p className="capitalize">{action}</p>
             </MenubarCheckboxItem>
           ))}
         </MenubarContent>

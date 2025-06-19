@@ -22,12 +22,46 @@ export default function TierFiveTable() {
       <TableCaption></TableCaption>
       <TableHeader className="">
         <TableRow className="">
-          <TableHead>Rank</TableHead>
-          <TableHead>Affiliate</TableHead>
-          <TableHead>Tier</TableHead>
-          <TableHead>AUM</TableHead>
-          <TableHead>Commission</TableHead>
-          <TableHead>YoY Growth</TableHead>
+          <TableHead>
+            <div className="flex items-baseline h-full  gap-2">Rank</div>
+          </TableHead>
+          <TableHead>
+            {" "}
+            <div className="flex items-baseline h-full  gap-2">My Clients</div>
+          </TableHead>
+          <TableHead>
+            {" "}
+            <div className="flex items-baseline h-full  gap-2">
+              Last Login Date/Time
+            </div>
+          </TableHead>
+          <TableHead className="flex items-baseline h-full  gap-2">
+            Tier
+          </TableHead>
+          <TableHead>
+            <div className="flex items-baseline h-full  gap-2">
+              Market Value
+            </div>
+          </TableHead>
+          <TableHead>
+            <div className="flex items-baseline h-full  gap-2">Total Cases</div>
+          </TableHead>
+          <TableHead>
+            <div className="flex items-baseline h-full  gap-2">Cases Sold</div>
+          </TableHead>
+          <TableHead>
+            <div className="flex items-baseline h-full  gap-2">
+              Realised Profit/Loss
+            </div>
+          </TableHead>
+          <TableHead>
+            <div className="flex items-baseline h-full gap-2">%Profit/Loss</div>
+          </TableHead>
+          <TableHead>
+            <div className="flex items-baseline h-full gap-2">
+              My Commission<br></br>(Annual)
+            </div>
+          </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="">
@@ -68,8 +102,11 @@ export default function TierFiveTable() {
                   selectedRow === item.rank ? "font-bold" : "font-normal"
                 )}
               >
-                {item.name}
+                {item.my_clients}
               </Label>
+            </TableCell>
+            <TableCell>
+              <Label className="font-normal">{item.last_login_date_time}</Label>
             </TableCell>
             <TableCell>
               <div className="flex">
@@ -84,20 +121,22 @@ export default function TierFiveTable() {
               </div>
             </TableCell>
             <TableCell>
-              <Label>{item.portfolio}</Label>
+              <Label className="font-normal">{item.market_value}</Label>
             </TableCell>
             <TableCell>
-              <Label>{item.income}</Label>
+              <Label className="font-normal">{item.total_cases}</Label>
             </TableCell>
             <TableCell>
-              <Label
-                className={cn(
-                  "cursor-pointer font-normal transition-colors",
-                  item.change <= 0 ? "text-[red]" : "text-green-500"
-                )}
-              >
-                {item.change}%
-              </Label>
+              <Label className="font-normal">{item.cases_sold}</Label>
+            </TableCell>
+            <TableCell>
+              <Label className="font-normal">{item.realised_profit_loss}</Label>
+            </TableCell>
+            <TableCell>
+              <Label className="font-normal">{item.percent_profit_loss}</Label>
+            </TableCell>
+            <TableCell>
+              <Label className="font-normal">{item.my_commission_annual}</Label>
             </TableCell>
           </TableRow>
         ))}

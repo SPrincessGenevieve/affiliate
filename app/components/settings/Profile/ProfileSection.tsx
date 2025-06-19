@@ -108,11 +108,11 @@ export default function ProfileSection() {
   return (
     <div className="w-full flex flex-col items-center justify-center gap-4">
       <div className="flex flex-col w-full items-center justify-center">
-        <Label className="text-[2vh] text-center w-full max-w-[200px]">
+        <Label className="text-[14px] text-center w-full max-w-[200px]">
           {user_profile.first_name} {user_profile.middle_name}{" "}
           {user_profile.last_name}
         </Label>
-        <Label className="text-[14px] text-gray-400 font-normal">
+        <Label className="text-[12px] text-gray-400 font-normal">
           {user_profile.email}
         </Label>
       </div>
@@ -203,12 +203,12 @@ export default function ProfileSection() {
         </Dialog>
       </div>
       <div>
-        <Label className="text-[14px]">Silver Tier Affiliate</Label>
+        <Label className="text-[14px]">{user_profile.level}</Label>
       </div>
       <Dialog open={response} onOpenChange={setResponse}>
         <DialogContent>
           <DialogTitle
-            className={`${isSuccess ? "text-[#10B981]" : "text-[#8B1D24]"}`}
+            className={`${isSuccess ? "text-[#055E45]" : "text-[#8B1D24]"}`}
           >
             {isSuccess
               ? "Profile Picture Updated"

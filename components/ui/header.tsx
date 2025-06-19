@@ -24,7 +24,7 @@ export default function Header() {
   const router = useRouter();
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [open, setOpen] = useState(false);
-  const { setUserDetails, isLoggedIn } = useUserContext();
+  const { setUserDetails, isLoggedIn, user_profile } = useUserContext();
 
   const navigateSettings = () => {
     setUserDetails({
@@ -43,8 +43,8 @@ export default function Header() {
   const navigateLogOut = () => {
     setLoadingLogout(true);
     setUserDetails({
-      isLoggedIn: false
-    })
+      isLoggedIn: false,
+    });
     router.push("/");
   };
 
@@ -107,21 +107,20 @@ export default function Header() {
                     ></AvatarImage>
                     <AvatarFallback></AvatarFallback>
                   </Avatar>{" "}
-                  <div>
-                    <p className="text-[14px] font-semibold greetings-name text-[black]">
-                      Sarah Johnson
-                    </p>
-                  </div>
+                  
                 </div>
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-56">
               <DropdownMenuLabel>
                 <div className="w-full flex gap-2 items-center">
-                  <p>Sarah Johnson</p>
+                  <p className="text-[14px]">
+                    {user_profile.first_name} {user_profile.middle_name}{" "}
+                    {user_profile.last_name}
+                  </p>
                 </div>
                 <Label className="text-[12px] font-normal text-gray-400">
-                  sarahjohnson@example.com
+                  {user_profile.email}
                 </Label>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -130,27 +129,27 @@ export default function Header() {
                   onClick={navigateSettings}
                   className="flex gap-2 "
                 >
-                  <p>Profile Settings</p>
+                  <Label className="text-[12px] font-normal">Profile Settings</Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={navigateBilling}
                   className="flex gap-2 "
                 >
-                  <p>Billing Information</p>
+                  <Label className="text-[12px] font-normal">Billing Information</Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleOpen} className="flex gap-2 ">
-                  <p>Help & Support</p>
+                  <Label className="text-[12px] font-normal">Help & Support</Label>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={navigateLogOut}
                   className="flex gap-2 "
                 >
-                  <p className="text-red-500 flex gap-2 items-center justify-center">
+                  <Label className="text-red-500 text-[12px] font-normal flex gap-2 items-center justify-center">
                     {loadingLogout && (
                       <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
                     )}
                     Sign Out
-                  </p>
+                  </Label>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>

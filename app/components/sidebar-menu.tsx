@@ -31,7 +31,7 @@ const items = [
 export function AppSidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
-  const { setUserDetails, isOpen } = useUserContext();
+  const { setUserDetails, isOpen, user_profile } = useUserContext();
 
   const handleCollapse = () => {
     const newCollapsed = !collapsed;
@@ -86,14 +86,14 @@ export function AppSidebar() {
                 }`}
               >
                 <Label
-                  className={`text-black text-center text-[16px] font-medium w-full `}
+                  className={`text-black text-center text-[14px] font-medium w-full `}
                 >
-                  Sarah Johnson
+                  {user_profile.first_name} {user_profile.middle_name} {user_profile.last_name}
                 </Label>
                 <p
                   className={`text-[12px] text-center font-normal text-gray-500 w-full `}
                 >
-                  Vintage Cru Affiliate
+                  {user_profile.level}
                 </p>
               </div>
             </div>
@@ -126,7 +126,7 @@ export function AppSidebar() {
                             collapsed === true
                               ? "pl-0 w-full  flex justify-center items-center"
                               : "pl-10"
-                          } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none 
+                          } flex items-center gap-2 py-3 text-[14px] transition ease-in-out rounded-none 
         ${
           isActive
             ? "bg-[#2e525725] text-black border-l-3 border-[#2E5257]"
@@ -144,7 +144,7 @@ export function AppSidebar() {
                             />
                           </div>
                           {!collapsed && (
-                            <Label className="text-[16px] font-normal">
+                            <Label className="text-[12px] font-normal">
                               {item.title}
                             </Label>
                           )}
@@ -159,7 +159,7 @@ export function AppSidebar() {
           {/* {!collapsed && (
           <div className="p-4">
             <div className="bg-[#F9FAFB] rounded-[5px] p-2  flex flex-col gap-2">
-              <Label className="w-full flex text-[16px] justify-center items-center">
+              <Label className="w-full flex text-[14px] justify-center items-center">
                 Need Help?
               </Label>
               <Label className="w-full text-gray-500 flex font-normal text-[12px]">

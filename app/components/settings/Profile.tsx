@@ -67,8 +67,10 @@ export default function Profile() {
         lastName: user_profile.last_name,
         email: user_profile.email,
         phoneNumber: user_profile.phone_number,
-        birthDate: undefined, // or parse from user_profile.birth_date
-        profilePicture: user_profile.profile_picture,
+        birthDate: user_profile.birth_date
+          ? new Date(user_profile.birth_date)
+          : undefined,
+        profilePicture: null,
       });
     }
   }, [user_profile, formData]);
@@ -108,13 +110,13 @@ export default function Profile() {
         last_name: data.lastName,
         phone_number: data.phoneNumber,
         birth_date: formattedBirthDate,
-        profile_picture: data.profilePicture || null,
+        profile_picture: null,
         csrfToken: csrfToken,
       });
 
       setUserDetails({
-        user_profile: responseUpdate.data
-      })
+        user_profile: responseUpdate.data,
+      });
       setOpen(true);
       setIsFailed(false);
       setLoading(false);
@@ -191,7 +193,11 @@ export default function Profile() {
                   <FormItem>
                     <FormLabel>Birthdate</FormLabel>
                     <FormControl>
-                      <CalendarForm {...field} error={!!fieldState.error} />
+                      <CalendarForm
+                        value={field.value ? new Date(field.value) : undefined}
+                        onChange={(date) => field.onChange(date)}
+                        error={!!fieldState.error}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

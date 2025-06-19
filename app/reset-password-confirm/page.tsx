@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import {
   Form,
@@ -18,11 +18,12 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { getCSRF } from "@/lib/services/getData";
-import { postUpdatePassword } from "@/lib/services/postData";
 import SpinnerIcon from "../images/Spinner";
 import { useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { postConfirmResetPassword } from "@/lib/services/postData";
+import { useSearchParams } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -37,6 +38,10 @@ const formSchema = z
 type FormData = z.infer<typeof formSchema>;
 
 export default function ResetPassword() {
+  const searchParams = useSearchParams();
+
+  const [uid, setUid] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const [isUpdated, setIsUpdated] = useState(false);
   const [loadingLogin, setLoadingLogin] = useState(false);
@@ -50,10 +55,19 @@ export default function ResetPassword() {
     },
   });
 
+  useEffect(() => {
+    const uidParam = searchParams.get("uid");
+    const tokenParam = searchParams.get("token");
+
+    setUid(uidParam);
+    setToken(tokenParam);
+  }, [searchParams]);
+
   const navigateBackLogin = () => {
     setLoadingLogin(true);
     router.push("/");
   };
+
 
   const updatePassword = async (data: FormData) => {
     setLoading(true);
@@ -69,10 +83,12 @@ export default function ResetPassword() {
     try {
       const responseCSRF = await getCSRF();
       const csrfToken = responseCSRF?.data?.csrfToken;
-      const responseUpdatePassword = await postUpdatePassword(
+      const responseUpdatePassword = await postConfirmResetPassword(
         data.new_password1,
         data.new_password2,
-        csrfToken
+        csrfToken,
+        uid || "",
+        token || ""
       );
       setMessage("Password changed successfully! Redirecting to Login...");
       setIsUpdated(true);

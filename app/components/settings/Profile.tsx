@@ -1,8 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import React, { useState } from "react";
-import { CalendarForm } from "../CalendarComponent";
-import { Button } from "@/components/ui/button";
+import React, { useEffect, useState } from "react";
+import { useUserContext } from "@/app/context/UserContext";
 import {
   Dialog,
   DialogContent,
@@ -11,56 +10,253 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Edit } from "lucide-react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { CalendarForm } from "../CalendarComponent";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import PhoneInput from "../PhoneInput";
+import { patchUser } from "@/lib/services/patchData";
+import { getCSRF } from "@/lib/services/getData";
+import { format } from "date-fns";
+import SpinnerIcon from "@/app/images/Spinner";
+import { Button } from "@/components/ui/button";
+
+const formSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  middleName: z.string().min(1, 'Input "N/A" if not applicable'),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email"),
+  birthDate: z.date({ required_error: "Birthdate is required" }),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  profilePicture: z.string().nullable().optional(),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function Profile() {
-  const [isFailed, setIsFailed] = useState(false);
-  return (
-    <div className="w-full py-4 gap-8 flex flex-col">
-      <div className="">
-        <div className="mb-4 pb-2 border-b">
-          <Label className="mb-4 text-neutral-400">PERSONAL INFORMATION</Label>
-        </div>
-        <div className="w-full max-w-[500px] gap-2 flex flex-col">
-          <div className="flex flex-col gap-2">
-            <Label>First Name</Label>
-            <Input></Input>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Middle Name</Label>
-            <Input></Input>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Last Name</Label>
-            <Input></Input>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Birthdate</Label>
-            <CalendarForm></CalendarForm>
-          </div>
-        </div>
-      </div>
+  const { setUserDetails, user_profile } = useUserContext();
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
-      <div className="">
-        <div className="mb-4 pb-2 border-b">
-          <Label className="mb-4 text-neutral-400">CONTACT INFORMATION</Label>
-        </div>
-        <div className="w-full max-w-[500px] gap-2 flex flex-col">
-          <div className="flex flex-col gap-2">
-            <Label>Email</Label>
-            <Input></Input>
+  const formData = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: user_profile.first_name,
+      middleName: user_profile.middle_name,
+      lastName: user_profile.last_name,
+      email: user_profile.email,
+      phoneNumber: user_profile.phone_number,
+      birthDate: undefined,
+      profilePicture: user_profile.profile_picture,
+    },
+  });
+
+  useEffect(() => {
+    if (user_profile && user_profile.email) {
+      formData.reset({
+        firstName: user_profile.first_name,
+        middleName: user_profile.middle_name,
+        lastName: user_profile.last_name,
+        email: user_profile.email,
+        phoneNumber: user_profile.phone_number,
+        birthDate: undefined, // or parse from user_profile.birth_date
+        profilePicture: user_profile.profile_picture,
+      });
+    }
+  }, [user_profile, formData]);
+
+  const [isFailed, setIsFailed] = useState(false);
+
+  const calculateAge = (birthDate: Date): number => {
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+
+    // Adjust age if birthday hasn't occurred yet this year
+    if (
+      today.getMonth() < birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() &&
+        today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+
+    return age;
+  };
+
+  const birthDateValue = formData.watch("birthDate");
+  const age = birthDateValue ? calculateAge(birthDateValue) : 0;
+
+  const handleUpdate = async (data: FormData) => {
+    setLoading(true);
+    try {
+      const responseCSRF = await getCSRF();
+      const csrfToken = responseCSRF?.data?.csrfToken;
+      const formattedBirthDate = data.birthDate
+        ? format(data.birthDate, "yyyy-MM-dd")
+        : null;
+      const responseUpdate = await patchUser({
+        first_name: data.firstName,
+        middle_name: data.middleName,
+        last_name: data.lastName,
+        phone_number: data.phoneNumber,
+        birth_date: formattedBirthDate,
+        profile_picture: data.profilePicture || null,
+        csrfToken: csrfToken,
+      });
+
+      setUserDetails({
+        user_profile: responseUpdate.data
+      })
+      setOpen(true);
+      setIsFailed(false);
+      setLoading(false);
+    } catch (error: any) {
+      setOpen(true);
+      setIsFailed(true);
+      const err = error.response.data.detail;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="w-full gap-8 flex flex-col">
+      <Form {...formData}>
+        <form
+          className="w-full gap-8 flex flex-col"
+          onSubmit={formData.handleSubmit(handleUpdate)}
+        >
+          <div className="">
+            <div className="mb-4 pb-2 border-b">
+              <Label className="mb-4 text-neutral-400">
+                PERSONAL INFORMATION
+              </Label>
+            </div>
+            <div className="w-full max-w-[500px] gap-2 flex flex-col">
+              {/* FIRST NAME */}
+              <FormField
+                control={formData.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>First Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* MIDDLE NAME */}
+              <FormField
+                control={formData.control}
+                name="middleName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Middle Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* LAST NAME */}
+              <FormField
+                control={formData.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Last Name</FormLabel>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* BIRTHDATE */}
+              <FormField
+                control={formData.control}
+                name="birthDate"
+                render={({ field, fieldState }) => (
+                  <FormItem>
+                    <FormLabel>Birthdate</FormLabel>
+                    <FormControl>
+                      <CalendarForm {...field} error={!!fieldState.error} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <Label>Phone Number</Label>
-            <Input></Input>
+          <div className="">
+            <div className="mb-4 pb-2 border-b">
+              <Label className="mb-4 text-neutral-400">
+                CONTACT INFORMATION
+              </Label>
+            </div>
+
+            <div className="w-full max-w-[500px] gap-2 flex flex-col">
+              {/* EMAIL */}
+              <FormField
+                control={formData.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input disabled {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />{" "}
+              {/* PHONE NUMBER */}
+              <FormField
+                control={formData.control}
+                name="phoneNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <PhoneInput
+                        value={field.value}
+                        onChange={field.onChange}
+                        // onKeyDown={field.onKeyDown}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
           </div>
-        </div>
-      </div>
-      <Dialog>
-        <DialogTrigger className="w-full flex justify-center items-center bg-[#2E5257] max-w-[500px] h-10 transition ease-in-out rounded-[9px] text-white hover:bg-[#192e31]">
-          <Label>
-            <Edit size={15}></Edit>UPDATE INFORMATION
-          </Label>
-        </DialogTrigger>
+          <Button
+            type="submit"
+            className="w-full flex justify-center items-center bg-[#2E5257] max-w-[500px] h-10 transition ease-in-out rounded-[9px] text-white hover:bg-[#192e31]"
+          >
+            <Label>
+              {loading && (
+                <div className="w-5">
+                  <SpinnerIcon strokeColor="white"></SpinnerIcon>
+                </div>
+              )}
+              <Edit size={15}></Edit>UPDATE INFORMATION
+            </Label>
+          </Button>
+        </form>
+      </Form>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogTitle className={`${isFailed ? "text-red-500" : ""}`}>
             {isFailed ? "Update Failed" : "Profile Updated"}

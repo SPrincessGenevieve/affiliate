@@ -12,6 +12,7 @@ import { useUserContext } from "@/app/context/UserContext";
 import Security from "@/app/components/settings/Security";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
+import ProfileSection from "@/app/components/settings/Profile/ProfileSection";
 
 export default function Settings() {
   const { activeSettingsTab, setUserDetails } = useUserContext();
@@ -43,35 +44,7 @@ export default function Settings() {
   return (
     <div className="flex w-full h-full gap-4 settings-cont">
       <div className="h-auto shadow-xl rounded-2xl p-8 flex flex-col gap-4 bg-white">
-        <div className="w-full flex flex-col items-center justify-center gap-4">
-          <div className="flex flex-col w-full items-center justify-center">
-            <Label className="text-[20px]">Sarah Johnson</Label>
-            <Label className="text-[14px] text-gray-400 font-normal">
-              sarahjohnson@gmail.com
-            </Label>
-          </div>
-
-          <div className="relative w-50 h-50 flex justify-center items-center">
-            <Image
-              width={400}
-              height={400}
-              className="w-full max-w-50 max-h-50 h-full rounded-full"
-              src={
-                "https://i.etsystatic.com/iap/b979b5/6846594779/iap_640x640.6846594779_kn1iey1x.jpg?version=0"
-              }
-              alt=""
-            ></Image>
-            <Button
-              variant={"ghost"}
-              className="rounded-full absolute top-0 right-0"
-            >
-              <Edit size={15}></Edit>
-            </Button>
-          </div>
-          <div>
-            <Label className="text-[14px]">Silver Tier Affiliate</Label>
-          </div>
-        </div>
+        <ProfileSection></ProfileSection>
       </div>
       <div className="w-full h-full flex flex-col profile-billing-cont shadow-xl bg- rounded-2xl p-2 px-8 overflow-y-auto bg-white">
         <div className="my-4">

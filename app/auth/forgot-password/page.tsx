@@ -36,16 +36,18 @@ export default function ForgotPassword() {
       ) {
         router.push("/auth/forgot-password/check-email");
       }
-    } catch (error) {
+    } catch (error: any) {
+      const err = error.response.data.email[0];
+      console.log(err);
       toast.custom(
         (t) => (
           <div className="w-full max-w-md bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-lg shadow-lg p-4">
             <div className={`text-sm font-medium text-red-600`}>
-              Password update request failed.
+              Password Update request failed.
             </div>
             <div className={`text-sm text-gray-600 dark:text-gray-400 mt-1`}>
-              We couldn’t process your password update request. Try again
-              shortly.
+              {err ||
+                "We couldn’t process your password update request. Try again shortly."}
             </div>
           </div>
         ),

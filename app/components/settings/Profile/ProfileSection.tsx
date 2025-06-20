@@ -77,6 +77,7 @@ export default function ProfileSection() {
   const handleProfilePictureUpdate = async () => {
     if (!croppedImage) return;
     setLoading(true);
+
     try {
       const responseCSRF = await getCSRF();
       const csrfToken = responseCSRF?.data?.csrfToken;
@@ -85,10 +86,13 @@ export default function ProfileSection() {
       const blob = await (await fetch(croppedImage)).blob();
       const file = new File([blob], "profile.jpg", { type: blob.type });
 
+      // FormData containing ONLY profile_picture
       const formData = new FormData();
       formData.append("profile_picture", file);
 
       const response = await patchProfilePic(formData, csrfToken);
+
+      console.log(response.data);
 
       setUserDetails({ user_profile: response.data });
       setImageSrc(null);
@@ -104,6 +108,8 @@ export default function ProfileSection() {
       setLoading(false);
     }
   };
+
+  console.log("USER: ", user_profile);
 
   return (
     <div className="w-full flex flex-col items-center justify-center gap-4">
@@ -121,7 +127,7 @@ export default function ProfileSection() {
         {user_profile.profile_picture === null ||
         user_profile.profile_picture === "" ? (
           <div className="w-100 h-100">
-            <DotLottieReact src="/profile.lottie" loop autoplay />
+            <DotLottieReact src="/profile.lottie" autoplay />
           </div>
         ) : (
           <Image
@@ -150,7 +156,7 @@ export default function ProfileSection() {
             {imageSrc === null && croppedImage === null && (
               <div>
                 <div className="w-auto h-70">
-                  <DotLottieReact src="/profile.lottie" loop autoplay />
+                  <DotLottieReact src="/profile.lottie" autoplay />
                 </div>
               </div>
             )}

@@ -51,7 +51,7 @@ export default function Home() {
           </div>
         ),
         {
-          duration: 3000, // prevents auto-close
+          duration: 6000, // prevents auto-close
         }
       );
       console.error("Login error:", err);
@@ -78,11 +78,11 @@ export default function Home() {
     // Redirect after a delay to let the toast show
     setTimeout(() => {
       router.replace("/dashboard");
-    }, 2000);
+    }, 500);
   };
 
   const handleForgotPassword = () => {
-    setLoadingForgotPass(true);
+    // setLoadingForgotPass(true);
     router.push("/auth/forgot-password");
   };
 

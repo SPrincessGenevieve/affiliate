@@ -104,7 +104,7 @@ export default function ResetPassword() {
           </div>
         ),
         {
-          duration: 5000,
+          duration: 6000,
         }
       );
     } catch (error: any) {
@@ -122,7 +122,7 @@ export default function ResetPassword() {
           </div>
         ),
         {
-          duration: 5000,
+          duration: 6000,
         }
       );
     } finally {
@@ -138,7 +138,7 @@ export default function ResetPassword() {
         </Label>
       </div>
       <div className="w-full h-auto">
-        <DotLottieReact src="/password.lottie" autoplay loop />
+        <DotLottieReact src="/password.lottie" autoplay  />
       </div>
       <Form {...form}>
         <form className="w-full" onSubmit={form.handleSubmit(updatePassword)}>

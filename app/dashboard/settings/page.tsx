@@ -1,13 +1,11 @@
 "use client";
 
-import { Label } from "@/components/ui/label";
 import React, { useEffect, useState } from "react";
-import { ArrowLeft, Edit } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Profile from "@/app/components/settings/Profile";
 import Billing from "@/app/components/settings/Billing";
 import "@/app/globals.css";
-import Image from "next/image";
 import { useUserContext } from "@/app/context/UserContext";
 import Security from "@/app/components/settings/Security";
 import { useRouter } from "next/navigation";

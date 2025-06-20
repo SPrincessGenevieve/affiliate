@@ -58,7 +58,7 @@ export default function ResetPass() {
         </div>
       ),
       {
-        duration: isSuccess ? Infinity : 3000, // prevents auto-close
+        duration: isSuccess ? Infinity : 6000, // prevents auto-close
       }
     );
   };

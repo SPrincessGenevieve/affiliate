@@ -51,7 +51,7 @@ export default function SignIn() {
           </div>
         ),
         {
-          duration: 3000, // prevents auto-close
+          duration: 6000, // prevents auto-close
         }
       );
       console.error("Login error:", err);

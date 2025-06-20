@@ -25,7 +25,7 @@ export default function CheckEmail() {
           securely.
         </Label>
         <div className="w-auto h-70">
-          <DotLottieReact src="/email.lottie" loop autoplay />
+          <DotLottieReact src="/email.lottie" autoplay />
         </div>
         <Button
           onClick={navigateBackLogin}

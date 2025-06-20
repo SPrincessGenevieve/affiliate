@@ -166,7 +166,7 @@ export default function RegisterForm() {
           </div>
         ),
         {
-          duration: 3000,
+          duration: 6000,
         }
       );
     } finally {

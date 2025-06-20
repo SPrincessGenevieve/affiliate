@@ -14,7 +14,6 @@ export const patchProfilePic = (formData: FormData, csrfToken: string) =>
   api.patch("/api/v1/base/user", formData, {
     headers: {
       "X-CSRFToken": csrfToken,
-      // Don't set Content-Type manually for FormData!
     },
     withCredentials: true,
   });

@@ -52,7 +52,7 @@ export default function ForgotPassword() {
           </div>
         ),
         {
-          duration: 5000,
+          duration: 6000,
         }
       );
     } finally {

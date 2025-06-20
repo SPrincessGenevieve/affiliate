@@ -32,7 +32,7 @@ interface PhoneInputProps {
 }
 
 export default function PhoneInput({
-  defaultCountry = "PH",
+  defaultCountry = "GB",
   defaultNumber = "",
   value,
   onChange,

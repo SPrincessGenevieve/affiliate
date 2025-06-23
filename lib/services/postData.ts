@@ -34,6 +34,7 @@ export const postVerifyEmail = (key: string, csrfToken: string) =>
   );
 
 export const postChangePassword = (
+  old_password: string,
   new_password1: string,
   new_password2: string,
   csrfToken: string
@@ -41,6 +42,7 @@ export const postChangePassword = (
   api.post(
     "/api/v1/base/auth/password/change",
     {
+      old_password,
       new_password1,
       new_password2,
     },
@@ -88,9 +90,13 @@ export const postConfirmResetPassword = (
   );
 
 export const postResetEmail = (email: string, csrfToken: string) =>
-  api.post("/api/v1/base/auth/request-change-email", email, {
-    headers: {
-      "X-CSRFToken": csrfToken,
-    },
-    withCredentials: true,
-  });
+  api.post(
+    "/api/v1/base/auth/request-change-email",
+    { email },
+    {
+      headers: {
+        "X-CSRFToken": csrfToken,
+      },
+      withCredentials: true,
+    }
+  );

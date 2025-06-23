@@ -65,7 +65,7 @@ export default function TierFiveTable() {
         </TableRow>
       </TableHeader>
       <TableBody className="">
-        {affiliate_leaderboard.slice(0, 6).map((item) => (
+        {affiliate_leaderboard.slice(0, 5).map((item) => (
           <TableRow
             key={item.rank}
             onClick={() => setSelectedRow(item.rank)}

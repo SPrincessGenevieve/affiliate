@@ -109,8 +109,6 @@ export default function ProfileSection() {
     }
   };
 
-  console.log("USER: ", user_profile);
-
   return (
     <div className="w-full flex flex-col items-center justify-center gap-4">
       <div className="flex flex-col w-full items-center justify-center">
@@ -133,7 +131,7 @@ export default function ProfileSection() {
           <Image
             width={400}
             height={400}
-            className="w-full max-w-50 max-h-50 h-full rounded-full"
+            className="w-full max-w-50 max-h-50 h-full rounded-full shadow border"
             src={user_profile.profile_picture || ""}
             alt=""
           ></Image>

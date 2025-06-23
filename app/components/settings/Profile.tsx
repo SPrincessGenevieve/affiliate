@@ -28,6 +28,7 @@ import { getCSRF } from "@/lib/services/getData";
 import { format } from "date-fns";
 import SpinnerIcon from "@/app/images/Spinner";
 import { Button } from "@/components/ui/button";
+import UpdateEmail from "./Security/UpdateEmail";
 
 const calculateAge = (birthDate: Date): number => {
   const today = new Date();
@@ -228,7 +229,19 @@ export default function Profile() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <Input disabled {...field} />
+                      <div className="w-full relative flex items-center">
+                        <Input disabled {...field} />
+                        <Dialog>
+                          <DialogTrigger className="p-2">
+                            <Edit size={17}></Edit>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogTitle className="hidden"></DialogTitle>
+                            <DialogDescription className="hidden"></DialogDescription>
+                            <UpdateEmail></UpdateEmail>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

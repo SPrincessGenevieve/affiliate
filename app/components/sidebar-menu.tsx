@@ -90,7 +90,7 @@ export function AppSidebar() {
                 </>
               ) : (
                 <>
-                  <Avatar className="h-auto w-auto max-h-20 max-w-20 border">
+                  <Avatar className="h-auto w-auto max-h-30 max-w-30 border">
                     <AvatarImage
                       src={user_profile.profile_picture || ""}
                     ></AvatarImage>

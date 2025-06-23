@@ -12,7 +12,7 @@ export default function Greetings() {
     <Card className="w-full ">
       <CardContent className="greetings-cont flex justify-between items-center w-full">
         <div className="">
-          <Label className="font-bold text-xl">Welcome Back, {user_profile.first_name}!</Label>
+          <Label className="font-bold text-xl">Welcome back, {user_profile.first_name}!</Label>
           <Label className="font-normal text-[14px]">
             Your performance this month is up by 15% compared to last month.
           </Label>

@@ -7,30 +7,64 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { getCSRF } from "@/lib/services/getData";
 import { postChangePassword } from "@/lib/services/postData";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageSquare, Smartphone } from "lucide-react";
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const formSchema = z
+  .object({
+    currentPass: z.string().min(8, "Current password is required"),
+    password1: z.string().min(8, "Password must be at least 8 characters"),
+    password2: z.string().min(8, "Confirm password is required"),
+  })
+  .refine((data) => data.password1 === data.password2, {
+    path: ["password2"],
+    message: "Passwords do not match",
+  });
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function Security() {
+  const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [cofirmPassword, setConfirmPassword] = useState("");
   const [open, setOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      currentPass: "",
+      password1: "",
+      password2: "",
+    },
+  });
 
-  const handleUpdatePassword = async () => {
+  const handleUpdatePassword = async (data: FormData) => {
     setLoading(true);
     try {
       const responseCSRF = await getCSRF();
       const csrfToken = responseCSRF?.data?.csrfToken;
       const responseUpdate = await postChangePassword(
-        newPassword,
-        cofirmPassword,
+        data.currentPass,
+        data.password1,
+        data.password2,
         csrfToken
       );
       setOpen(true);
@@ -62,42 +96,70 @@ export default function Security() {
           </DialogDescription>
         </DialogContent>
       </Dialog>
-      <div className="w-full h-full">
-        <div className="mb-4 pb-2 border-b flex justify-between items-center settings-cont-2 gap-2">
-          <Label className=" text-neutral-400">UPDATE PASSWORD</Label>
-        </div>
-        <div className="w-full max-w-[500px] gap-2 flex flex-col">
-          {/* <div className="flex flex-col gap-2">
-            <Label>Current Password</Label>
-            <Input type="password"></Input>
-          </div> */}
-          <div className="flex flex-col gap-2">
-            <Label>New Password</Label>
-            <Input
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              type="password"
-            ></Input>
+
+      <Form {...form}>
+        <form
+          className="w-full"
+          onSubmit={form.handleSubmit(handleUpdatePassword)}
+        >
+          <div className="w-full max-w-[500px] gap-2 flex flex-col">
+            <div className="mb-4 pb-2 border-b flex justify-between items-center settings-cont-2 gap-2">
+              <Label className=" text-neutral-400">UPDATE PASSWORD</Label>
+            </div>
+            <FormField
+              control={form.control}
+              name="currentPass"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Current Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password1"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>New Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="password2"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Re-enter Password</FormLabel>
+                  <FormControl>
+                    <Input type="password" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="w-full my-4">
+              <Button
+                type="submit"
+                className="max-w-[500px] w-full bg-[#2E5257]"
+              >
+                {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>}{" "}
+                CHANGE PASSWORD
+              </Button>
+            </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <Label>Re-enter Password</Label>
-            <Input
-              value={cofirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              type="password"
-            ></Input>
-          </div>
-        </div>
-        <div className="w-full my-4">
-          <Button
-            onClick={handleUpdatePassword}
-            className="max-w-[500px] w-full bg-[#2E5257]"
-          >
-            {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>} CHANGE
-            PASSWORD
-          </Button>
-        </div>
-      </div>
+        </form>
+      </Form>
+
       <div className="w-full h-full flex flex-col mt-8">
         <div className="mb-4 pb-4 border-b flex justify-between items-center">
           <Label className=" text-neutral-400 uppercase">

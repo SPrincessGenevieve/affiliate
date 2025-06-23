@@ -68,7 +68,6 @@ export default function ResetPassword() {
     router.push("/");
   };
 
-
   const updatePassword = async (data: FormData) => {
     setLoading(true);
     if (
@@ -107,6 +106,7 @@ export default function ResetPassword() {
           duration: 6000,
         }
       );
+      router.replace("/");
     } catch (error: any) {
       console.log(error);
       const messageError = error?.response?.data;
@@ -138,7 +138,7 @@ export default function ResetPassword() {
         </Label>
       </div>
       <div className="w-full h-auto">
-        <DotLottieReact src="/password.lottie" autoplay  />
+        <DotLottieReact src="/password.lottie" autoplay />
       </div>
       <Form {...form}>
         <form className="w-full" onSubmit={form.handleSubmit(updatePassword)}>

@@ -207,7 +207,7 @@ export default function ProfileSection() {
         </Dialog>
       </div>
       <div>
-        <Label className="text-[14px]">{user_profile.level}</Label>
+        <Label className="text-[14px]">{user_profile.level.name}</Label>
       </div>
       <Dialog open={response} onOpenChange={setResponse}>
         <DialogContent>

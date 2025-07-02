@@ -28,7 +28,10 @@ export type UserProfile = {
   phone_number: string;
   profile_picture: string | null;
   birth_date: string | null;
-  level: string;
+  level: {
+    id: number | null;
+    name: string
+  };
   csrfToken: string;
 };
 
@@ -64,7 +67,10 @@ const defaultUserContext: UserContextType = {
     email: "",
     phone_number: "",
     birth_date: null,
-    level: "",
+    level: {
+    id: null,
+    name: "",
+  },
     profile_picture: null,
     csrfToken: "",
   },

@@ -61,7 +61,6 @@ export function AppSidebar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  console.log(user_profile)
 
   return (
     <div className="max-w-[245px] h-full relative">

@@ -30,7 +30,7 @@ export type UserProfile = {
   birth_date: string | null;
   level: {
     id: number | null;
-    name: string
+    name: string;
   };
   csrfToken: string;
 };
@@ -45,6 +45,29 @@ export type UserUpdate = {
   csrfToken: string;
 };
 
+export type MyReferralsTypes = {
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  deposit_amount: string;
+  last_logged_in: number | null;
+  level: string;
+  market_value: number | null;
+  total_cases: number | null;
+  cases_sold: number | null;
+  realised_profit_loss: number | null;
+  profit_loss_percentage: number | null;
+  annual_commission_rate: number;
+  rank: number;
+};
+
+export type AffiliateLeaderboardTypes = {
+  id: number;
+  affiliator: string;
+  aum: number;
+  rank: number;
+  annual_commission_rate: number;
+};
 
 type UserContextType = {
   isOpen: boolean;
@@ -52,6 +75,10 @@ type UserContextType = {
   sessionid: string;
   activeSettingsTab: string;
   user_profile: UserProfile;
+  my_referrals: MyReferralsTypes[];
+  affiliated_leaderboard: AffiliateLeaderboardTypes[];
+  my_referrals_total_pages: number;
+  my_referrals_current_page: number;
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
@@ -68,20 +95,31 @@ const defaultUserContext: UserContextType = {
     phone_number: "",
     birth_date: null,
     level: {
-    id: null,
-    name: "",
-  },
+      id: null,
+      name: "",
+    },
     profile_picture: null,
     csrfToken: "",
   },
+  my_referrals: [],
+  my_referrals_total_pages: 1,
+  my_referrals_current_page: 1,
+  affiliated_leaderboard: [],
   setUserDetails: () => {},
 };
 
 const UserContext = createContext<UserContextType>(defaultUserContext);
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [userDetails, setUserDetailsState] =
-    useState<UserContextType>(defaultUserContext);
+  const [userDetails, setUserDetailsState] = useState<UserContextType>(() => {
+    if (typeof window !== "undefined") {
+      const savedUserData = localStorage.getItem("userDetails");
+      return savedUserData
+        ? { ...defaultUserContext, ...JSON.parse(savedUserData) }
+        : defaultUserContext;
+    }
+    return defaultUserContext;
+  });
 
   useEffect(() => {
     const savedUserData = JSON.parse(

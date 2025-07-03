@@ -37,7 +37,6 @@ export default function UpdateEmail() {
       setEmailIsBlank(false);
       setError("");
       const responseCSRF = getCSRF();
-      console.log(responseCSRF);
       const csrfToken = (await responseCSRF).data.csrfToken;
       const emailResponse = postResetEmail(newEmail, csrfToken);
       if ((await emailResponse).status === 200) {
@@ -64,7 +63,6 @@ export default function UpdateEmail() {
       setCodeIsBlank(false);
       setError("");
       const responseCSRF = getCSRF();
-      console.log(responseCSRF);
       const csrfToken = (await responseCSRF).data.csrfToken;
       const emailVerifResponse = putConfirmEmailChange(
         code,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -26,15 +26,16 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TableItem } from "@/lib/type";
+import { MyReferralsTypes, useUserContext } from "../context/UserContext";
 
 const ITEMS_PER_PAGE = 12;
 
 interface TableComponentProps {
-  data: TableItem[];
+  data: MyReferralsTypes[];
   itemsPerPage?: number;
   caption?: string;
   renderRow?: (
-    item: TableItem,
+    item: MyReferralsTypes,
     selected: boolean,
     onSelect: () => void
   ) => React.ReactNode;
@@ -46,19 +47,30 @@ export default function TableComponent({
   caption,
   renderRow,
 }: TableComponentProps) {
+  const {
+    my_referrals_total_pages,
+    my_referrals_current_page,
+    setUserDetails,
+  } = useUserContext();
+
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(
+    my_referrals_current_page || 1
+  );
   const [selectedFilter, setSelectedFilter] = useState("");
   const [isFiltered, setIsFiltered] = useState(false);
 
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const paginatedData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const totalPages = my_referrals_total_pages;
+  const paginatedData = data;
+
+  useEffect(() => {
+    if (currentPage !== my_referrals_current_page) {
+      setUserDetails({ my_referrals_current_page: currentPage });
+    }
+  }, [currentPage]);
 
   const defaultRenderRow = (
-    item: TableItem,
+    item: MyReferralsTypes,
     selected: boolean,
     onSelect: () => void
   ) => (
@@ -89,27 +101,25 @@ export default function TableComponent({
         }`}
       >
         <Avatar>
-          <AvatarImage src="" alt={item.my_clients} />
+          <AvatarImage
+            src=""
+            alt={`${item.first_name[0]}${item.last_name[0]}`}
+          />
           <AvatarFallback
             className={` ${
               selected ? "bg-[#2E5257] text-white" : "font-normal"
             }`}
           >
-            {item.my_clients
-              .split(" ")
-              .map((word) => word[0])
-              .join("")
-              .substring(0, 2)
-              .toUpperCase()}
+            {`${item.first_name[0]}${item.last_name[0]}`.toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        {item.my_clients}
+        {item.first_name} {item.last_name}
       </TableCell>
 
       {/* Login Date & Time */}
       <TableCell>
         <div className="flex">
-          <p>{item.last_login_date_time}</p>
+          <p>{item.last_logged_in}</p>
         </div>
       </TableCell>
 
@@ -122,7 +132,7 @@ export default function TableComponent({
               : "bg-[#F3F4F6] text-gray-800"
           }`}
         >
-          {item.tier}
+          {item.level}
         </div>
       </TableCell>
 
@@ -139,10 +149,10 @@ export default function TableComponent({
       <TableCell className="">{item.realised_profit_loss}</TableCell>
 
       {/* Percent Profit Loss */}
-      <TableCell className="">{item.percent_profit_loss}</TableCell>
+      <TableCell className="">{item.profit_loss_percentage}</TableCell>
 
       {/* My Commission Annual */}
-      <TableCell className="">{item.my_commission_annual}</TableCell>
+      <TableCell className="">{item.annual_commission_rate}</TableCell>
     </TableRow>
   );
 

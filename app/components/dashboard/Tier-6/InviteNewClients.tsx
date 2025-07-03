@@ -10,6 +10,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -52,11 +53,13 @@ export default function InviteNewClients() {
               </div>
             </DialogTrigger>
             <DialogContent>
-              <DialogTitle>Invitation Sent</DialogTitle>
-              <DialogDescription>
-                The invitation was sent successfully! Please wait for the user
-                to accept the invite.
-              </DialogDescription>
+              <DialogHeader>
+                <DialogTitle>Invitation Sent</DialogTitle>
+                <DialogDescription>
+                  The invitation was sent successfully! Please wait for the user
+                  to accept the invite.
+                </DialogDescription>
+              </DialogHeader>
             </DialogContent>
           </Dialog>
         </div>

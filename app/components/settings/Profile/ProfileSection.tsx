@@ -9,6 +9,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -207,22 +208,24 @@ export default function ProfileSection() {
         </Dialog>
       </div>
       <div>
-        <Label className="text-[14px]">{user_profile.level}</Label>
+        <Label className="text-[14px]">{user_profile.level.name}</Label>
       </div>
       <Dialog open={response} onOpenChange={setResponse}>
         <DialogContent>
-          <DialogTitle
-            className={`${isSuccess ? "text-[#055E45]" : "text-[#8B1D24]"}`}
-          >
-            {isSuccess
-              ? "Profile Picture Updated"
-              : "Profile Picture Update Failed"}
-          </DialogTitle>
-          <DialogDescription>
-            {isSuccess
-              ? "Your profile picture has been changed successfully."
-              : "Something went wrong while updating your profile picture. Please try again."}
-          </DialogDescription>
+          <DialogHeader>
+            <DialogTitle
+              className={`${isSuccess ? "text-[#055E45]" : "text-[#8B1D24]"}`}
+            >
+              {isSuccess
+                ? "Profile Picture Updated"
+                : "Profile Picture Update Failed"}
+            </DialogTitle>
+            <DialogDescription>
+              {isSuccess
+                ? "Your profile picture has been changed successfully."
+                : "Something went wrong while updating your profile picture. Please try again."}
+            </DialogDescription>
+          </DialogHeader>
         </DialogContent>
       </Dialog>
     </div>

@@ -29,7 +29,7 @@ export default function Dashboard() {
               <TierFour></TierFour>
             </div>
           </div>
-          <div className="w-[30%] h-full flex tier-5-cont">
+          <div className="w-[49%] h-full flex tier-5-cont">
             {/* Recent Referrals */}
             <TierFive></TierFive>
           </div>

@@ -11,15 +11,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "@/app/globals.css";
 import TierFiveTable from "./tier-five-table";
 import { useRouter } from "next/navigation";
 import SpinnerIcon from "@/app/images/Spinner";
+import { getCSRF, getLeaderboard, getMyReferrals } from "@/lib/services/getData";
+import { useUserContext } from "@/app/context/UserContext";
 
 export default function TierFour() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { setUserDetails, affiliated_leaderboard } = useUserContext();
 
   const navigateReferral = () => {
     setLoading(true);
@@ -27,6 +30,22 @@ export default function TierFour() {
       router.push("/dashboard/referrals");
     }, 3000);
   };
+
+  useEffect(() => {
+    const fetchAffilicated = async () => {
+      try {
+        const responseCSRF = await getCSRF();
+        const responseAffilicated = await getLeaderboard();
+        setUserDetails({
+          affiliated_leaderboard: responseAffilicated.data.results,
+        });
+      } catch (error) {}
+    };
+
+    fetchAffilicated();
+  });
+
+  console.log(affiliated_leaderboard)
 
   return (
     <Card className="m-0 p-0 w-full h-full flex ">
@@ -46,8 +65,8 @@ export default function TierFour() {
             </Select>
           </div>
           <div className="w-full h-[80%] relative flex overflow-x-auto ">
-            <div className="absolute w-full h-full flex">
-              <TierFiveTable />
+            <div className="absolute w-full h-full flex px-4">
+              <TierFiveTable affiliated_data={affiliated_leaderboard} />
             </div>
           </div>
         </div>

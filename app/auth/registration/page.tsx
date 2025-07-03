@@ -22,6 +22,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import SpinnerIcon from "@/app/images/Spinner";
@@ -194,13 +195,15 @@ export default function RegisterForm() {
         <>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
-              <DialogTitle>Registration Successful</DialogTitle>
-              <DialogDescription className="flex items-center gap-2">
-                <div className="h-full w-5 flex items-center">
-                  <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
-                </div>
-                Success! Your registration is confirmed. Redirecting...
-              </DialogDescription>
+              <DialogHeader>
+                <DialogTitle>Registration Successful</DialogTitle>
+                <DialogDescription className="flex items-center gap-2">
+                  <div className="h-full w-5 flex items-center">
+                    <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+                  </div>
+                  Success! Your registration is confirmed. Redirecting...
+                </DialogDescription>
+              </DialogHeader>
             </DialogContent>
           </Dialog>
         </>

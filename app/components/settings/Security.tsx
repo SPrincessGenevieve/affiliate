@@ -5,6 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import {
@@ -84,16 +85,19 @@ export default function Security() {
     <div className="w-full h-full flex flex-col items-center  justify-between">
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
-          <DialogTitle
-            className={`${!isSuccess ? "text-[#8B1D24]" : "text-[#055E45]"}`}
-          >
-            {!isSuccess ? "Update Failed" : "Updated Password"}
-          </DialogTitle>
-          <DialogDescription>
-            {isSuccess
-              ? "Your password has been updated successfully."
-              : message || "Please check your current password and try again."}
-          </DialogDescription>
+          <DialogHeader>
+            <DialogTitle
+              className={`${!isSuccess ? "text-[#8B1D24]" : "text-[#055E45]"}`}
+            >
+              {!isSuccess ? "Update Failed" : "Updated Password"}
+            </DialogTitle>
+            <DialogDescription>
+              {isSuccess
+                ? "Your password has been updated successfully."
+                : message ||
+                  "Please check your current password and try again."}
+            </DialogDescription>
+          </DialogHeader>
         </DialogContent>
       </Dialog>
 

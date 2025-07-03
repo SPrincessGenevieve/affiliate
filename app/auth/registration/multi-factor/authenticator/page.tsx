@@ -16,6 +16,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
 import AudioInstruction from "@/app/components/AudioInstruction";
@@ -47,12 +48,15 @@ export default function Authenticator() {
   return (
     <div className="w-full h-full flex flex-col justify-evenly multi-cont overflow-auto">
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogTitle>Registration Successful</DialogTitle>
-          <DialogDescription>
-            Success! Your registration is confirmed. Redirecting to dashboard...
-          </DialogDescription>
-        </DialogContent>
+        <DialogHeader>
+          <DialogContent>
+            <DialogTitle>Registration Successful</DialogTitle>
+            <DialogDescription>
+              Success! Your registration is confirmed. Redirecting to
+              dashboard...
+            </DialogDescription>
+          </DialogContent>
+        </DialogHeader>
       </Dialog>
 
       <div className="w-full flex items-center justify-center p-4 ">

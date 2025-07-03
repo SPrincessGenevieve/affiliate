@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -284,14 +285,16 @@ export default function Profile() {
       </Form>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
-          <DialogTitle className={`${isFailed ? "text-red-500" : ""}`}>
-            {isFailed ? "Update Failed" : "Profile Updated"}
-          </DialogTitle>
-          <DialogDescription>
-            {isFailed
-              ? "Something went wrong while saving your profile."
-              : "Your profile information has been successfully updated."}
-          </DialogDescription>
+          <DialogHeader>
+            <DialogTitle className={`${isFailed ? "text-red-500" : ""}`}>
+              {isFailed ? "Update Failed" : "Profile Updated"}
+            </DialogTitle>
+            <DialogDescription>
+              {isFailed
+                ? "Something went wrong while saving your profile."
+                : "Your profile information has been successfully updated."}
+            </DialogDescription>
+          </DialogHeader>
         </DialogContent>
       </Dialog>
     </div>

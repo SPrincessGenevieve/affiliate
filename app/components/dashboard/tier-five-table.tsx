@@ -13,8 +13,14 @@ import { affiliate_leaderboard } from "@/lib/mock-data/affiliate_leaderboard";
 import { Label } from "@/components/ui/label";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { useUserContext } from "@/app/context/UserContext";
+import { AffiliateLeaderboardTypes } from "@/app/context/UserContext";
 
-export default function TierFiveTable() {
+interface AffiliatedProps {
+  affiliated_data: AffiliateLeaderboardTypes[];
+}
+
+export default function TierFiveTable({ affiliated_data }: AffiliatedProps) {
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
 
   return (
@@ -26,46 +32,18 @@ export default function TierFiveTable() {
             <div className="flex items-baseline h-full  gap-2">Rank</div>
           </TableHead>
           <TableHead>
-            {" "}
             <div className="flex items-baseline h-full  gap-2">My Clients</div>
           </TableHead>
           <TableHead>
-            {" "}
-            <div className="flex items-baseline h-full  gap-2">
-              Last Login Date/Time
-            </div>
+            <div className="flex items-baseline h-full  gap-2">AUM</div>
           </TableHead>
           <TableHead className="flex items-baseline h-full  gap-2">
-            Tier
-          </TableHead>
-          <TableHead>
-            <div className="flex items-baseline h-full  gap-2">
-              Market Value
-            </div>
-          </TableHead>
-          <TableHead>
-            <div className="flex items-baseline h-full  gap-2">Total Cases</div>
-          </TableHead>
-          <TableHead>
-            <div className="flex items-baseline h-full  gap-2">Cases Sold</div>
-          </TableHead>
-          <TableHead>
-            <div className="flex items-baseline h-full  gap-2">
-              Realised Profit/Loss
-            </div>
-          </TableHead>
-          <TableHead>
-            <div className="flex items-baseline h-full gap-2">%Profit/Loss</div>
-          </TableHead>
-          <TableHead>
-            <div className="flex items-baseline h-full gap-2">
-              My Commission<br></br>(Annual)
-            </div>
+            Annual Commission Rate
           </TableHead>
         </TableRow>
       </TableHeader>
       <TableBody className="">
-        {affiliate_leaderboard.slice(0, 5).map((item) => (
+        {affiliated_data.slice(0, 5).map((item) => (
           <TableRow
             key={item.rank}
             onClick={() => setSelectedRow(item.rank)}
@@ -93,7 +71,7 @@ export default function TierFiveTable() {
                     selectedRow === item.rank && "bg-[#2E5257] text-white"
                   }`}
                 >
-                  JW
+                  {`${item.affiliator[0]}`}
                 </AvatarFallback>
               </Avatar>
               <Label
@@ -102,41 +80,19 @@ export default function TierFiveTable() {
                   selectedRow === item.rank ? "font-bold" : "font-normal"
                 )}
               >
-                {item.my_clients}
+                {item.affiliator}
               </Label>
             </TableCell>
-            <TableCell>
-              <Label className="font-normal">{item.last_login_date_time}</Label>
-            </TableCell>
+
             <TableCell>
               <div className="flex">
-                <Label
-                  className={cn(
-                    "cursor-pointer font-normal text-center flex w-auto  rounded-full p-1 px-2 justify-center items-center  transition-colors ",
-                    item.rank === 1 ? "bg-[#C4AD93] text-white" : "bg-[#F3F4F6]"
-                  )}
-                >
-                  {item.tier}
-                </Label>
+                <Label className="">{item.aum}</Label>
               </div>
             </TableCell>
             <TableCell>
-              <Label className="font-normal">{item.market_value}</Label>
-            </TableCell>
-            <TableCell>
-              <Label className="font-normal">{item.total_cases}</Label>
-            </TableCell>
-            <TableCell>
-              <Label className="font-normal">{item.cases_sold}</Label>
-            </TableCell>
-            <TableCell>
-              <Label className="font-normal">{item.realised_profit_loss}</Label>
-            </TableCell>
-            <TableCell>
-              <Label className="font-normal">{item.percent_profit_loss}</Label>
-            </TableCell>
-            <TableCell>
-              <Label className="font-normal">{item.my_commission_annual}</Label>
+              <Label className="font-normal">
+                {item.annual_commission_rate}
+              </Label>
             </TableCell>
           </TableRow>
         ))}

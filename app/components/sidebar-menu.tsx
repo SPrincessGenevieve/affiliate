@@ -34,6 +34,10 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { setUserDetails, isOpen, user_profile } = useUserContext();
 
+  const lname = user_profile.last_name
+  const fname = user_profile.first_name
+  const full_name = fname + lname
+
   const handleCollapse = () => {
     const newCollapsed = !collapsed;
     setCollapsed(newCollapsed);
@@ -56,6 +60,7 @@ export function AppSidebar() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
 
   return (
     <div className="max-w-[245px] h-full relative">
@@ -107,13 +112,12 @@ export function AppSidebar() {
                 <Label
                   className={`text-black text-center text-[14px] font-medium w-full `}
                 >
-                  {user_profile.first_name} {user_profile.middle_name}{" "}
-                  {user_profile.last_name}
+                 {full_name}
                 </Label>
                 <p
                   className={`text-[12px] text-center font-normal text-gray-500 w-full `}
                 >
-                  {user_profile.level}
+                  {user_profile.level.name}
                 </p>
               </div>
             </div>
@@ -176,21 +180,6 @@ export function AppSidebar() {
               </SidebarGroupContent>
             </SidebarGroup>
           </SidebarContent>
-          {/* {!collapsed && (
-          <div className="p-4">
-            <div className="bg-[#F9FAFB] rounded-[5px] p-2  flex flex-col gap-2">
-              <Label className="w-full flex text-[14px] justify-center items-center">
-                Need Help?
-              </Label>
-              <Label className="w-full text-gray-500 flex font-normal text-[12px]">
-                Contact your dedicated affiliate manager for assistance.
-              </Label>
-              <Button className="bg-transparent border text-[#2E5257] border-[#2E5257] hover:bg-[#2E5257] hover:text-white">
-                Schedule Call
-              </Button>
-            </div>
-          </div>
-        )} */}
         </CardContent>
       </Card>
     </div>

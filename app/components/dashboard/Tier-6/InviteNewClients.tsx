@@ -14,10 +14,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useUserContext } from "@/app/context/UserContext";
 
 import "@/app/globals.css";
+import CopyInput from "@/components/ui/copt-input";
 
 export default function InviteNewClients() {
+  const { user_profile } = useUserContext();
+  const invitation_link = user_profile.user_referral_detail.referral_link;
   return (
     <Card className="p-0 m-0 w-full">
       <CardContent className="m-0 p-0">
@@ -44,7 +48,14 @@ export default function InviteNewClients() {
               <Input className="pl-5" placeholder="Amount"></Input>
             </div>
           </div>
+          <div className="flex justify-center items-center flex-col gap-2">
+          <div className="flex items-start w-full">
+            <Label className="text-gray-600">Referral Link</Label>
+          </div>
+          <CopyInput copy_value={invitation_link}></CopyInput>
         </div>
+        </div>
+        
         <div className="w-full p-4">
           <Dialog>
             <DialogTrigger className="w-full">

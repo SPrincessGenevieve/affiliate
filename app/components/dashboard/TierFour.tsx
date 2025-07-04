@@ -16,8 +16,21 @@ import "@/app/globals.css";
 import TierFiveTable from "./tier-five-table";
 import { useRouter } from "next/navigation";
 import SpinnerIcon from "@/app/images/Spinner";
-import { getCSRF, getLeaderboard, getMyReferrals } from "@/lib/services/getData";
+import {
+  getCSRF,
+  getLeaderboard,
+  getMyReferrals,
+} from "@/lib/services/getData";
 import { useUserContext } from "@/app/context/UserContext";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Leaderboard from "./Tier-4/Leaderboard";
 
 export default function TierFour() {
   const router = useRouter();
@@ -45,7 +58,7 @@ export default function TierFour() {
     fetchAffilicated();
   });
 
-  console.log(affiliated_leaderboard)
+  console.log(affiliated_leaderboard);
 
   return (
     <Card className="m-0 p-0 w-full h-full flex ">
@@ -66,20 +79,29 @@ export default function TierFour() {
           </div>
           <div className="w-full h-[80%] relative flex overflow-x-auto ">
             <div className="absolute w-full h-full flex px-4">
-              <TierFiveTable affiliated_data={affiliated_leaderboard} />
+              <TierFiveTable
+                sliceCount={5}
+                affiliated_data={affiliated_leaderboard}
+              />
             </div>
           </div>
         </div>
         <Separator></Separator>
         <div className="h-[10%] w-full flex items-center justify-center">
-          <Button
-            onClick={navigateReferral}
-            variant={"ghost"}
-            className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer"
-          >
-            {loading && <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>}
-            View Full Leaderboard
-          </Button>
+          <Dialog>
+            <DialogTrigger className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer">
+              View Full Leaderboard
+            </DialogTrigger>
+            <DialogContent className="w-full h-[70%] min-w-[40%] overflow-auto">
+              <DialogHeader>
+                <DialogTitle>Leaderboard</DialogTitle>
+                <DialogDescription>
+                  Browse the current top performers and their stats.
+                </DialogDescription>
+                <Leaderboard></Leaderboard>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
         </div>
       </CardContent>
     </Card>

@@ -18,7 +18,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { commission_trend } from "@/lib/mock-data/commission_trend";
+import { useUserContext } from "@/app/context/UserContext";
 
 export const description = "An interactive area chart";
 
@@ -30,28 +30,56 @@ const chartConfig = {
     label: "Vintage",
     color: "#8466C5",
   },
-  rare: {
-    label: "Rare",
+  value: {
+    label: "Value",
     color: "#8466C5",
   },
 } satisfies ChartConfig;
 
-export function CommissionChart() {
-  const [timeRange, setTimeRange] = React.useState("90d");
+interface CommissionChartProps {
+  timeRange: string;
+}
+
+export function CommissionChart({ timeRange }: CommissionChartProps) {
+  const { user_profile } = useUserContext();
+  const commission_trend = user_profile.commission_trend;
 
   const filteredData = commission_trend.filter((item) => {
     const date = new Date(item.date);
-    const referenceDate = new Date("2024-06-30");
+    const referenceDate = new Date("2024-06-30"); // You can replace this with new Date() if needed
+
     let daysToSubtract = 90;
-    if (timeRange === "30d") {
+    if (timeRange === "Monthly") {
       daysToSubtract = 30;
-    } else if (timeRange === "7d") {
-      daysToSubtract = 7;
+    } else if (timeRange === "Quarterly") {
+      daysToSubtract = 90;
+    } else if (timeRange === "Yearly") {
+      daysToSubtract = 365;
     }
+
     const startDate = new Date(referenceDate);
     startDate.setDate(startDate.getDate() - daysToSubtract);
     return date >= startDate;
   });
+
+  const CustomTick = ({ x, y, payload }: any) => {
+    return (
+      <text
+        x={x}
+        y={y}
+        transform={`rotate(-30, ${x}, ${y})`}
+        textAnchor="end"
+        fontSize={10}
+        dy={1}
+      >
+        {new Date(payload.value).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })}
+      </text>
+    );
+  };
 
   return (
     <div className="w-full">
@@ -73,15 +101,15 @@ export function CommissionChart() {
                 stopOpacity={0.1}
               />
             </linearGradient>
-            <linearGradient id="fillRare" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
               <stop
                 offset="5%"
-                stopColor="var(--color-rare)"
+                stopColor="var(--color-value)"
                 stopOpacity={0.8}
               />
               <stop
                 offset="95%"
-                stopColor="var(--color-rare)"
+                stopColor="var(--color-value)"
                 stopOpacity={0.1}
               />
             </linearGradient>
@@ -91,15 +119,9 @@ export function CommissionChart() {
             dataKey="date"
             tickLine={false}
             axisLine={false}
-            tickMargin={8}
-            minTickGap={32}
-            tickFormatter={(value) => {
-              const date = new Date(value);
-              return date.toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-              });
-            }}
+            tick={<CustomTick />}
+            minTickGap={16}
+            tickMargin={-3}
           />
           <ChartTooltip
             cursor={false}
@@ -116,14 +138,12 @@ export function CommissionChart() {
             }
           />
           <Area
-            dataKey="rare"
+            dataKey="value"
             type="natural"
-            fill="url(#fillRare)"
-            stroke="var(--color-rare)"
+            fill="url(#fillValue)"
+            stroke="var(--color-value)"
             stackId="a"
           />
-         
-          <ChartLegend content={<ChartLegendContent />} />
         </AreaChart>
       </ChartContainer>
     </div>

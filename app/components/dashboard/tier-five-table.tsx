@@ -18,11 +18,17 @@ import { AffiliateLeaderboardTypes } from "@/app/context/UserContext";
 
 interface AffiliatedProps {
   affiliated_data: AffiliateLeaderboardTypes[];
+  sliceCount?: number;
 }
 
-export default function TierFiveTable({ affiliated_data }: AffiliatedProps) {
+export default function TierFiveTable({
+  affiliated_data,
+  sliceCount,
+}: AffiliatedProps) {
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
-
+  const visibleRows = sliceCount
+    ? affiliated_data.slice(0, sliceCount)
+    : affiliated_data;
   return (
     <Table className="w-full">
       <TableCaption></TableCaption>
@@ -43,7 +49,7 @@ export default function TierFiveTable({ affiliated_data }: AffiliatedProps) {
         </TableRow>
       </TableHeader>
       <TableBody className="">
-        {affiliated_data.slice(0, 5).map((item) => (
+        {visibleRows.map((item) => (
           <TableRow
             key={item.rank}
             onClick={() => setSelectedRow(item.rank)}

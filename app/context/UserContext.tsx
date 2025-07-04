@@ -29,10 +29,40 @@ export type UserProfile = {
   profile_picture: string | null;
   birth_date: string | null;
   level: {
-    id: number | null;
+    level: number | null;
     name: string;
   };
   csrfToken: string;
+  commision_rate: number;
+  next_payment: number;
+  aum: number;
+  commission_trend: [
+    {
+      value: number;
+      date: string;
+    }
+  ];
+  aum_growth: [
+    {
+      value: number;
+      date: string;
+    }
+  ];
+  user_referral_detail: {
+    referral_code: string;
+    referral_link: string;
+    referral_clicks: number;
+    user_invites: number;
+    recent_referrals: [
+      {
+        user_id: number;
+        first_name: string;
+        last_name: string;
+        deposit_amount: string;
+        created_at: string;
+      }
+    ];
+  };
 };
 
 export type UserUpdate = {
@@ -95,11 +125,41 @@ const defaultUserContext: UserContextType = {
     phone_number: "",
     birth_date: null,
     level: {
-      id: null,
+      level: null,
       name: "",
     },
     profile_picture: null,
     csrfToken: "",
+    commision_rate: 0,
+    next_payment: 0,
+    aum: 0,
+    commission_trend: [
+      {
+        value: 0,
+        date: "",
+      },
+    ],
+    aum_growth: [
+      {
+        value: 0,
+        date: "",
+      },
+    ],
+    user_referral_detail: {
+      referral_code: "",
+      referral_link: "",
+      referral_clicks: 0,
+      user_invites: 0,
+      recent_referrals: [
+        {
+          user_id: 0,
+          first_name: "",
+          last_name: "",
+          deposit_amount: "",
+          created_at: "",
+        },
+      ],
+    },
   },
   my_referrals: [],
   my_referrals_total_pages: 1,

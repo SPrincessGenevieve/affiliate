@@ -22,6 +22,11 @@ import CopyInput from "@/components/ui/copt-input";
 export default function InviteNewClients() {
   const { user_profile } = useUserContext();
   const invitation_link = user_profile.user_referral_detail.referral_link;
+
+  const fullname = user_profile.first_name + " " + user_profile.last_name
+  const email = user_profile.email
+  const phone_num = user_profile.phone_number
+
   return (
     <Card className="p-0 m-0 w-full">
       <CardContent className="m-0 p-0">
@@ -31,15 +36,15 @@ export default function InviteNewClients() {
         <div className="flex flex-col p-4 gap-4">
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Client Name</Label>
-            <Input placeholder="Full Name"></Input>
+            <Input placeholder="Full Name" value={fullname}></Input>
           </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Email Address</Label>
-            <Input placeholder="client@email.com"></Input>
+            <Input placeholder="client@email.com" value={email}></Input>
           </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Phone Number (Optional)</Label>
-            <Input placeholder="+44 1234 567890"></Input>
+            <Input placeholder="+44 1234 567890" value={phone_num}></Input>
           </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Potential Investment</Label>

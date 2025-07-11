@@ -44,23 +44,23 @@ export function CommissionChart({ timeRange }: CommissionChartProps) {
   const { user_profile } = useUserContext();
   const commission_trend = user_profile.commission_trend;
 
-  const filteredData = commission_trend.filter((item) => {
-    const date = new Date(item.date);
-    const referenceDate = new Date("2024-06-30"); // You can replace this with new Date() if needed
+  function filterCommissionData(data: any[], timeRange: string) {
+    const referenceDate = new Date("2024-06-30"); // Or use `new Date()` for real-time
 
     let daysToSubtract = 90;
     if (timeRange === "Monthly") {
       daysToSubtract = 30;
-    } else if (timeRange === "Quarterly") {
-      daysToSubtract = 90;
     } else if (timeRange === "Yearly") {
       daysToSubtract = 365;
     }
 
     const startDate = new Date(referenceDate);
     startDate.setDate(startDate.getDate() - daysToSubtract);
-    return date >= startDate;
-  });
+
+    return data.filter((item) => new Date(item.date) >= startDate);
+  }
+
+  const filteredData = filterCommissionData(commission_trend, timeRange);
 
   const CustomTick = ({ x, y, payload }: any) => {
     return (

@@ -134,22 +134,22 @@ export default function Header() {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem
+                {/* <DropdownMenuItem
                   onClick={navigateSettings}
                   className="flex gap-2 "
                 >
                   <Label className="text-[12px] font-normal">
                     Profile Settings
                   </Label>
-                </DropdownMenuItem>
-                <DropdownMenuItem
+                </DropdownMenuItem> */}
+                {/* <DropdownMenuItem
                   onClick={navigateBilling}
                   className="flex gap-2 "
                 >
                   <Label className="text-[12px] font-normal">
                     Billing Information
                   </Label>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem onClick={handleOpen} className="flex gap-2 ">
                   <Label className="text-[12px] font-normal">
                     Help & Support

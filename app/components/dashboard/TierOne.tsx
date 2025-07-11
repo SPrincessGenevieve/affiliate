@@ -1,10 +1,13 @@
+"use client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Circle } from "lucide-react";
 import React from "react";
-import "@/app/globals.css"
+import "@/app/globals.css";
+import { useUserContext } from "@/app/context/UserContext";
 
 export default function TierOne() {
+  const { user_profile } = useUserContext();
   return (
     <div className="flex gap-4 w-full tier-one-cont">
       <Card className="w-full">
@@ -21,11 +24,13 @@ export default function TierOne() {
               <Label className="font-normal text-gray-600">
                 Commission Rate
               </Label>
-              <Label className="font-bold text-2xl text-[#2E5257]">1.0%</Label>
+              <Label className="font-bold text-2xl text-[#2E5257]">
+                {user_profile.commision_rate}%
+              </Label>
             </div>
           </div>
           <div className="flex justify-between">
-            <Label className="font-normal text-gray-600">Next tier: 1.25%</Label>
+            <Label className="font-normal text-gray-600">Next tier: </Label>
             <Label className="font-normal text-green-500">£500K to go</Label>
           </div>
         </CardContent>
@@ -43,7 +48,7 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Next Payment</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                £2,500
+                £{user_profile.next_payment.toLocaleString()}
               </Label>
             </div>
           </div>
@@ -65,7 +70,9 @@ export default function TierOne() {
             </div>
             <div>
               <Label className="font-normal text-gray-600">Total Clients</Label>
-              <Label className="font-bold text-2xl text-[#2E5257]">42</Label>
+              <Label className="font-bold text-2xl text-[#2E5257]">
+                {user_profile.user_referral_detail.user_invites}
+              </Label>
             </div>
           </div>
           <div className="flex justify-between">
@@ -77,10 +84,11 @@ export default function TierOne() {
       <Card className="w-full">
         <CardContent className="flex flex-col gap-4">
           <div className="flex gap-2">
-           
             <div>
               <Label className="font-normal text-gray-600">Total AUM</Label>
-              <Label className="font-bold text-2xl text-[#2E5257]">£2.5M</Label>
+              <Label className="font-bold text-2xl text-[#2E5257]">
+                £{user_profile.aum.toLocaleString()}
+              </Label>
             </div>
           </div>
           <div className="flex justify-between">

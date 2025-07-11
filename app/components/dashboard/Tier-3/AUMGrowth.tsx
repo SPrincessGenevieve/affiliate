@@ -14,11 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
 import "@/app/globals.css";
-import { AUMGrowthChart } from "./AUMGrowthChart";
 import { useState } from "react";
-import { commission_trend } from "@/lib/mock-data/commission_trend";
 import {
   ChartConfig,
   ChartContainer,
@@ -26,32 +23,53 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { TrendingUp } from "lucide-react";
 import "@/app/globals.css";
+import { useUserContext } from "@/app/context/UserContext";
 
 const chartConfig = {
   vintage: {
     label: "Vintage",
     color: "#8466C5",
   },
-  rare: {
-    label: "Rare",
+  value: {
+    label: "Value",
     color: "#8466C5",
   },
 } satisfies ChartConfig;
 
 export default function AUMGrowth() {
+  const { user_profile } = useUserContext();
   const [monthRange, setMonthRange] = useState("6");
-  const filteredData = commission_trend.slice(-Number(monthRange));
+  const auth_growth = user_profile.aum_growth;
+  const filteredData = auth_growth.slice(-Number(monthRange));
+
+  const CustomTick = ({ x, y, payload }: any) => {
+    return (
+      <text
+        x={x}
+        y={y}
+        transform={`rotate(-30, ${x}, ${y})`}
+        textAnchor="end"
+        fontSize={10}
+        dy={1}
+      >
+        {new Date(payload.value).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })}
+      </text>
+    );
+  };
 
   return (
     <Card className="w-full h-full min-h-[400px] aum-cont">
-      <CardHeader className="border-b flex justify-between items-center">
-        <Label>AUM Growth</Label>
-        <div className="flex gap-2">
+      <CardHeader className=" border-b flex justify-between items-center py-1">
+        <Label className="text-[16px]">AUM Growth</Label>
+        <div className="flex gap-2 relative">
           <Select defaultValue="6" onValueChange={setMonthRange}>
-            <SelectTrigger className="w-[140px]">
-              <SelectValue />
+            <SelectTrigger className="w-[120px] pl-2 m-0 absolute -top-4 -right-2">
+              <SelectValue className="" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="12">Last 12 Months</SelectItem>
@@ -80,9 +98,11 @@ export default function AUMGrowth() {
                   dataKey="date"
                   tickLine={false}
                   axisLine={false}
-                  tickMargin={8}
-                  tickFormatter={(value) => value.slice(0, 3)}
+                  tick={<CustomTick />}
+                  minTickGap={16}
+                  tickMargin={-3}
                 />
+
                 <ChartTooltip
                   cursor={false}
                   content={<ChartTooltipContent />}
@@ -100,25 +120,25 @@ export default function AUMGrowth() {
                       stopOpacity={0.1}
                     />
                   </linearGradient>
-                  <linearGradient id="fillRare" x1="0" y1="0" x2="0" y2="1">
+                  <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
                     <stop
                       offset="5%"
-                      stopColor="var(--color-rare)"
+                      stopColor="var(--color-value)"
                       stopOpacity={0.8}
                     />
                     <stop
                       offset="95%"
-                      stopColor="var(--color-rare)"
+                      stopColor="var(--color-value)"
                       stopOpacity={0.1}
                     />
                   </linearGradient>
                 </defs>
                 <Area
-                  dataKey="rare"
+                  dataKey="value"
                   type="natural"
-                  fill="url(#fillRare)"
+                  fill="url(#fillValue)"
                   fillOpacity={0.4}
-                  stroke="var(--color-rare)"
+                  stroke="var(--color-value)"
                   stackId="a"
                 />
                 {/* <Area

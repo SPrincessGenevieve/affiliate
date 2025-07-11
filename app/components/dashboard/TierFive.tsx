@@ -9,8 +9,12 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import "@/app/globals.css";
 import SpinnerIcon from "@/app/images/Spinner";
+import { useUserContext } from "@/app/context/UserContext";
 
 export default function TierFive() {
+  const { user_profile } = useUserContext();
+  const recent_refferal = user_profile.user_referral_detail.recent_referrals;
+
   const formatToK = (amount: number) => {
     if (!amount) return "0";
     return `${Math.round(amount / 1000)}K`;
@@ -40,9 +44,11 @@ export default function TierFive() {
                   className="bg-[#F9FAFB]  min-h-10 flex w-full gap-2 items-center justify-between rounded-xl p-2"
                 >
                   <div className="flex flex-col gap-2">
-                    <Label className="text-[16px]">{item.name}</Label>
+                    <Label className="text-[16px] capitalize">
+                      {item.first_name} {item.last_name}
+                    </Label>
                     <div className="flex justify-between gap-4">
-                      <Label
+                      {/* <Label
                         className={` ${
                           item.status === "Approved"
                             ? "bg-[#D1FAE5] text-[#055E45]"
@@ -54,18 +60,24 @@ export default function TierFive() {
                         } rounded-3xl px-2 py-1 text-[12px] font-medium`}
                       >
                         {item.status}
-                      </Label>
+                      </Label> */}
                       <Label className="text-[12px] text-gray-400 font-normal">
-                        {item.date}
+                        {new Date(item.created_at).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
                       </Label>
                     </div>
                   </div>
                   <Label
                     className={`text-[20px]  ${
-                      item.amount <= 0 ? "text-gray-400" : "text-[#2E5257]"
+                      Number(item.deposit_amount) <= 0
+                        ? "text-gray-400"
+                        : "text-[#2E5257]"
                     } font-bold`}
                   >
-                    £{formatToK(item.amount)}
+                    £{formatToK(Number(item.deposit_amount))}
                   </Label>
                 </div>
               ))}

@@ -12,8 +12,8 @@ export default function CommissionTrend() {
   const [selected, setSelected] = useState<string>("Quarterly");
 
   return (
-    <Card className="w-full min-h-[400px]">
-      <CardHeader className="border-b flex justify-between items-center flex-wrap">
+    <Card className=" w-full min-h-[400px]">
+      <CardHeader className="relative border-b flex justify-between items-center flex-wrap">
         <Label className="text-[16px]">Commission Trend</Label>
         <div className="flex gap-2 flex-wrap">
           {filter.map((item, index) => (
@@ -34,7 +34,7 @@ export default function CommissionTrend() {
       <CardContent className="relative p-0 m-0 flex flex-col gap-4 w-full h-full">
         <div className="w-full h-full relative flex overflow-x-auto ">
           <div className="absolute w-full h-full flex">
-            <CommissionChart></CommissionChart>
+            <CommissionChart timeRange={selected} />
           </div>
         </div>
       </CardContent>

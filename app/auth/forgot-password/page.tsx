@@ -9,9 +9,7 @@ import { useRouter } from "next/navigation";
 import Logo from "@/app/images/logo.png";
 import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
-import { postResetPassword } from "@/lib/services/postData";
 import { toast } from "sonner";
-import { getCSRF } from "@/lib/services/getData";
 
 export default function ForgotPassword() {
   const router = useRouter();

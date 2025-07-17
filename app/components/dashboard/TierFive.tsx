@@ -10,10 +10,11 @@ import { useRouter } from "next/navigation";
 import "@/app/globals.css";
 import SpinnerIcon from "@/app/images/Spinner";
 import { useUserContext } from "@/app/context/UserContext";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function TierFive() {
   const { user_profile } = useUserContext();
-  const recent_refferal = user_profile.user_referral_detail.recent_referrals;
+  // const recent_refferal = user_profile.user_referral_detail.recent_referrals;
 
   const formatToK = (amount: number) => {
     if (!amount) return "0";
@@ -38,7 +39,7 @@ export default function TierFive() {
           <Separator></Separator>
           <ScrollArea className="h-screen max-h-[340px]  p-4 flex flex-col gap-2">
             <div className="w-full flex flex-col gap-4">
-              {recent_refferal.map((item, index) => (
+              {/* {recent_refferal.map((item, index) => (
                 <div
                   key={index}
                   className="bg-[#F9FAFB]  min-h-10 flex w-full gap-2 items-center justify-between rounded-xl p-2"
@@ -48,19 +49,6 @@ export default function TierFive() {
                       {item.first_name} {item.last_name}
                     </Label>
                     <div className="flex justify-between gap-4">
-                      {/* <Label
-                        className={` ${
-                          item.status === "Approved"
-                            ? "bg-[#D1FAE5] text-[#055E45]"
-                            : item.status === "Rejected"
-                            ? "bg-[#FEE2E2] text-[#B91C1C]"
-                            : item.status === "Pending"
-                            ? "bg-[#C4AD93] text-[#fff]"
-                            : ""
-                        } rounded-3xl px-2 py-1 text-[12px] font-medium`}
-                      >
-                        {item.status}
-                      </Label> */}
                       <Label className="text-[12px] text-gray-400 font-normal">
                         {new Date(item.created_at).toLocaleDateString("en-US", {
                           month: "short",
@@ -80,13 +68,25 @@ export default function TierFive() {
                     £{formatToK(Number(item.deposit_amount))}
                   </Label>
                 </div>
-              ))}
+              ))} */}
+              <div className="h-full w-full flex flex-col items-center justify-center">
+                <DotLottieReact
+                  src="/maintenance.lottie"
+                  loop
+                  autoplay
+                ></DotLottieReact>
+                <Label className="text-center">
+                  This feature is currently under development. Please check back
+                  soon!
+                </Label>
+              </div>
             </div>
           </ScrollArea>
         </div>
         <Separator></Separator>
         <div className="w-full h-[10%]">
           <Button
+            disabled
             onClick={navigateReferral}
             variant={"ghost"}
             className="text-[#2E5257] font-normal h-10 w-full hover:underline cursor-pointer"

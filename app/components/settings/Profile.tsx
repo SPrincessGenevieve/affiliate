@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/form";
 import PhoneInput from "../PhoneInput";
 import { patchUser } from "@/lib/services/patchData";
-import { getCSRF } from "@/lib/services/getData";
 import { format } from "date-fns";
 import SpinnerIcon from "@/app/images/Spinner";
 import { Button } from "@/components/ui/button";
@@ -108,8 +107,6 @@ export default function Profile() {
     }
     setLoading(true);
     try {
-      const responseCSRF = await getCSRF();
-      const csrfToken = responseCSRF?.data?.csrfToken;
       const formattedBirthDate = data.birthDate
         ? format(data.birthDate, "yyyy-MM-dd")
         : null;
@@ -120,7 +117,6 @@ export default function Profile() {
         phone_number: data.phoneNumber,
         birth_date: formattedBirthDate,
         profile_picture: null,
-        csrfToken: csrfToken,
       });
 
       setUserDetails({

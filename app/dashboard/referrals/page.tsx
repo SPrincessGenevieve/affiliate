@@ -4,7 +4,7 @@ import TableComponent from "@/app/components/TableComponent";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { affiliate_leaderboard } from "@/lib/mock-data/affiliate_leaderboard";
-import { getCSRF, getMyReferrals } from "@/lib/services/getData";
+import { getMyReferrals } from "@/lib/services/getData";
 import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "@/app/context/UserContext";
@@ -27,7 +27,7 @@ type Filters = {
 };
 
 export default function MyReferrals() {
-  const { setUserDetails, my_referrals, my_referrals_current_page } =
+  const { setUserDetails, sessionkey, my_referrals, my_referrals_current_page } =
     useUserContext();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -36,9 +36,8 @@ export default function MyReferrals() {
     setIsLoading(true);
     const fetchMyReferral = async () => {
       try {
-        const responseCSRF = await getCSRF();
         const responseMyReferrals = await getMyReferrals(
-          my_referrals_current_page
+          my_referrals_current_page, sessionkey
         );
 
         setUserDetails({

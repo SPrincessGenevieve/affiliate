@@ -19,8 +19,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { getCSRF } from "@/lib/services/getData";
-import { postChangePassword } from "@/lib/services/postData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageSquare, Smartphone } from "lucide-react";
 import React, { useState } from "react";
@@ -60,13 +58,10 @@ export default function Security() {
   const handleUpdatePassword = async (data: FormData) => {
     setLoading(true);
     try {
-      const responseCSRF = await getCSRF();
-      const csrfToken = responseCSRF?.data?.csrfToken;
       const responseUpdate = await postChangePassword(
         data.currentPass,
         data.password1,
         data.password2,
-        csrfToken
       );
       setOpen(true);
       setIsSuccess(true);

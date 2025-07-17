@@ -1,31 +1,32 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Copy, Check } from "lucide-react"; // icons
-import { cn } from "@/lib/utils"; // if you're using ShadCN's `cn` utility
+import { Copy, Check } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-interface CopyInput {
-  copy_value: string;
+interface CopyInputProps {
+  full_link: string; // e.g. full URL
 }
 
-export default function CopyInput({ copy_value }: CopyInput) {
-  const [value, setValue] = useState(copy_value);
+export default function CopyInput({ full_link }: CopyInputProps) {
+  // Extract code from the full_link
+  const code = new URL(full_link).searchParams.get("code") || "";
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(value).then(() => {
+    navigator.clipboard.writeText(full_link).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 1500); // reset after 1.5s
+      setTimeout(() => setCopied(false), 1500);
     });
   };
 
   return (
     <div className="flex items-center gap-2 w-full justify-center">
       <Input
-        value={value}
+        value={code}
         readOnly
         className={cn(
-          "w-[100%] transition-colors duration-300",
+          "w-full transition-colors duration-300",
           copied ? "border-[#2E5257] ring-1 ring-[#2E5257]" : ""
         )}
       />

@@ -4,7 +4,6 @@ import api from "../axiosAuth";
 export const patchUser = (data: UserUpdate) =>
   api.patch("/api/v1/base/user", data, {
     headers: {
-      "X-CSRFToken": data.csrfToken,
       "Content-Type": "multipart/form-data",
     },
     withCredentials: true,

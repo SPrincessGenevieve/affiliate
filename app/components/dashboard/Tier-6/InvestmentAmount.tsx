@@ -21,10 +21,10 @@ export default function InvestmentAmount() {
         <Label className="text-[16px] px-4 p-5">Commission Calculator</Label>
         <Separator></Separator>
         <div className="flex flex-col p-4 gap-4">
-          <div className="flex flex-col gap-2">
+          {/* <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Investment Amount (£)</Label>
             <Input placeholder=""></Input>
-          </div>
+          </div> */}
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Your Commission Rate</Label>
             <Select defaultValue="1.0">

@@ -11,7 +11,6 @@ import Link from "next/link";
 import { useState } from "react";
 import SpinnerIcon from "@/app/images/Spinner";
 import { postLogin } from "@/lib/services/postData";
-import { getCSRF } from "@/lib/services/getData";
 import { toast } from "sonner";
 import { useUserContext } from "@/app/context/UserContext";
 
@@ -28,11 +27,10 @@ export default function SignIn() {
   const handleSignIn = async () => {
     setLoading(true);
     try {
-      const responseCSRF = await getCSRF();
-      const csrfToken = responseCSRF?.data?.csrfToken;
-      const responseLogin = await postLogin(email, password, csrfToken);
+      const responseLogin = await postLogin(email, password);
       setSuccess("Successfully logged in.");
       setUserDetails({
+        sessionkey: responseLogin.data.key,
         isLoggedIn: true,
       });
       SuccessLogin(router);
@@ -104,7 +102,6 @@ export default function SignIn() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           ></Input>
-          
         </div>
         <div className="flex flex-col gap-2">
           <Label className="font-normal">Password</Label>

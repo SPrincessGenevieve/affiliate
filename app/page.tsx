@@ -7,18 +7,16 @@ import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import SpinnerIcon from "./images/Spinner";
 import { postLogin } from "@/lib/services/postData";
-import { getCSRF } from "@/lib/services/getData";
 import { toast } from "sonner";
 import { useUserContext } from "./context/UserContext";
+import { getUser } from "@/lib/services/getData";
 
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [loadingForgotPass, setLoadingForgotPass] = useState(false);
   const { setUserDetails } = useUserContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,16 +26,21 @@ export default function Home() {
   const handleSignIn = async () => {
     setLoading(true);
     try {
-      const responseCSRF = await getCSRF();
-      const csrfToken = responseCSRF?.data?.csrfToken;
-      const responseLogin = await postLogin(email, password, csrfToken);
+      const responseLogin = await postLogin(email, password);
       setSuccess("Successfully logged in.");
+
+      const responseAffiliateUser = await getUser(responseLogin.data.key);
       setUserDetails({
         isLoggedIn: true,
+        sessionkey: responseLogin.data.key,
+        user_profile: responseAffiliateUser.data.detail,
       });
+
+      console.log(responseAffiliateUser.data.detail);
       SuccessLogin(router);
     } catch (err: any) {
       const nonFieldErrors = err?.response?.data?.non_field_errors[0];
+      const errorFallout = err?.message;
       setError(nonFieldErrors || "Invalid email or password");
       toast.custom(
         (t) => (
@@ -46,7 +49,9 @@ export default function Home() {
               Login Failed!
             </div>
             <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              {nonFieldErrors || "Unable to log in with provided credentials."}
+              {nonFieldErrors ||
+                errorFallout ||
+                "Unable to log in with provided credentials."}
             </div>
           </div>
         ),
@@ -79,11 +84,6 @@ export default function Home() {
     setTimeout(() => {
       router.replace("/dashboard");
     }, 500);
-  };
-
-  const handleForgotPassword = () => {
-    // setLoadingForgotPass(true);
-    router.push("/auth/forgot-password");
   };
 
   return (
@@ -124,29 +124,11 @@ export default function Home() {
           />
         </div>
 
-        <div>
-          <Button
-            variant={"ghost"}
-            type="button"
-            onClick={handleForgotPassword}
-            className="font-light p-0 text-left gap-2 flex items-center justify-center"
-          >
-            {loadingForgotPass && (
-              <div className="w-5 h-full flex items-center">
-                <SpinnerIcon strokeColor="#2E5257" />
-              </div>
-            )}
-            Forgot Password?
-          </Button>
-        </div>
+        <div></div>
 
         <Button type="submit" className="bg-[#2E5257]">
           {loading && <SpinnerIcon strokeColor="white" />} Login <ArrowRight />
         </Button>
-
-        <Link href={"/auth/registration"} className="font-light text-center">
-          You do not have an account yet? Create an account here.
-        </Link>
       </form>
     </div>
   );

@@ -6,69 +6,113 @@ import { Label } from "@/components/ui/label";
 import { Dot } from "lucide-react";
 import React from "react";
 import "@/app/globals.css";
+import { useUserContext } from "@/app/context/UserContext";
+import { format } from "date-fns";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 export default function TrainingResources() {
+  const { events } = useUserContext();
+  const total_event = events.length
   return (
     <Card className="p-0 m-0 w-full">
       <CardContent className="m-0 p-0">
         <Label className="text-[16px] px-4 p-5">Training & Resources</Label>
         <div className="px-4 flex flex-col gap-4">
-          <div className="flex rounded-xl items-start p-4 gap-4 bg-[#F9FAFB]">
-            <div className="w-[30px] ">
-              <div className="bg-[#DBEAFE] w-4 h-4 rounded-[2px]"></div>
+          {events.slice(0, 3).map((item, index) => (
+            <div className="flex rounded-xl items-center justify-between p-4 gap-4 bg-[#F9FAFB]">
+              <div className="flex items-center justify-center">
+                <div className="w-[30px] ">
+                  <div
+                    className={`${
+                      item.status === "expired"
+                        ? "bg-[#ff000048]"
+                        : "bg-[#74e6c060]"
+                    } w-4 h-4 rounded-[2px]`}
+                  ></div>
+                </div>
+
+                <div className="flex flex-col ">
+                  <Label className="text-gray-600 text-[16px]">
+                    {item.name}
+                  </Label>
+                  <Label className="text-gray-400 text-[12px]">
+                    {format(new Date(item.date), "MMMM dd, yyyy")}
+                  </Label>
+
+                  <Label className="flex items-center text-[12px] ">
+                    <span className="text-[#10B981]">Total Participants</span>{" "}
+                    <Dot></Dot> {item.total_participants}
+                  </Label>
+                </div>
+              </div>
+              <div>
+                <Label
+                  className={`capitalize ${
+                    item.status === "expired" ? "text-[red]" : "text-[black]"
+                  }`}
+                >
+                  {item.status}
+                </Label>
+              </div>
             </div>
-            <div className="flex flex-col ">
-              <Label className="text-gray-600 text-[16px]">
-                New Advisor Onboarding
-              </Label>
-              <Label className="text-gray-400 text-[12px]">
-                Learn the essentials of our platform and products
-              </Label>
-              <Label className="flex items-center text-[12px] ">
-                <span className="text-[#10B981]">Certificate Available</span>{" "}
-                <Dot></Dot> 45 min
-              </Label>
-            </div>
-          </div>
-          <div className="flex rounded-xl justify-baseline items-start p-4 gap-4 bg-[#F9FAFB]">
-            <div className="w-[30px] ">
-              <div className="bg-[#D1FAE5] w-4 h-4 rounded-[2px]"></div>
-            </div>
-            <div className="flex flex-col ">
-              <Label className="text-gray-600 text-[16px]">
-                2025 Product Guide
-              </Label>
-              <Label className="text-gray-400 text-[12px]">
-                Complete overview of our investment products
-              </Label>
-              <Label className="flex items-center text-[12px] ">
-                <span className="text-[#2563EB]">PDF Download</span> <Dot></Dot>{" "}
-                Updated February 2025
-              </Label>
-            </div>
-          </div>
-          <div className="flex rounded-xl justify-baseline items-start p-4 gap-4 bg-[#F9FAFB]">
-            <div className="w-[30px] ">
-              <div className="bg-[#EDE9FE] w-4 h-4 rounded-[2px]"></div>
-            </div>
-            <div className="flex flex-col ">
-              <Label className="text-gray-600 text-[16px]">
-                Upcoming Webinar
-              </Label>
-              <Label className="text-gray-400 text-[12px]">
-                Market Outlook Q2 2025
-              </Label>
-              <Label className="flex items-center text-[12px] ">
-                <span className="text-[red]">Live Event</span> <Dot></Dot> March
-                15, 2025
-              </Label>
-            </div>
-          </div>
+          ))}
         </div>
         <div className="w-full p-4">
-          <Button className="w-full hover:bg-[#2E5257] hover:text-white bg-transparent text-[#2E5257] border border-[#2E5257]">
-            Browse All Resources
-          </Button>
+          <Dialog>
+            <DialogTrigger className="w-full hover:bg-[#2E5257] hover:text-white bg-transparent text-[#2E5257] border border-[#2E5257] rounded-[10px] h-10 flex items-center justify-center">
+              <Label>Browse All Resources</Label>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Training & Resources ({total_event})</DialogTitle>
+                <DialogDescription></DialogDescription>
+              </DialogHeader>
+              <div className="px-4 flex flex-col gap-4 overflow-auto">
+                {events.map((item, index) => (
+                  <div className="flex rounded-xl items-center justify-between p-4 gap-4 bg-[#F9FAFB]">
+                    <div className="flex items-center justify-center">
+                      <div className="w-[30px] ">
+                        <div
+                          className={`${
+                            item.status === "expired"
+                              ? "bg-[#ff000048]"
+                              : "bg-[#74e6c060]"
+                          } w-4 h-4 rounded-[2px]`}
+                        ></div>
+                      </div>
+
+                      <div className="flex flex-col ">
+                        <Label className="text-gray-600 text-[16px]">
+                          {item.name}
+                        </Label>
+                        <Label className="text-gray-400 text-[12px]">
+                          {format(new Date(item.date), "MMMM dd, yyyy")}
+                        </Label>
+
+                        <Label className="flex items-center text-[12px] ">
+                          <span className="text-[#10B981]">
+                            Total Participants
+                          </span>{" "}
+                          <Dot></Dot> {item.total_participants}
+                        </Label>
+                      </div>
+                    </div>
+                    <div>
+                      <Label
+                        className={`capitalize ${
+                          item.status === "expired"
+                            ? "text-[red]"
+                            : "text-[black]"
+                        }`}
+                      >
+                        {item.status}
+                      </Label>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </CardContent>
     </Card>

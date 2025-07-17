@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
@@ -15,12 +14,7 @@ import React, { useEffect, useState } from "react";
 import "@/app/globals.css";
 import TierFiveTable from "./tier-five-table";
 import { useRouter } from "next/navigation";
-import SpinnerIcon from "@/app/images/Spinner";
-import {
-  getCSRF,
-  getLeaderboard,
-  getMyReferrals,
-} from "@/lib/services/getData";
+import { getLeaderboard } from "@/lib/services/getData";
 import { useUserContext } from "@/app/context/UserContext";
 import {
   Dialog,
@@ -31,6 +25,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Leaderboard from "./Tier-4/Leaderboard";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function TierFour() {
   const router = useRouter();
@@ -47,7 +42,6 @@ export default function TierFour() {
   useEffect(() => {
     const fetchAffilicated = async () => {
       try {
-        const responseCSRF = await getCSRF();
         const responseAffilicated = await getLeaderboard();
         setUserDetails({
           affiliated_leaderboard: responseAffilicated.data.results,
@@ -79,17 +73,35 @@ export default function TierFour() {
           </div>
           <div className="w-full h-[80%] relative flex overflow-x-auto ">
             <div className="absolute w-full h-full flex px-4">
-              <TierFiveTable
+              {/* <TierFiveTable
                 sliceCount={5}
                 affiliated_data={affiliated_leaderboard}
-              />
+              /> */}
+              <div className="h-full w-full flex flex-col items-center justify-center">
+                <DotLottieReact
+                  src="/maintenance.lottie"
+                  loop
+                  autoplay
+                  className="h-50"
+                ></DotLottieReact>
+                <Label className="text-center">
+                  This feature is currently under development. Please check back
+                  soon!
+                </Label>
+              </div>
             </div>
           </div>
         </div>
         <Separator></Separator>
         <div className="h-[10%] w-full flex items-center justify-center">
           <Dialog>
-            <DialogTrigger className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer">
+            {/* <DialogTrigger disabled className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer">
+              View Full Leaderboard
+            </DialogTrigger> */}
+            <DialogTrigger
+              disabled
+              className="text-[#2E5257] text-[14px] opacity-50 font-normal w-full h-10"
+            >
               View Full Leaderboard
             </DialogTrigger>
             <DialogContent className="w-full h-[70%] min-w-[40%] overflow-auto">

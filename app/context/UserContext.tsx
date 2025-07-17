@@ -25,14 +25,16 @@ export type UserProfile = {
   middle_name: string;
   last_name: string;
   email: string;
-  phone_number: string;
-  profile_picture: string | null;
-  birth_date: string | null;
   level: {
     level: number | null;
     name: string;
   };
-  csrfToken: string;
+  birth_date: string | null;
+  profile_picture: string | null;
+  phone_number: string;
+  referral_code: string;
+  referral_link: string;
+  referral_total_clicks: number;
   commision_rate: number;
   next_payment: number;
   aum: number;
@@ -48,21 +50,6 @@ export type UserProfile = {
       date: string;
     }
   ];
-  user_referral_detail: {
-    referral_code: string;
-    referral_link: string;
-    referral_clicks: number;
-    user_invites: number;
-    recent_referrals: [
-      {
-        user_id: number;
-        first_name: string;
-        last_name: string;
-        deposit_amount: string;
-        created_at: string;
-      }
-    ];
-  };
 };
 
 export type UserUpdate = {
@@ -72,7 +59,6 @@ export type UserUpdate = {
   phone_number: string;
   profile_picture: string | null;
   birth_date: string | null;
-  csrfToken: string;
 };
 
 export type MyReferralsTypes = {
@@ -99,8 +85,25 @@ export type AffiliateLeaderboardTypes = {
   annual_commission_rate: number;
 };
 
+export type EventTypes = {
+  pk: number;
+  name: string;
+  date: string;
+  status: string;
+  limit: number;
+  total_participants: number;
+  guests: [
+    {
+      id: number;
+      user: number;
+      participants: number;
+    }
+  ];
+};
+
 type UserContextType = {
   isOpen: boolean;
+  sessionkey: string;
   isLoggedIn: boolean | null;
   sessionid: string;
   activeSettingsTab: string;
@@ -109,12 +112,14 @@ type UserContextType = {
   affiliated_leaderboard: AffiliateLeaderboardTypes[];
   my_referrals_total_pages: number;
   my_referrals_current_page: number;
+  events: EventTypes[];
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
 const defaultUserContext: UserContextType = {
   isOpen: true,
   isLoggedIn: null,
+  sessionkey: "",
   sessionid: "",
   activeSettingsTab: "",
   user_profile: {
@@ -129,10 +134,12 @@ const defaultUserContext: UserContextType = {
       name: "",
     },
     profile_picture: null,
-    csrfToken: "",
     commision_rate: 0,
     next_payment: 0,
     aum: 0,
+    referral_code: "",
+    referral_link: "",
+    referral_total_clicks: 0,
     commission_trend: [
       {
         value: 0,
@@ -145,26 +152,12 @@ const defaultUserContext: UserContextType = {
         date: "",
       },
     ],
-    user_referral_detail: {
-      referral_code: "",
-      referral_link: "",
-      referral_clicks: 0,
-      user_invites: 0,
-      recent_referrals: [
-        {
-          user_id: 0,
-          first_name: "",
-          last_name: "",
-          deposit_amount: "",
-          created_at: "",
-        },
-      ],
-    },
   },
   my_referrals: [],
   my_referrals_total_pages: 1,
   my_referrals_current_page: 1,
   affiliated_leaderboard: [],
+  events: [],
   setUserDetails: () => {},
 };
 

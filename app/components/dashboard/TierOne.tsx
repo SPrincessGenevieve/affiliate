@@ -71,7 +71,7 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Total Clients</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                {user_profile.user_referral_detail.user_invites}
+                {user_profile.referral_total_clicks}
               </Label>
             </div>
           </div>

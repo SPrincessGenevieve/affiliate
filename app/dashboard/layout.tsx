@@ -11,7 +11,7 @@ import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
 import SignIn from "../components/authenticator/SignIn";
 import { useRouter } from "next/navigation";
 import SpinnerIcon from "../images/Spinner";
-import { getCSRF, getUser } from "@/lib/services/getData";
+import { getEvents, getUser } from "@/lib/services/getData";
 
 export default function DashboardLayout({
   children,
@@ -20,7 +20,7 @@ export default function DashboardLayout({
 }>) {
   const [children_visibility, setChildrenVisibility] = useState("");
   const pathname = usePathname();
-  const { isLoggedIn, setUserDetails } = useUserContext();
+  const { isLoggedIn, sessionkey, setUserDetails } = useUserContext();
   const router = useRouter();
 
   const hasFetched = useRef(false);
@@ -42,10 +42,11 @@ export default function DashboardLayout({
 
     const fetchData = async () => {
       try {
-        const responseCSRF = await getCSRF();
-        const responseUser = await getUser();
+        const responseUser = await getUser(sessionkey);
+        const responseEvent = await getEvents(sessionkey);
         setUserDetails({
           user_profile: responseUser.data.detail,
+          events: responseEvent.data
         });
       } catch (error) {}
     };

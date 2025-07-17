@@ -45,6 +45,7 @@ export default function Header() {
     setLoadingLogout(true);
     setUserDetails({
       isLoggedIn: false,
+      sessionkey: ""
     });
     router.push("/");
   };

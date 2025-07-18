@@ -1,3 +1,4 @@
+"use client";
 import Greetings from "@/app/components/dashboard/Greetings";
 import TierFive from "@/app/components/dashboard/TierFive";
 import TierFour from "@/app/components/dashboard/TierFour";
@@ -9,10 +10,11 @@ import React from "react";
 import "@/app/globals.css";
 
 export default function Dashboard() {
+
   return (
     <div className="w-full h-full flex flex-col gap-4 dashboard-cont">
       <Greetings></Greetings>
-      
+
       {/* Commission Rate */}
       <TierOne></TierOne>
 

@@ -11,7 +11,7 @@ import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
 import SignIn from "../components/authenticator/SignIn";
 import { useRouter } from "next/navigation";
 import SpinnerIcon from "../images/Spinner";
-import { getEvents, getUser } from "@/lib/services/getData";
+import { getEvents, getMyReferrals, getUser } from "@/lib/services/getData";
 
 export default function DashboardLayout({
   children,
@@ -46,8 +46,11 @@ export default function DashboardLayout({
         const responseEvent = await getEvents(sessionkey);
         setUserDetails({
           user_profile: responseUser.data.detail,
-          events: responseEvent.data
+          events: responseEvent.data,
+          recent_referrals: responseUser.data.detail.recent_user_referrals,
         });
+          console.log(responseUser.data.detail.recent_user_referrals)
+
       } catch (error) {}
     };
     fetchData();

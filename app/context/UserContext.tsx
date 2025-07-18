@@ -61,19 +61,22 @@ export type UserUpdate = {
   birth_date: string | null;
 };
 
+export type RecentReferralsTypes = {
+  deposit_amount: number[];
+  full_name: string;
+  created_at: string
+};
+
 export type MyReferralsTypes = {
-  user_id: number;
-  first_name: string;
-  last_name: string;
-  deposit_amount: string;
-  last_logged_in: number | null;
+  full_name: string;
+  last_login: string;
   level: string;
-  market_value: number | null;
-  total_cases: number | null;
-  cases_sold: number | null;
-  realised_profit_loss: number | null;
-  profit_loss_percentage: number | null;
-  annual_commission_rate: number;
+  market_value: number;
+  total_cases: number;
+  cases_sold: number;
+  realised_profit_loss: number;
+  profit_loss: number;
+  annual_commission: number;
   rank: number;
 };
 
@@ -109,6 +112,7 @@ type UserContextType = {
   activeSettingsTab: string;
   user_profile: UserProfile;
   my_referrals: MyReferralsTypes[];
+  recent_referrals: RecentReferralsTypes[];
   affiliated_leaderboard: AffiliateLeaderboardTypes[];
   my_referrals_total_pages: number;
   my_referrals_current_page: number;
@@ -154,6 +158,7 @@ const defaultUserContext: UserContextType = {
     ],
   },
   my_referrals: [],
+  recent_referrals: [],
   my_referrals_total_pages: 1,
   my_referrals_current_page: 1,
   affiliated_leaderboard: [],

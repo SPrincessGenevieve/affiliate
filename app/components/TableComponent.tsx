@@ -101,25 +101,22 @@ export default function TableComponent({
         }`}
       >
         <Avatar>
-          <AvatarImage
-            src=""
-            alt={`${item.first_name[0]}${item.last_name[0]}`}
-          />
+          <AvatarImage src="" alt={`${item.full_name[0]}`} />
           <AvatarFallback
             className={` ${
               selected ? "bg-[#2E5257] text-white" : "font-normal"
             }`}
           >
-            {`${item.first_name[0]}${item.last_name[0]}`.toUpperCase()}
+            {`${item.full_name[0]}`.toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        {item.first_name} {item.last_name}
+        {item.full_name}
       </TableCell>
 
       {/* Login Date & Time */}
       <TableCell>
         <div className="flex">
-          <p>{item.last_logged_in}</p>
+          <p>{item.last_login}</p>
         </div>
       </TableCell>
 
@@ -149,10 +146,10 @@ export default function TableComponent({
       <TableCell className="">{item.realised_profit_loss}</TableCell>
 
       {/* Percent Profit Loss */}
-      <TableCell className="">{item.profit_loss_percentage}</TableCell>
+      <TableCell className="">{item.realised_profit_loss}</TableCell>
 
       {/* My Commission Annual */}
-      <TableCell className="">{item.annual_commission_rate}</TableCell>
+      <TableCell className="">{item.annual_commission}</TableCell>
     </TableRow>
   );
 

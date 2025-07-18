@@ -30,7 +30,8 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 export default function TierFour() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const { setUserDetails, affiliated_leaderboard } = useUserContext();
+  const { setUserDetails, affiliated_leaderboard, sessionkey } =
+    useUserContext();
 
   const navigateReferral = () => {
     setLoading(true);
@@ -42,7 +43,7 @@ export default function TierFour() {
   useEffect(() => {
     const fetchAffilicated = async () => {
       try {
-        const responseAffilicated = await getLeaderboard();
+        const responseAffilicated = await getLeaderboard(sessionkey);
         setUserDetails({
           affiliated_leaderboard: responseAffilicated.data.results,
         });
@@ -77,7 +78,29 @@ export default function TierFour() {
                 sliceCount={5}
                 affiliated_data={affiliated_leaderboard}
               /> */}
-              <div className="h-full w-full flex flex-col items-center justify-center">
+              {affiliated_leaderboard.length > 0 ? (
+                <>
+                  <TierFiveTable
+                    sliceCount={5}
+                    affiliated_data={affiliated_leaderboard}
+                  />
+                </>
+              ) : (
+                <>
+                  <div className="h-full w-full flex flex-col items-center justify-center">
+                    <DotLottieReact
+                      src="/empty.lottie"
+                      loop
+                      autoplay
+                      className="h-50"
+                    ></DotLottieReact>
+                    <Label>
+                      There are currently no affiliated boards listed.
+                    </Label>
+                  </div>
+                </>
+              )}
+              {/* <div className="h-full w-full flex flex-col items-center justify-center">
                 <DotLottieReact
                   src="/maintenance.lottie"
                   loop
@@ -88,19 +111,19 @@ export default function TierFour() {
                   This feature is currently under development. Please check back
                   soon!
                 </Label>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
         <Separator></Separator>
         <div className="h-[10%] w-full flex items-center justify-center">
           <Dialog>
-            {/* <DialogTrigger disabled className="text-[#2E5257] font-normal w-full h-10 hover:underline cursor-pointer">
-              View Full Leaderboard
-            </DialogTrigger> */}
             <DialogTrigger
-              disabled
-              className="text-[#2E5257] text-[14px] opacity-50 font-normal w-full h-10"
+              className={`${
+                affiliated_leaderboard.length > 0
+                  ? "text-[#2E5257] font-normal text-[14px] w-full h-10 hover:underline cursor-pointer"
+                  : "opacity-50 text-[#2E5257] font-normal text-[14px] w-full h-10"
+              }`}
             >
               View Full Leaderboard
             </DialogTrigger>

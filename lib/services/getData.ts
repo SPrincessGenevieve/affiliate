@@ -14,11 +14,16 @@ export const getMyReferrals = (page: number, sessionKey: string) =>
     },
   });
 
-  export const getEvents = (sessionKey: string) =>
+export const getEvents = (sessionKey: string) =>
   api.get(`/user/events`, {
     headers: {
       Authorization: "Token " + sessionKey,
     },
   });
 
-export const getLeaderboard = () => api.get("/api/v1/affiliate/leaderboard");
+export const getLeaderboard = (sessionKey: string) =>
+  api.get("/api/affiliate/leaderboard", {
+    headers: {
+      Authorization: "Token " + sessionKey,
+    },
+  });

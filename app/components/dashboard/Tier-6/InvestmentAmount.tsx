@@ -11,23 +11,63 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import React from "react";
+import React, { useState } from "react";
 import "@/app/globals.css";
+import { postCalculate } from "@/lib/services/postData";
+import { useUserContext } from "@/app/context/UserContext";
+import { Button } from "@/components/ui/button";
+import SpinnerIcon from "@/app/images/Spinner";
+
+interface CalculateProps {
+  total_earnings: number;
+  monthly_earnings: number;
+}
 
 export default function InvestmentAmount() {
+  const { sessionkey, setUserDetails } = useUserContext();
+  const [investmentAmount, setInvestmentAmount] = useState("");
+  const [commissionRate, setCommissionRate] = useState("1.0");
+  const [investmentTerm, setInvestmentTerm] = useState("1");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<CalculateProps>();
+
+  const handleCalculate = async () => {
+    setLoading(true);
+    try {
+      const response = await postCalculate(
+        Number(investmentAmount),
+        Number(commissionRate),
+        Number(investmentTerm),
+        sessionkey
+      );
+      setResult(response.data.detail);
+    } catch (error: any) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  console.log("Results: ", result);
   return (
     <Card className="p-0 m-0 w-full">
       <CardContent className="m-0 p-0">
         <Label className="text-[16px] px-4 p-5">Commission Calculator</Label>
         <Separator></Separator>
         <div className="flex flex-col p-4 gap-4">
-          {/* <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Investment Amount (£)</Label>
-            <Input placeholder=""></Input>
-          </div> */}
+            <Input
+              value={investmentAmount}
+              onChange={(e) => setInvestmentAmount(e.target.value)}
+              placeholder=""
+            ></Input>
+          </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Your Commission Rate</Label>
-            <Select defaultValue="1.0">
+            <Select
+              defaultValue={commissionRate}
+              onValueChange={setCommissionRate}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue></SelectValue>
               </SelectTrigger>
@@ -42,7 +82,10 @@ export default function InvestmentAmount() {
           </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Investment Term</Label>
-            <Select defaultValue="1">
+            <Select
+              defaultValue={investmentTerm}
+              onValueChange={setInvestmentTerm}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue></SelectValue>
               </SelectTrigger>
@@ -59,18 +102,34 @@ export default function InvestmentAmount() {
         <Separator></Separator>
         <div className="flex justify-between p-4">
           <div className="flex flex-col items-start gap-2">
-            <Label className="text-gray-600">Initial Commission</Label>
-            <Label className="text-gray-600">Annual Trailer Fee</Label>
+            {/* <Label className="text-gray-600">Initial Commission</Label> */}
+            <Label className="text-gray-600">Monthly Earnings</Label>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <Label>£1,000</Label>
-            <Label>£500</Label>
+            {/* <Label>£1,000</Label> */}
+            <Label>
+              £{Number(result?.monthly_earnings || 0).toLocaleString()}
+            </Label>
           </div>
         </div>
         <Separator></Separator>
         <div className="flex justify-between gap-2 p-4">
-          <Label className="text-gray-600 font-bold">Total (Year 1)</Label>
-          <Label className="text-[#2E5257] font-bold">£1,500</Label>
+          <Label className="text-gray-600 font-bold">
+            Total Earnings (Year {investmentTerm})
+          </Label>
+          <Label className="text-[#2E5257] font-bold">
+            £{Number(result?.total_earnings || 0).toLocaleString()}
+          </Label>
+        </div>
+        <div className="p-4 w-full">
+          <Button onClick={handleCalculate} className="w-full bg-[#2E5257]">
+            {loading && (
+              <div>
+                <SpinnerIcon strokeColor="white"></SpinnerIcon>
+              </div>
+            )}
+            Calculate
+          </Button>
         </div>
       </CardContent>
     </Card>

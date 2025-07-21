@@ -53,7 +53,6 @@ export default function TierFour() {
     fetchAffilicated();
   });
 
-  console.log(affiliated_leaderboard);
 
   return (
     <Card className="m-0 p-0 w-full h-full flex ">

@@ -13,7 +13,7 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
   const isDashboard = pathname.includes("/dashboard");
-  const { isLoggedIn } = useUserContext()
+  const { isLoggedIn } = useUserContext();
 
   return (
     <html lang="en">

@@ -47,7 +47,6 @@ export default function InvestmentAmount() {
       setLoading(false);
     }
   };
-  console.log("Results: ", result);
   return (
     <Card className="p-0 m-0 w-full">
       <CardContent className="m-0 p-0">

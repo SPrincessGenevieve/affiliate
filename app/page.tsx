@@ -35,8 +35,6 @@ export default function Home() {
         sessionkey: responseLogin.data.key,
         user_profile: responseAffiliateUser.data.detail,
       });
-
-      console.log(responseAffiliateUser.data.detail);
       SuccessLogin(router);
     } catch (err: any) {
       const nonFieldErrors = err?.response?.data?.non_field_errors[0];

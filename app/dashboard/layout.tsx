@@ -49,8 +49,6 @@ export default function DashboardLayout({
           events: responseEvent.data,
           recent_referrals: responseUser.data.detail.recent_user_referrals,
         });
-          console.log(responseUser.data.detail.recent_user_referrals)
-
       } catch (error) {}
     };
     fetchData();

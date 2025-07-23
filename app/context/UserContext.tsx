@@ -76,7 +76,8 @@ export type MyReferralsTypes = {
   cases_sold: number;
   realised_profit_loss: number;
   profit_loss: number;
-  annual_commission: number;
+  monthly_aum: number;
+  estimated_annual_aum: number;
   rank: number;
 };
 

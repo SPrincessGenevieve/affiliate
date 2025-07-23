@@ -149,7 +149,7 @@ export default function TableComponent({
       <TableCell className="">{item.realised_profit_loss}</TableCell>
 
       {/* My Commission Annual */}
-      <TableCell className="">{item.annual_commission}</TableCell>
+      <TableCell className="">{item.estimated_annual_aum}</TableCell>
     </TableRow>
   );
 

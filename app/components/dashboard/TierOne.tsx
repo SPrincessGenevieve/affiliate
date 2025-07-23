@@ -87,7 +87,7 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Total AUM</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                £{user_profile.aum.toLocaleString()}
+                £{Number(user_profile.aum).toLocaleString()}
               </Label>
             </div>
           </div>

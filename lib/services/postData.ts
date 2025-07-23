@@ -30,3 +30,21 @@ export const postCalculate = (
       },
     }
   );
+
+export const postInvite = (
+  sessionKey: string,
+  client_name: string,
+  email_address: string,
+) =>
+  api.post(
+    "/api/affiliate/invite-user",
+    {
+      client_name: client_name,
+      email_address: email_address,
+    },
+    {
+      headers: {
+        Authorization: "Token " + sessionKey,
+      },
+    }
+  );

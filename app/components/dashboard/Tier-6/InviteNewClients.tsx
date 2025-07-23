@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,14 +18,34 @@ import { useUserContext } from "@/app/context/UserContext";
 
 import "@/app/globals.css";
 import CopyInput from "@/components/ui/copt-input";
+import { postInvite } from "@/lib/services/postData";
+import SpinnerIcon from "@/app/images/Spinner";
 
 export default function InviteNewClients() {
-  const { user_profile } = useUserContext();
+  const { user_profile, sessionkey } = useUserContext();
+  const [open, setOpen] = useState(false);
+  const [openErrpr, setOpenError] = useState(false);
   const invitation_link = user_profile.referral_link;
+  const [client_name, setClientName] = useState("");
+  const [email_addres, setEmailAddress] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const fullname = user_profile.first_name + " " + user_profile.last_name
-  const email = user_profile.email
-  const phone_num = user_profile.phone_number
+  const handleInvite = async () => {
+    if(client_name === "" || email_addres === ""){
+      setOpenError(true)
+      return
+    }
+    setLoading(true);
+    try {
+      const response = await postInvite(sessionkey, client_name, email_addres);
+      console.log(response);
+      setOpen(true);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Card className="p-0 m-0 w-full">
@@ -36,15 +56,25 @@ export default function InviteNewClients() {
         <div className="flex flex-col p-4 gap-4">
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Client Name</Label>
-            <Input placeholder="Full Name" value={fullname}></Input>
+            <Input
+              value={client_name}
+              onChange={(e) => setClientName(e.target.value)}
+              name="full_name"
+              placeholder="Full Name"
+            ></Input>
           </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Email Address</Label>
-            <Input placeholder="client@email.com" value={email}></Input>
+            <Input
+              value={email_addres}
+              onChange={(e) => setEmailAddress(e.target.value)}
+              name="email"
+              placeholder="client@email.com"
+            ></Input>
           </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Phone Number (Optional)</Label>
-            <Input placeholder="+44 1234 567890" value={phone_num}></Input>
+            <Input name="phone_number" placeholder="+44 1234 567890"></Input>
           </div>
           {/* <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Potential Investment</Label>
@@ -54,26 +84,44 @@ export default function InviteNewClients() {
             </div>
           </div> */}
           <div className="flex justify-center items-center flex-col gap-2">
-          <div className="flex items-start w-full">
-            <Label className="text-gray-600">Referral Link</Label>
+            <div className="flex items-start w-full">
+              <Label className="text-gray-600">Referral Link</Label>
+            </div>
+            <CopyInput full_link={invitation_link}></CopyInput>
           </div>
-          <CopyInput full_link={invitation_link}></CopyInput>
         </div>
-        </div>
-        
+
         <div className="w-full p-4">
-          <Dialog>
-            <DialogTrigger className="w-full">
-              <div className="h-10 flex items-center justify-center rounded-[10px] bg-[#2E5257] hover:bg-[hsl(358,47%,27%)] w-full text-white">
-                <Label>Send Invitation</Label>
-              </div>
-            </DialogTrigger>
+          <Button
+            onClick={handleInvite}
+            className="w-full p-0"
+            variant={"ghost"}
+          >
+            <div className="h-10 flex items-center justify-center rounded-[10px] bg-[#2E5257] hover:bg-[hsl(358,47%,27%)] w-full text-white">
+              <Label>
+                {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>}Send
+                Invitation
+              </Label>
+            </div>
+          </Button>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Invitation Sent</DialogTitle>
                 <DialogDescription>
                   The invitation was sent successfully! Please wait for the user
                   to accept the invite.
+                </DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog>
+          <Dialog open={openErrpr} onOpenChange={setOpenError}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Missing Information</DialogTitle>
+                <DialogDescription>
+                  Please provide both your full name and email address to
+                  proceed with notifying the seller of your interest.
                 </DialogDescription>
               </DialogHeader>
             </DialogContent>

@@ -24,6 +24,8 @@ import SpinnerIcon from "@/app/images/Spinner";
 export default function InviteNewClients() {
   const { user_profile, sessionkey } = useUserContext();
   const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [title, setTitle] = useState("");
   const [openErrpr, setOpenError] = useState(false);
   const invitation_link = user_profile.referral_link;
   const [client_name, setClientName] = useState("");
@@ -31,22 +33,36 @@ export default function InviteNewClients() {
   const [loading, setLoading] = useState(false);
 
   const handleInvite = async () => {
-    if(client_name === "" || email_addres === ""){
-      setOpenError(true)
-      return
+    if (client_name === "" || email_addres === "") {
+      setMessage(
+        " Please provide both your full name and email address to proceed with notifying the seller of your interest."
+      );
+      setTitle("Missing Information");
+      setOpenError(true);
+      return;
     }
     setLoading(true);
     try {
       const response = await postInvite(sessionkey, client_name, email_addres);
       console.log(response);
       setOpen(true);
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      const data = error?.response?.data;
+      setOpenError(true);
+      setTitle("Invitation was not sent");
+      if (data && typeof data === "object") {
+        Object.entries(data).forEach(([key, value]) => {
+          setMessage(`${Array.isArray(value) ? value.join(", ") : value}`);
+        });
+      } else {
+        console.log("Unknown error format:", error);
+        setMessage(`Something went wrong. Please try again later.`);
+      }
     } finally {
       setLoading(false);
     }
   };
-
+  //
   return (
     <Card className="p-0 m-0 w-full">
       <CardContent className="m-0 p-0">
@@ -115,14 +131,12 @@ export default function InviteNewClients() {
               </DialogHeader>
             </DialogContent>
           </Dialog>
+
           <Dialog open={openErrpr} onOpenChange={setOpenError}>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Missing Information</DialogTitle>
-                <DialogDescription>
-                  Please provide both your full name and email address to
-                  proceed with notifying the seller of your interest.
-                </DialogDescription>
+                <DialogTitle>{title}</DialogTitle>
+                <DialogDescription>{message}</DialogDescription>
               </DialogHeader>
             </DialogContent>
           </Dialog>

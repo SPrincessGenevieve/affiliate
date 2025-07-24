@@ -103,77 +103,15 @@ export default function TierFive() {
         </div>
         <Separator></Separator>
         <div className="w-full h-[10%]">
-          <Dialog>
-            <DialogTrigger
-              disabled={items > 0 ? false : true}
-              className="text-[14px] text-[#2E5257] font-normal h-10 w-full hover:underline cursor-pointer"
-            >
-              {loading && <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>}
-              View All Referrals
-            </DialogTrigger>
-            <DialogContent className="max-h-[90%] h-full overflow-auto">
-              <DialogHeader>
-                <DialogTitle>Recent Referrals ({items})</DialogTitle>
-                <DialogDescription>
-                  See the latest users you’ve referred and track their
-                  registration or engagement progress.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="w-full flex flex-col gap-4">
-                {items > 0 ? (
-                  <>
-                    {recent_referrals.map((item, index) => (
-                      <div
-                        key={index}
-                        className="bg-[#F9FAFB]  min-h-10 flex w-full gap-2 items-center justify-between rounded-xl p-2"
-                      >
-                        <div className="flex flex-col gap-2">
-                          <Label className="text-[16px] capitalize">
-                            {item.full_name}
-                          </Label>
-                          <div className="flex justify-between gap-4">
-                            <Label className="text-[12px] text-gray-400 font-normal">
-                              {new Date(item.created_at).toLocaleDateString(
-                                "en-US",
-                                {
-                                  month: "short",
-                                  day: "numeric",
-                                  year: "numeric",
-                                }
-                              )}
-                            </Label>
-                          </div>
-                        </div>
-                        <Label
-                          className={`text-[20px]  ${
-                            Number(item.deposit_amount) <= 0
-                              ? "text-gray-400"
-                              : "text-[#2E5257]"
-                          } font-bold`}
-                        >
-                          £{formatToK(Number(item.deposit_amount))}
-                        </Label>
-                      </div>
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    <div className="h-full w-full flex flex-col items-center justify-center">
-                      <DotLottieReact
-                        src="/empty.lottie"
-                        loop
-                        autoplay
-                      ></DotLottieReact>
-                      <Label className="text-center">
-                        You haven’t made any referrals yet. Share your link to
-                        get started!
-                      </Label>
-                    </div>
-                  </>
-                )}
-              </div>
-            </DialogContent>
-          </Dialog>
+          <Button
+            onClick={navigateReferral}
+            className="text-[14px] text-[#2E5257] font-normal h-10 w-full hover:underline cursor-pointer"
+            variant={"ghost"}
+          >
+            {" "}
+            {loading && <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>}
+            View All Referrals
+          </Button>
         </div>
       </CardContent>
     </Card>

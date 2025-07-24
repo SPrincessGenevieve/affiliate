@@ -25,7 +25,7 @@ export default function TierOne() {
                 Commission Rate
               </Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                {user_profile.commision_rate}%
+                {user_profile.commision_rate || 0}%
               </Label>
             </div>
           </div>
@@ -48,7 +48,7 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Next Payment</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                £{user_profile.next_payment.toLocaleString()}
+                £{user_profile.next_payment.toLocaleString() || 0}
               </Label>
             </div>
           </div>
@@ -71,7 +71,7 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Total Clients</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                {user_profile.referral_total_clicks}
+                {user_profile.referral_total_clicks || 0}
               </Label>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Total AUM</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                £{Number(user_profile.aum).toLocaleString()}
+                £{Number(user_profile.aum || 0).toLocaleString()}
               </Label>
             </div>
           </div>

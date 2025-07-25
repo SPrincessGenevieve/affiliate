@@ -8,7 +8,7 @@ import { useUserContext } from "@/app/context/UserContext";
 
 export default function TierTwo() {
   const { user_profile } = useUserContext();
-  const level = user_profile.level.level || 0;
+  const level = user_profile.current_level || 0;
   const levelGradient = [
     "", // 0
     "bg-gradient-to-r from-[#6C9EA0] to-[#165558]",
@@ -28,6 +28,15 @@ export default function TierTwo() {
       : level === 4
       ? 75
       : 100;
+
+  const formatPrice = (value: number) => {
+    if (value >= 1_000_000) {
+      return `${(value / 1_000_000).toFixed(value % 1_000_000 === 0 ? 0 : 1)}M`;
+    } else if (value >= 1_000) {
+      return `${(value / 1_000).toFixed(value % 1_000 === 0 ? 0 : 1)}K`;
+    }
+    return value.toString();
+  };
 
   return (
     <Card>
@@ -107,29 +116,17 @@ export default function TierTwo() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px]">Vintage</Label>
-            <Label className="text-gray-600 text-[11px]">£500K</Label>
-          </div>
-          <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px] text-center">Vintage Cru</Label>
-            <Label className="text-gray-600 text-[11px]">£1M</Label>
-          </div>
-          <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px] text-center">Vintage Vault</Label>
-            <Label className="text-gray-600 text-[11px]">£3M</Label>
-          </div>
-          <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px] text-center">Vintage Enclosure</Label>
-            <Label className="text-gray-600 text-[11px]">£5M</Label>
-          </div>
-          <div className="w-10 flex flex-col items-center justify-center">
-            <Label className="text-[11px] text-center">Vintage Associate</Label>
-            <Label className="text-gray-600 text-[11px]">£10M</Label>
-          </div>
+          {user_profile.levels_list.map((item, index) => (
+            <div className="w-10 flex flex-col items-center justify-center">
+              <Label className="text-[11px]">{item.name}</Label>
+              <Label className="text-gray-600 text-[11px]">
+                £{formatPrice(Number(user_profile.levels_list[index].max_price))}
+              </Label>
+            </div>
+          ))}
         </div>
         <div className="w-full flex flex-col items-center justify-center gap-2">
-          <Label className="font-normal">Current AUM: £2.5M</Label>
+          <Label className="font-normal">Current AUM: £111</Label>
           <Label className="text-green-600 font-normal">
             £500K more to reach Gold Tier
           </Label>

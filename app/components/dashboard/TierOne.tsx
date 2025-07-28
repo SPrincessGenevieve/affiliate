@@ -54,7 +54,7 @@ export default function TierOne() {
           </div>
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">Due date</Label>
-            <Label className="font-normal text-gray-600">28 Feb 2025</Label>
+            <Label className="font-normal text-gray-600">£{user_profile.due_date || ""}</Label>
           </div>
         </CardContent>
       </Card>
@@ -71,13 +71,13 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Total Clients</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                {user_profile.referral_total_clicks || 0}
+                {user_profile.total_clients || 0}
               </Label>
             </div>
           </div>
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">This month</Label>
-            <Label className="font-normal text-green-500">+4 new</Label>
+            <Label className="font-normal text-green-500">{user_profile.total_clients_month}</Label>
           </div>
         </CardContent>
       </Card>
@@ -87,7 +87,7 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Total AUM</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                £{Number(user_profile.aum || 0).toLocaleString()}
+                £{Number(user_profile.total_aum || 0).toLocaleString()}
               </Label>
             </div>
           </div>

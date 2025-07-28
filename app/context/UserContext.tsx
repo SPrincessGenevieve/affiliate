@@ -20,15 +20,26 @@ export type UserRegistration = {
   csrfToken: string;
 };
 
+export type Level = {
+  id: 1;
+  level: number;
+  name: string;
+  description: string;
+  fee: string;
+  min_price: string;
+  max_price: string;
+  profile_picture: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type UserProfile = {
   first_name: string;
   middle_name: string;
   last_name: string;
   email: string;
-  level: {
-    level: number | null;
-    name: string;
-  };
+  current_level: number;
+  levels_list: Level[];
   birth_date: string | null;
   profile_picture: string | null;
   phone_number: string;
@@ -50,6 +61,12 @@ export type UserProfile = {
       date: string;
     }
   ];
+  total_aum: number;
+  total_aum_yearly: number;
+  estimated_next_payment: number;
+  due_date: string;
+  total_clients: number;
+  total_clients_month: number;
 };
 
 export type UserUpdate = {
@@ -64,7 +81,7 @@ export type UserUpdate = {
 export type RecentReferralsTypes = {
   deposit_amount: number[];
   full_name: string;
-  created_at: string
+  created_at: string;
 };
 
 export type MyReferralsTypes = {
@@ -134,10 +151,8 @@ const defaultUserContext: UserContextType = {
     email: "",
     phone_number: "",
     birth_date: null,
-    level: {
-      level: null,
-      name: "",
-    },
+    current_level: 1,
+    levels_list: [],
     profile_picture: null,
     commision_rate: 0,
     next_payment: 0,
@@ -157,6 +172,12 @@ const defaultUserContext: UserContextType = {
         date: "",
       },
     ],
+    total_aum: 0,
+    total_aum_yearly: 0,
+    estimated_next_payment: 0,
+    due_date: "",
+    total_clients: 0,
+    total_clients_month: 0,
   },
   my_referrals: [],
   recent_referrals: [],

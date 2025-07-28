@@ -34,9 +34,13 @@ export function AppSidebar() {
   const pathname = usePathname();
   const { setUserDetails, isOpen, user_profile } = useUserContext();
 
-  const lname = user_profile.last_name
-  const fname = user_profile.first_name
-  const full_name = fname + lname
+  const lname = user_profile.last_name;
+  const fname = user_profile.first_name;
+  const full_name = fname + lname;
+  const current_level = user_profile.current_level;
+  const level_name = user_profile.levels_list.map(
+    (item) => item.id === current_level && item.name
+  );
 
   const handleCollapse = () => {
     const newCollapsed = !collapsed;
@@ -60,7 +64,6 @@ export function AppSidebar() {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
 
   return (
     <div className="max-w-[245px] h-full relative">
@@ -112,12 +115,12 @@ export function AppSidebar() {
                 <Label
                   className={`text-black text-center text-[14px] font-medium w-full `}
                 >
-                 {full_name}
+                  {full_name}
                 </Label>
                 <p
                   className={`text-[12px] text-center font-normal text-gray-500 w-full `}
                 >
-                  {user_profile.level.name}
+                  {level_name}
                 </p>
               </div>
             </div>

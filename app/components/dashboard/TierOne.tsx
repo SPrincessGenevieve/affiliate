@@ -54,7 +54,7 @@ export default function TierOne() {
           </div>
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">Due date</Label>
-            <Label className="font-normal text-gray-600">£{user_profile.due_date || ""}</Label>
+            <Label className="font-normal text-gray-600">{user_profile.due_date || ""}</Label>
           </div>
         </CardContent>
       </Card>

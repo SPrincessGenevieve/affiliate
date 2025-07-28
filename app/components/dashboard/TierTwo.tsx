@@ -38,6 +38,7 @@ export default function TierTwo() {
     return value.toString();
   };
 
+  const goldTierProgressLabel = 500000 - user_profile.total_aum
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">
@@ -118,17 +119,17 @@ export default function TierTwo() {
         <div className="flex justify-between items-center">
           {user_profile.levels_list.map((item, index) => (
             <div className="w-10 flex flex-col items-center justify-center">
-              <Label className="text-[11px]">{item.name}</Label>
+              <Label className="text-[11px] text-center">{item.name}</Label>
               <Label className="text-gray-600 text-[11px]">
                 £{formatPrice(Number(user_profile.levels_list[index].max_price))}
               </Label>
+              <Label className="text-[10px] text-center">{item.fee}</Label>
             </div>
           ))}
         </div>
         <div className="w-full flex flex-col items-center justify-center gap-2">
-          <Label className="font-normal">Current AUM: £111</Label>
           <Label className="text-green-600 font-normal">
-            £500K more to reach Gold Tier
+            £{formatPrice(goldTierProgressLabel)} more to reach Gold Tier
           </Label>
         </div>
       </CardContent>

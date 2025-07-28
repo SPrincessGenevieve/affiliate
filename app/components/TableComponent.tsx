@@ -116,7 +116,7 @@ export default function TableComponent({
       {/* Login Date & Time */}
       <TableCell>
         <div className="flex">
-          <p>{item.last_login}</p>
+          <p>{item.last_login?.slice(0, 10)}</p>
         </div>
       </TableCell>
 

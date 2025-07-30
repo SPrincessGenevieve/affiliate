@@ -20,8 +20,9 @@ export default function Dashboard() {
 
       {/* Tier Progress */}
       <TierTwo></TierTwo>
+
       <div>
-        {/* Commission Trend & AUM Growth */}
+        {/* Client Growth & AUM Growth */}
         <TierThree></TierThree>
       </div>
       <div className="w-full flex flex-col gap-4">

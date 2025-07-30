@@ -40,8 +40,6 @@ export default function TierTwo() {
 
   const goldTierProgressLabel = 500000 - user_profile.total_aum;
 
-  console.log(user_profile.levels_list);
-
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">

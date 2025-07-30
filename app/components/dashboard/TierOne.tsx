@@ -34,7 +34,7 @@ export default function TierOne() {
             </div>
             <div>
               <Label className="font-normal text-gray-600">
-                Commission Rate
+                Client Growth Views
               </Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
                 {user_profile.commision_rate || 0}%

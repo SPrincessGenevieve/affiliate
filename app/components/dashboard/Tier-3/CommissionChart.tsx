@@ -41,13 +41,18 @@ interface CommissionChartProps {
 }
 
 export function CommissionChart({ timeRange }: CommissionChartProps) {
-  const { user_profile } = useUserContext();
-  const commission_trend = user_profile.commission_trend;
+  const { client_growth } = useUserContext();
 
+
+  // If client_growth is undefined or null, return an empty array
   function filterCommissionData(data: any[], timeRange: string) {
-    const referenceDate = new Date("2024-06-30"); // Or use `new Date()` for real-time
+    if (!data || data.length === 0) {
+      return []; // Return an empty array if data is undefined or empty
+    }
 
+    const referenceDate = new Date("2024-06-30"); // Or use `new Date()` for real-time
     let daysToSubtract = 90;
+
     if (timeRange === "Monthly") {
       daysToSubtract = 30;
     } else if (timeRange === "Yearly") {
@@ -57,10 +62,11 @@ export function CommissionChart({ timeRange }: CommissionChartProps) {
     const startDate = new Date(referenceDate);
     startDate.setDate(startDate.getDate() - daysToSubtract);
 
-    return data.filter((item) => new Date(item.date) >= startDate);
+    return data.filter((item) => new Date(item.created_at) >= startDate);
   }
 
-  const filteredData = filterCommissionData(commission_trend, timeRange);
+  // Use a fallback empty array if client_growth is undefined
+  const filteredData = filterCommissionData(client_growth || [], timeRange);
 
   const CustomTick = ({ x, y, payload }: any) => {
     return (
@@ -116,7 +122,7 @@ export function CommissionChart({ timeRange }: CommissionChartProps) {
           </defs>
           <CartesianGrid vertical={false} />
           <XAxis
-            dataKey="date"
+            dataKey="created_at"
             tickLine={false}
             axisLine={false}
             tick={<CustomTick />}
@@ -138,7 +144,7 @@ export function CommissionChart({ timeRange }: CommissionChartProps) {
             }
           />
           <Area
-            dataKey="value"
+            dataKey="total_clients"
             type="natural"
             fill="url(#fillValue)"
             stroke="var(--color-value)"

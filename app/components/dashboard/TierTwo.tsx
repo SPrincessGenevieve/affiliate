@@ -125,10 +125,14 @@ export default function TierTwo() {
               <Label className="text-[11px] text-center">{item.name}</Label>
               <Label className="text-gray-600 text-[11px]">
                 £
-                {formatPrice(Number(user_profile.levels_list[index].max_price))}
+                {formatPrice(
+                  Math.round(
+                    Number(user_profile.levels_list[index].max_price) * 100
+                  ) / 100
+                )}
               </Label>
               <Label className="text-[10px] text-center">
-                {Number(item.fee) * 100}%
+                {Number(item.fee)}%
               </Label>
             </div>
           ))}

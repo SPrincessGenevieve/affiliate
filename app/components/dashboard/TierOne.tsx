@@ -8,10 +8,10 @@ import { useUserContext } from "@/app/context/UserContext";
 
 export default function TierOne() {
   const { user_profile } = useUserContext();
-  const  current_level = user_profile.current_level
-  const level_ar = current_level -1
+  const current_level = user_profile.current_level;
+  const level_ar = current_level - 1;
 
-    const formatPrice = (value: number) => {
+  const formatPrice = (value: number) => {
     if (value >= 1_000_000) {
       return `${(value / 1_000_000).toFixed(value % 1_000_000 === 0 ? 0 : 1)}M`;
     } else if (value >= 1_000) {
@@ -43,7 +43,13 @@ export default function TierOne() {
           </div>
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">Next tier: </Label>
-            <Label className="font-normal text-green-500">£{formatPrice(Number(user_profile.levels_list[level_ar].max_price))} to go</Label>
+            <Label className="font-normal text-green-500">
+              £
+              {formatPrice(
+                Number(user_profile.levels_list[level_ar].max_price)
+              )}{" "}
+              to go
+            </Label>
           </div>
         </CardContent>
       </Card>
@@ -60,13 +66,19 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Next Payment</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                £{user_profile.next_payment.toLocaleString() || 0}
+                £
+                {Number(user_profile.next_payment).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }) || 0}
               </Label>
             </div>
           </div>
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">Due date</Label>
-            <Label className="font-normal text-gray-600">{user_profile.due_date || ""}</Label>
+            <Label className="font-normal text-gray-600">
+              {user_profile.due_date || ""}
+            </Label>
           </div>
         </CardContent>
       </Card>
@@ -89,7 +101,9 @@ export default function TierOne() {
           </div>
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">This month</Label>
-            <Label className="font-normal text-green-500">{user_profile.total_clients_month}</Label>
+            <Label className="font-normal text-green-500">
+              {user_profile.total_clients_month}
+            </Label>
           </div>
         </CardContent>
       </Card>
@@ -99,13 +113,19 @@ export default function TierOne() {
             <div>
               <Label className="font-normal text-gray-600">Total AUM</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
-                £{formatPrice(Number(user_profile.total_aum || 0)).toLocaleString()}
+                £
+                {Number(user_profile.total_aum).toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                }) || 0}
               </Label>
             </div>
           </div>
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">This year</Label>
-            <Label className="font-normal text-green-500">+£{user_profile.total_aum_yearly}</Label>
+            <Label className="font-normal text-green-500">
+              +£{user_profile.total_aum_yearly.toFixed(2)}
+            </Label>
           </div>
         </CardContent>
       </Card>

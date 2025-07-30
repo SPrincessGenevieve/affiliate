@@ -104,19 +104,17 @@ export default function AUMGrowth() {
                 />
                 <ChartTooltip
                   cursor={false}
-                  content={({ active, payload, label }) => {
-                    const formattedLabel = label
-                      ? new Date(label).toISOString().slice(0, 10)
-                      : "";
-
-                    return (
-                      <ChartTooltipContent
-                        active={active}
-                        payload={payload}
-                        label={formattedLabel}
-                      />
-                    );
-                  }}
+                  content={
+                    <ChartTooltipContent
+                      labelFormatter={(value) => {
+                        return new Date(value).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                        });
+                      }}
+                      indicator="dot"
+                    />
+                  }
                 />
                 <defs>
                   <linearGradient id="fillVintage" x1="0" y1="0" x2="0" y2="1">

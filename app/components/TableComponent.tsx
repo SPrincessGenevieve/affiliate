@@ -134,7 +134,12 @@ export default function TableComponent({
       </TableCell>
 
       {/* Market Value */}
-      <TableCell className="">{item.market_value}</TableCell>
+      <TableCell className="">
+        {item.market_value.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </TableCell>
 
       {/* Total Cases */}
       <TableCell className="">{item.total_cases}</TableCell>

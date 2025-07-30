@@ -27,3 +27,17 @@ export const getLeaderboard = (sessionKey: string) =>
       Authorization: "Token " + sessionKey,
     },
   });
+
+export const getAUMGrowth = (sessionKey: string) =>
+  api.get("/api/affiliate/aum-growth", {
+    headers: {
+      Authorization: "Token " + sessionKey,
+    },
+  });
+
+export const getClientGrowth = (sessionKey: string) =>
+  api.get("/api/affiliate/client-growth", {
+    headers: {
+      Authorization: "Token " + sessionKey,
+    },
+  });

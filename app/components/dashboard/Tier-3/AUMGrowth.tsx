@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -14,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import "@/app/globals.css";
 import { useState } from "react";
 import {
   ChartConfig,
@@ -23,7 +20,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import "@/app/globals.css";
 import { useUserContext } from "@/app/context/UserContext";
 
 const chartConfig = {
@@ -38,10 +34,14 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export default function AUMGrowth() {
-  const { user_profile } = useUserContext();
+  const { aum_growth } = useUserContext();
   const [monthRange, setMonthRange] = useState("6");
-  const auth_growth = user_profile.aum_growth;
-  const filteredData = auth_growth.slice(-Number(monthRange));
+
+  // Safely access aum_growth with a fallback to an empty array if undefined
+
+  // Check if aum_growth is not empty before performing the slice operation
+  const filteredData =
+    aum_growth.length > 0 ? aum_growth.slice(-Number(monthRange)) : [];
 
   const CustomTick = ({ x, y, payload }: any) => {
     return (
@@ -95,17 +95,28 @@ export default function AUMGrowth() {
               >
                 <CartesianGrid vertical={false} />
                 <XAxis
-                  dataKey="date"
+                  dataKey="created_at"
                   tickLine={false}
                   axisLine={false}
                   tick={<CustomTick />}
                   minTickGap={16}
                   tickMargin={-3}
                 />
-
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent />}
+                  content={({ active, payload, label }) => {
+                    const formattedLabel = label
+                      ? new Date(label).toISOString().slice(0, 10)
+                      : "";
+
+                    return (
+                      <ChartTooltipContent
+                        active={active}
+                        payload={payload}
+                        label={formattedLabel}
+                      />
+                    );
+                  }}
                 />
                 <defs>
                   <linearGradient id="fillVintage" x1="0" y1="0" x2="0" y2="1">
@@ -134,29 +145,17 @@ export default function AUMGrowth() {
                   </linearGradient>
                 </defs>
                 <Area
-                  dataKey="value"
+                  dataKey="total_aum"
                   type="natural"
                   fill="url(#fillValue)"
                   fillOpacity={0.4}
                   stroke="var(--color-value)"
                   stackId="a"
                 />
-                {/* <Area
-                  dataKey="vintage"
-                  type="natural"
-                  fill="url(#fillVintage)"
-                  fillOpacity={0.4}
-                  stroke="var(--color-vintage)"
-                  stackId="a"
-                /> */}
               </AreaChart>
             </ChartContainer>
           </div>
         </div>
-
-        {/* <div className="w-full h-auto flex">
-          
-        </div> */}
       </CardContent>
     </Card>
   );

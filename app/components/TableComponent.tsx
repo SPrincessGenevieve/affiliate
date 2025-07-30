@@ -143,13 +143,27 @@ export default function TableComponent({
       <TableCell className="">{item.cases_sold}</TableCell>
 
       {/* Realised Profit Loss */}
-      <TableCell className="">{item.realised_profit_loss}</TableCell>
-
+      <TableCell className="">
+        {item.realised_profit_loss.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </TableCell>
       {/* Percent Profit Loss */}
-      <TableCell className="">{item.realised_profit_loss}</TableCell>
+      <TableCell className="">
+        {item.realised_profit_loss.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </TableCell>
 
       {/* My Commission Annual */}
-      <TableCell className="">{item.estimated_annual_aum}</TableCell>
+      <TableCell className="">
+        {item.estimated_annual_aum.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </TableCell>
     </TableRow>
   );
 

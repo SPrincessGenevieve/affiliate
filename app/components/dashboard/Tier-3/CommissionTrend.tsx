@@ -14,7 +14,7 @@ export default function CommissionTrend() {
   return (
     <Card className=" w-full min-h-[400px]">
       <CardHeader className="relative border-b flex justify-between items-center flex-wrap">
-        <Label className="text-[16px]">Commission Trend</Label>
+        <Label className="text-[16px]">Client Growth</Label>
         <div className="flex gap-2 flex-wrap">
           {filter.map((item, index) => (
             <Button

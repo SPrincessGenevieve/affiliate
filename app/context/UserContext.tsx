@@ -49,18 +49,7 @@ export type UserProfile = {
   commision_rate: number;
   next_payment: number;
   aum: number;
-  commission_trend: [
-    {
-      value: number;
-      date: string;
-    }
-  ];
-  aum_growth: [
-    {
-      value: number;
-      date: string;
-    }
-  ];
+
   total_aum: number;
   total_aum_yearly: number;
   estimated_next_payment: number;
@@ -135,6 +124,18 @@ type UserContextType = {
   my_referrals_total_pages: number;
   my_referrals_current_page: number;
   events: EventTypes[];
+  client_growth: [
+    {
+      total_clients: number;
+      created_at: string;
+    }
+  ];
+  aum_growth: [
+    {
+      total_aum: number;
+      created_at: string;
+    }
+  ];
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
@@ -160,18 +161,6 @@ const defaultUserContext: UserContextType = {
     referral_code: "",
     referral_link: "",
     referral_total_clicks: 0,
-    commission_trend: [
-      {
-        value: 0,
-        date: "",
-      },
-    ],
-    aum_growth: [
-      {
-        value: 0,
-        date: "",
-      },
-    ],
     total_aum: 0,
     total_aum_yearly: 0,
     estimated_next_payment: 0,
@@ -185,6 +174,18 @@ const defaultUserContext: UserContextType = {
   my_referrals_current_page: 1,
   affiliated_leaderboard: [],
   events: [],
+  client_growth: [
+    {
+      total_clients: 0,
+      created_at: "",
+    },
+  ],
+  aum_growth: [
+    {
+      total_aum: 0,
+      created_at: "",
+    },
+  ],
   setUserDetails: () => {},
 };
 

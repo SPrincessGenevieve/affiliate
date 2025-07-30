@@ -11,7 +11,13 @@ import { AppSidebarMobile } from "../components/sidebar-menu-mobile";
 import SignIn from "../components/authenticator/SignIn";
 import { useRouter } from "next/navigation";
 import SpinnerIcon from "../images/Spinner";
-import { getEvents, getMyReferrals, getUser } from "@/lib/services/getData";
+import {
+  getAUMGrowth,
+  getClientGrowth,
+  getEvents,
+  getMyReferrals,
+  getUser,
+} from "@/lib/services/getData";
 
 export default function DashboardLayout({
   children,
@@ -44,10 +50,18 @@ export default function DashboardLayout({
       try {
         const responseUser = await getUser(sessionkey);
         const responseEvent = await getEvents(sessionkey);
+        const responseClientGrowth = await getClientGrowth(sessionkey);
+        const responseAumGrowth = await getAUMGrowth(sessionkey);
+        console.log("CLIENT GROWTH: ", responseClientGrowth.data.detail);
+        console.log("AUM GROWTH: ", responseAumGrowth.data.detail);
+
+        console.log();
         setUserDetails({
           user_profile: responseUser.data.detail,
           events: responseEvent.data,
           recent_referrals: responseUser.data.detail.recent_user_referrals,
+          client_growth: responseClientGrowth.data.detail,
+          aum_growth: responseAumGrowth.data.detail,
         });
       } catch (error) {}
     };

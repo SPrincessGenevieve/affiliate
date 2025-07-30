@@ -71,11 +71,11 @@ export default function InvestmentAmount() {
                 <SelectValue></SelectValue>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1.0">1.0% (Vintage)</SelectItem>
-                <SelectItem value="1.25">1.25% (Vintage Cru)</SelectItem>
-                <SelectItem value="1.75">1.75% (Vintage Vault)</SelectItem>
-                <SelectItem value="1.5">1.50% (Vintage Enclosure)</SelectItem>
-                <SelectItem value="2.0">2% (Vintage Associate)</SelectItem>
+                <SelectItem value="1.0">0.1% (Vintage)</SelectItem>
+                <SelectItem value="1.25">0.25% (Vintage Cru)</SelectItem>
+                <SelectItem value="1.75">0.5% (Vintage Vault)</SelectItem>
+                <SelectItem value="1.5">0.75% (Vintage Enclosure)</SelectItem>
+                <SelectItem value="2.0">1.0% (Vintage Associate)</SelectItem>
               </SelectContent>
             </Select>
           </div>

@@ -8,8 +8,18 @@ import { useUserContext } from "@/app/context/UserContext";
 
 export default function TierOne() {
   const { user_profile } = useUserContext();
-  const current_level = user_profile.current_level;
-  const level_ar = current_level - 1;
+  const currentLevel = user_profile.current_level;
+  const matchCurrentLevel = user_profile.levels_list.find(
+    (level) => level.id === user_profile.current_level
+  );
+  const next_level = currentLevel + 1 
+  const matchNextLevel = user_profile.levels_list.find(
+    (level) => level.id === next_level
+  );
+  const next_tier = (Number(matchNextLevel?.min_price) ?? 0) - (Number(matchCurrentLevel?.min_price) ?? 0);
+
+  console.log("NEXT TIER: ", next_tier)
+
 
   const formatPrice = (value: number) => {
     if (value >= 1_000_000) {
@@ -44,11 +54,7 @@ export default function TierOne() {
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">Next tier: </Label>
             <Label className="font-normal text-green-500">
-              £
-              {formatPrice(
-                Number(user_profile.levels_list[level_ar].max_price)
-              )}{" "}
-              to go
+              £{formatPrice(Number(next_tier))} to go
             </Label>
           </div>
         </CardContent>

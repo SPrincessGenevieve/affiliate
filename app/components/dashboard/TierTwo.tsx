@@ -5,9 +5,14 @@ import { Progress } from "@/components/ui/progress";
 import React from "react";
 import "@/app/globals.css";
 import { useUserContext } from "@/app/context/UserContext";
+import Decimal from "decimal.js";
 
 export default function TierTwo() {
   const { user_profile } = useUserContext();
+  const sortedLevels = [...user_profile.levels_list].sort(
+    (a, b) => a.level - b.level
+  );
+
   const level = user_profile.current_level || 0;
   const levelGradient = [
     "", // 0
@@ -29,17 +34,36 @@ export default function TierTwo() {
       ? 75
       : 100;
 
-  const formatPrice = (value: number) => {
-    if (value >= 1_000_000) {
-      return `${(value / 1_000_000).toFixed(value % 1_000_000 === 0 ? 0 : 1)}M`;
-    } else if (value >= 1_000) {
-      return `${(value / 1_000).toFixed(value % 1_000 === 0 ? 0 : 1)}K`;
-    }
-    return value.toString();
+  const formatNumber = (value: number, digits = 1) => {
+    return new Intl.NumberFormat("en-US", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: digits,
+    }).format(value);
   };
 
-  const goldTierProgressLabel = 500000 - user_profile.total_aum;
+  const formatPrice = (value: number): string => {
+    const trillions = value / 1_000_000_000_000;
+    const billions = value / 1_000_000_000;
+    const millions = value / 1_000_000;
+    const thousands = value / 1_000;
 
+    if (trillions >= 0.9995) {
+      return `${formatNumber(trillions)}T`;
+    } else if (billions >= 1) {
+      return `${formatNumber(billions)}B`;
+    } else if (millions >= 1) {
+      return `${formatNumber(millions)}M`;
+    } else if (thousands >= 1) {
+      return `${formatNumber(thousands)}K`;
+    }
+    return formatNumber(value);
+  };
+
+  const price = new Decimal(sortedLevels[4]?.max_price ?? 0);
+  const goldTier = price.plus(1);
+  const goldTierProgressLabel = Number(goldTier) - user_profile.total_aum;
+
+  console.log(formatPrice(goldTierProgressLabel)); // ✅ Shows "1T"
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">
@@ -118,15 +142,13 @@ export default function TierTwo() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          {user_profile.levels_list.map((item, index) => (
+          {sortedLevels.map((item, index) => (
             <div className="w-10 flex flex-col items-center justify-center">
               <Label className="text-[11px] text-center">{item.name}</Label>
               <Label className="text-gray-600 text-[11px]">
                 £
                 {formatPrice(
-                  Math.round(
-                    Number(user_profile.levels_list[index].max_price) * 100
-                  ) / 100
+                  Math.round(Number(sortedLevels[index].min_price) * 100) / 100
                 )}
               </Label>
               <Label className="text-[10px] text-center">

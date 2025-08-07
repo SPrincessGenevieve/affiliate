@@ -157,7 +157,7 @@ export default function TableComponent({
       </TableCell>
       {/* Percent Profit Loss */}
       <TableCell className="">
-        {item.realised_profit_loss.toLocaleString(undefined, {
+        {item.profit_loss.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}

@@ -59,11 +59,10 @@ export default function TierTwo() {
     return formatNumber(value);
   };
 
-  const price = new Decimal(sortedLevels[4]?.max_price ?? 0);
-  const goldTier = price.plus(1);
-  const goldTierProgressLabel = Number(goldTier) - user_profile.total_aum;
+  const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
+  const goldTierProgressLabel = Number(price) - user_profile.total_aum;
 
-  console.log(formatPrice(goldTierProgressLabel)); // ✅ Shows "1T"
+  console.log(user_profile.total_aum); // ✅ Shows "1T"
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">
@@ -159,7 +158,7 @@ export default function TierTwo() {
         </div>
         <div className="w-full flex flex-col items-center justify-center gap-2">
           <Label className="text-green-600 font-normal">
-            £{formatPrice(goldTierProgressLabel)} more to reach Gold Tier
+            £{formatPrice(goldTierProgressLabel)} more to reach Vintage Associate
           </Label>
         </div>
       </CardContent>

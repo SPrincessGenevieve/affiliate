@@ -19,7 +19,9 @@ import {
 } from "@/components/ui/pagination";
 import { Button } from "@/components/ui/button";
 import {
+  ArrowDown,
   ArrowDownNarrowWide,
+  ArrowUp,
   ArrowUpNarrowWide,
   ChevronsLeft,
   ChevronsRight,
@@ -50,6 +52,7 @@ export default function TableComponent({
   const {
     my_referrals_total_pages,
     my_referrals_current_page,
+    activeFilter,
     setUserDetails,
   } = useUserContext();
 
@@ -58,8 +61,6 @@ export default function TableComponent({
     my_referrals_current_page || 1
   );
   const [selectedFilter, setSelectedFilter] = useState("");
-  const [isFiltered, setIsFiltered] = useState(false);
-
   const totalPages = my_referrals_total_pages;
   const paginatedData = data;
 
@@ -164,10 +165,12 @@ export default function TableComponent({
 
       {/* My Commission Annual */}
       <TableCell className="">
-        {item.estimated_annual_aum.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
+        {typeof item.estimated_annual_aum === "number"
+          ? item.estimated_annual_aum.toLocaleString(undefined, {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })
+          : "0.00"}
       </TableCell>
     </TableRow>
   );
@@ -185,19 +188,38 @@ export default function TableComponent({
             <TableHead>
               <div className="flex items-center gap-2">
                 Market Value
-                <Button variant={"ghost"}>
-                  {selectedFilter === "aum" ? (
-                    <ArrowUpNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowUpNarrowWide>
-                  ) : (
-                    <ArrowDownNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowDownNarrowWide>
-                  )}
-                </Button>
+                <div>
+                  <Button
+                    variant={
+                      activeFilter === "market_value" ? "default" : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "market_value" ? "" : "market_value",
+                      })
+                    }
+                  >
+                    <ArrowUp strokeWidth={1.5} size={20} />
+                  </Button>
+                  <Button
+                    variant={
+                      activeFilter === "-market_value" ? "default" : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "-market_value"
+                            ? ""
+                            : "-market_value",
+                      })
+                    }
+                  >
+                    <ArrowDown strokeWidth={1.5} size={20} />
+                  </Button>
+                </div>
               </div>
             </TableHead>
             <TableHead>
@@ -209,64 +231,122 @@ export default function TableComponent({
             <TableHead>
               <div className="flex items-center gap-2">
                 Realised Profit/Loss
-                <Button
-                  variant={"ghost"}
-                  onClick={() => {
-                    if (selectedFilter !== "") {
-                      setSelectedFilter("");
-                    } else {
-                      setSelectedFilter("aum");
+                <div>
+                  <Button
+                    variant={
+                      activeFilter === "realised_profit_loss"
+                        ? "default"
+                        : "ghost"
                     }
-                  }}
-                >
-                  {selectedFilter === "aum" ? (
-                    <ArrowUpNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowUpNarrowWide>
-                  ) : (
-                    <ArrowDownNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowDownNarrowWide>
-                  )}
-                </Button>
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "realised_profit_loss"
+                            ? ""
+                            : "realised_profit_loss",
+                      })
+                    }
+                  >
+                    <ArrowUp strokeWidth={1.5} size={20} />
+                  </Button>
+                  <Button
+                    variant={
+                      activeFilter === "-realised_profit_loss"
+                        ? "default"
+                        : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "-realised_profit_loss"
+                            ? ""
+                            : "-realised_profit_loss",
+                      })
+                    }
+                  >
+                    <ArrowDown strokeWidth={1.5} size={20} />
+                  </Button>
+                </div>
               </div>
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 %Profit/Loss
-                <Button variant={"ghost"}>
-                  {selectedFilter === "aum" ? (
-                    <ArrowUpNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowUpNarrowWide>
-                  ) : (
-                    <ArrowDownNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowDownNarrowWide>
-                  )}
-                </Button>
+                <div>
+                  <Button
+                    variant={
+                      activeFilter === "profit_loss" ? "default" : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "profit_loss" ? "" : "profit_loss",
+                      })
+                    }
+                  >
+                    <ArrowUp strokeWidth={1.5} size={20} />
+                  </Button>
+                  <Button
+                    variant={
+                      activeFilter === "-profit_loss" ? "default" : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "-profit_loss" ? "" : "-profit_loss",
+                      })
+                    }
+                  >
+                    <ArrowDown strokeWidth={1.5} size={20} />
+                  </Button>
+                </div>
               </div>
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 My Commission (Annual)
-                <Button variant={"ghost"}>
-                  {selectedFilter === "commission" ? (
-                    <ArrowUpNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowUpNarrowWide>
-                  ) : (
-                    <ArrowDownNarrowWide
-                      strokeWidth={1.5}
-                      size={20}
-                    ></ArrowDownNarrowWide>
-                  )}
-                </Button>
+                <div>
+                  <Button
+                    variant={
+                      activeFilter === "estimated_annual_aum"
+                        ? "default"
+                        : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "estimated_annual_aum"
+                            ? ""
+                            : "estimated_annual_aum",
+                      })
+                    }
+                  >
+                    <ArrowUp strokeWidth={1.5} size={20} />
+                  </Button>
+                  <Button
+                    variant={
+                      activeFilter === "-estimated_annual_aum"
+                        ? "default"
+                        : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "-estimated_annual_aum"
+                            ? ""
+                            : "-estimated_annual_aum",
+                      })
+                    }
+                  >
+                    <ArrowDown strokeWidth={1.5} size={20} />
+                  </Button>
+                </div>
               </div>
             </TableHead>
           </TableRow>

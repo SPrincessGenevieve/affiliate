@@ -48,14 +48,16 @@ export type UserProfile = {
   referral_total_clicks: number;
   commision_rate: number;
   next_payment: number;
-  aum: number;
-
-  total_aum: number;
-  total_aum_yearly: number;
-  estimated_next_payment: number;
+  // total_aum: 0,
+  // total_aum_yearly: 0,
+  // estimated_next_payment: 0,
   due_date: string;
   total_clients: number;
   total_clients_month: number;
+  recent_user_referrals: [];
+  total_commission: number;
+  total_commission_yearly: number;
+  total_monthly_aum: number;
 };
 
 export type UserUpdate = {
@@ -112,6 +114,7 @@ export type EventTypes = {
 };
 
 type UserContextType = {
+  activeFilter: string;
   isOpen: boolean;
   sessionkey: string;
   isLoggedIn: boolean | null;
@@ -140,6 +143,7 @@ type UserContextType = {
 };
 
 const defaultUserContext: UserContextType = {
+  activeFilter: "",
   isOpen: true,
   isLoggedIn: null,
   sessionkey: "",
@@ -157,16 +161,19 @@ const defaultUserContext: UserContextType = {
     profile_picture: null,
     commision_rate: 0,
     next_payment: 0,
-    aum: 0,
     referral_code: "",
     referral_link: "",
     referral_total_clicks: 0,
-    total_aum: 0,
-    total_aum_yearly: 0,
-    estimated_next_payment: 0,
+    // total_aum: 0,
+    // total_aum_yearly: 0,
+    // estimated_next_payment: 0,
     due_date: "",
     total_clients: 0,
     total_clients_month: 0,
+    recent_user_referrals: [],
+    total_commission: 0,
+    total_commission_yearly: 0,
+    total_monthly_aum: 0.0,
   },
   my_referrals: [],
   recent_referrals: [],

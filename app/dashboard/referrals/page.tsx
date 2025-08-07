@@ -4,11 +4,13 @@ import TableComponent from "@/app/components/TableComponent";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { affiliate_leaderboard } from "@/lib/mock-data/affiliate_leaderboard";
-import { getMyReferrals } from "@/lib/services/getData";
+import { getMyReferrals, getMyReferralsFiilter } from "@/lib/services/getData";
 import { Search } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useUserContext } from "@/app/context/UserContext";
 import SpinnerIcon from "@/app/images/Spinner";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 
 type Filters = {
   action: {
@@ -27,23 +29,46 @@ type Filters = {
 };
 
 export default function MyReferrals() {
-  const { setUserDetails, sessionkey, my_referrals, my_referrals_current_page } =
-    useUserContext();
+  const {
+    setUserDetails,
+    activeFilter,
+    sessionkey,
+    my_referrals,
+    my_referrals_current_page,
+  } = useUserContext();
+
+  console.log("Active Filter: ", activeFilter);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
     const fetchMyReferral = async () => {
       try {
-        const responseMyReferrals = await getMyReferrals(
-          my_referrals_current_page, sessionkey
-        );
+        if (activeFilter === "") {
+          const responseMyReferrals = await getMyReferrals(
+            my_referrals_current_page,
+            sessionkey
+          );
 
-        setUserDetails({
-          my_referrals: responseMyReferrals.data.results,
-          my_referrals_total_pages: responseMyReferrals.data.total_pages,
-        });
+          setUserDetails({
+            my_referrals: responseMyReferrals.data.results,
+            my_referrals_total_pages: responseMyReferrals.data.total_pages,
+          });
+        } else {
+          const responseMyReferralsFilter = await getMyReferralsFiilter(
+            sessionkey,
+            activeFilter,
+            search === "" ? false : true
+          );
+
+          setUserDetails({
+            my_referrals: responseMyReferralsFilter.data.results,
+            my_referrals_total_pages:
+              responseMyReferralsFilter.data.total_pages,
+          });
+        }
         setIsLoading(false);
       } catch (error: any) {
         console.log(error);
@@ -53,7 +78,7 @@ export default function MyReferrals() {
     };
 
     fetchMyReferral();
-  }, [my_referrals_current_page]);
+  }, [my_referrals_current_page, activeFilter]);
 
   const [filters, setFilters] = useState<Filters>({
     action: {
@@ -86,12 +111,25 @@ export default function MyReferrals() {
     });
   };
 
+  const handleSearch = () => {
+    setUserDetails({
+      activeFilter: search,
+    });
+  };
+
   return (
     <div className="relative flex  w-full h-full gap-4 flex-col justify-between">
       <div className="bg-white relative shadow h-full max-h-16 rounded-2xl p-2 w-full flex items-center justify-between">
-        <div className="relative flex items-center">
-          <Search className="absolute ml-2"></Search>
-          <Input placeholder="search" className="pl-10"></Input>
+        <div className="relative flex items-center gap-2">
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="search"
+            className=""
+          ></Input>
+          <Button onClick={handleSearch}>
+            <Search></Search>
+          </Button>
         </div>
         <ReferralFilter
           onFilterChange={handleFilterChange}
@@ -107,7 +145,13 @@ export default function MyReferrals() {
               </div>
             </div>
           )}
-          <TableComponent data={my_referrals}></TableComponent>
+          {my_referrals.length !== 0 ? (
+            <TableComponent data={my_referrals}></TableComponent>
+          ) : (
+            <div>
+              <Label>Table is empty</Label>
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>

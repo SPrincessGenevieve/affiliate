@@ -120,7 +120,7 @@ export default function TierOne() {
               <Label className="font-normal text-gray-600">Total AUM</Label>
               <Label className="font-bold text-2xl text-[#2E5257]">
                 £
-                {Number(user_profile.total_aum).toLocaleString(undefined, {
+                {Number(user_profile.total_commission).toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 }) || 0}
@@ -130,7 +130,7 @@ export default function TierOne() {
           <div className="flex justify-between">
             <Label className="font-normal text-gray-600">This year</Label>
             <Label className="font-normal text-green-500">
-              +£{user_profile.total_aum_yearly.toFixed(2)}
+              +£{Number(user_profile.total_commission_yearly.toFixed(2)).toLocaleString()}
             </Label>
           </div>
         </CardContent>

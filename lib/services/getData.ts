@@ -1,3 +1,4 @@
+"use client";
 import api from "../axiosAuth";
 
 export const getUser = (sessionKey: string) => {
@@ -13,6 +14,24 @@ export const getMyReferrals = (page: number, sessionKey: string) =>
       Authorization: "Token " + sessionKey,
     },
   });
+
+export const getMyReferralsFiilter = (
+  sessionKey: string,
+  activeFilter: string,
+  isInput: boolean
+) => {
+  return isInput
+    ? api.get(`/api/affiliate/my-referral?client=${activeFilter}`, {
+        headers: {
+          Authorization: "Token " + sessionKey,
+        },
+      })
+    : api.get(`/api/affiliate/my-referral?ordering=${activeFilter}`, {
+        headers: {
+          Authorization: "Token " + sessionKey,
+        },
+      });
+};
 
 export const getEvents = (sessionKey: string) =>
   api.get(`/user/events`, {

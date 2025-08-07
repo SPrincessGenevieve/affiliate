@@ -60,9 +60,9 @@ export default function TierTwo() {
   };
 
   const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
-  const goldTierProgressLabel = Number(price) - user_profile.total_aum;
+  const goldTierProgressLabel = Number(price) - user_profile.total_commission;
 
-  console.log(user_profile.total_aum); // ✅ Shows "1T"
+  console.log(user_profile.total_commission); // ✅ Shows "1T"
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">

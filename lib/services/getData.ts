@@ -60,3 +60,11 @@ export const getClientGrowth = (sessionKey: string) =>
       Authorization: "Token " + sessionKey,
     },
   });
+
+export const getCommissionGrowth = (sessionKey: string) =>
+  api.get("/api/affiliate/total-commission-growth", {
+    headers: {
+      Authorization: "Token " + sessionKey,
+    },
+  });
+//

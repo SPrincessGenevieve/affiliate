@@ -28,17 +28,9 @@ import Leaderboard from "./Tier-4/Leaderboard";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 export default function TierFour() {
-  const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const { setUserDetails, affiliated_leaderboard, sessionkey } =
     useUserContext();
 
-  const navigateReferral = () => {
-    setLoading(true);
-    setTimeout(() => {
-      router.push("/dashboard/referrals");
-    }, 3000);
-  };
 
   useEffect(() => {
     const fetchAffilicated = async () => {

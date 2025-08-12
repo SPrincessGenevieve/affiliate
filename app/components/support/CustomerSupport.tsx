@@ -81,13 +81,13 @@ export default function CustomerSupport({ open, onOpenChange }: SupportProps) {
             <Label className="font-normal">Call us: (0203-998-3486)</Label>
           </div>
           <div className="flex flex-col gap-2 mt-2 w-full">
-            <div className="flex gap-2 items-center pb-4">
+            {/* <div className="flex gap-2 items-center pb-4">
               <Bot color="black" size={15}></Bot>
               <p className="text-[14px] text-gray-400">
                 Try our AI chatbot for instant answers before contacting
                 support!
               </p>
-            </div>
+            </div> */}
             <div className="flex flex-col gap-3">
               <Label
                 htmlFor="message"

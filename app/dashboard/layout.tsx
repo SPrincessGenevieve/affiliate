@@ -14,6 +14,7 @@ import SpinnerIcon from "../images/Spinner";
 import {
   getAUMGrowth,
   getClientGrowth,
+  getCommissionGrowth,
   getEvents,
   getMyReferrals,
   getUser,
@@ -52,14 +53,15 @@ export default function DashboardLayout({
         const responseEvent = await getEvents(sessionkey);
         const responseClientGrowth = await getClientGrowth(sessionkey);
         const responseAumGrowth = await getAUMGrowth(sessionkey);
+        const responseCommission = await getCommissionGrowth(sessionkey);
 
-        console.log();
         setUserDetails({
           user_profile: responseUser.data.detail,
           events: responseEvent.data,
           recent_referrals: responseUser.data.detail.recent_user_referrals,
           client_growth: responseClientGrowth.data.detail,
           aum_growth: responseAumGrowth.data.detail,
+          commission_growth: responseCommission.data.detail,
         });
       } catch (error) {}
     };

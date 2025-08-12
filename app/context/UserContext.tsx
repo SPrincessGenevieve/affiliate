@@ -139,6 +139,12 @@ type UserContextType = {
       created_at: string;
     }
   ];
+  commission_growth: [
+    {
+      total_commission: string;
+      created_at: string;
+    }
+  ];
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
@@ -190,6 +196,12 @@ const defaultUserContext: UserContextType = {
   aum_growth: [
     {
       total_aum: 0,
+      created_at: "",
+    },
+  ],
+  commission_growth: [
+    {
+      total_commission: "",
       created_at: "",
     },
   ],

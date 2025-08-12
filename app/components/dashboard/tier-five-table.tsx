@@ -49,59 +49,61 @@ export default function TierFiveTable({
         </TableRow>
       </TableHeader>
       <TableBody className="">
-        {visibleRows.map((item) => (
-          <TableRow
-            key={item.rank}
-            onClick={() => setSelectedRow(item.rank)}
-            className={cn(
-              "cursor-pointer transition-colors ",
-              selectedRow === item.rank
-                ? "bg-[#F3E8E9] font-bold"
-                : "font-normal"
-            )}
-          >
-            <TableCell>
-              <Label
-                className={`w-6 h-6 text-center flex items-center justify-center rounded-full bg-[#F3F4F6] ${
-                  selectedRow === item.rank && "bg-[#2E5257] text-white"
-                } ${item.rank === 1 && "bg-[#C4AD93] text-[#fff]"}`}
-              >
-                {item.rank}
-              </Label>
-            </TableCell>
-            <TableCell className="flex gap-2">
-              <Avatar>
-                <AvatarImage src={""}></AvatarImage>
-                <AvatarFallback
-                  className={`cursor-pointer font-normal transition-colors text-gray-500 ${
+        {[...visibleRows]
+          .sort((a, b) => a.rank - b.rank)
+          .map((item) => (
+            <TableRow
+              key={item.rank}
+              onClick={() => setSelectedRow(item.rank)}
+              className={cn(
+                "cursor-pointer transition-colors ",
+                selectedRow === item.rank
+                  ? "bg-[#F3E8E9] font-bold"
+                  : "font-normal"
+              )}
+            >
+              <TableCell>
+                <Label
+                  className={`w-6 h-6 text-center flex items-center justify-center rounded-full bg-[#F3F4F6] ${
                     selectedRow === item.rank && "bg-[#2E5257] text-white"
-                  }`}
+                  } ${item.rank === 1 && "bg-[#C4AD93] text-[#fff]"}`}
                 >
-                  {`${item.affiliator[0]}`}
-                </AvatarFallback>
-              </Avatar>
-              <Label
-                className={cn(
-                  "cursor-pointer  transition-colors ",
-                  selectedRow === item.rank ? "font-bold" : "font-normal"
-                )}
-              >
-                {item.affiliator}
-              </Label>
-            </TableCell>
+                  {item.rank}
+                </Label>
+              </TableCell>
+              <TableCell className="flex gap-2">
+                <Avatar>
+                  <AvatarImage src={""}></AvatarImage>
+                  <AvatarFallback
+                    className={`cursor-pointer font-normal transition-colors text-gray-500 ${
+                      selectedRow === item.rank && "bg-[#2E5257] text-white"
+                    }`}
+                  >
+                    {`${item.affiliator[0]}`}
+                  </AvatarFallback>
+                </Avatar>
+                <Label
+                  className={cn(
+                    "cursor-pointer transition-colors",
+                    selectedRow === item.rank ? "font-bold" : "font-normal"
+                  )}
+                >
+                  {item.affiliator}
+                </Label>
+              </TableCell>
 
-            <TableCell>
-              <div className="flex">
-                <Label className="">{item.aum}</Label>
-              </div>
-            </TableCell>
-            <TableCell>
-              <Label className="font-normal">
-                {item.annual_commission_rate}
-              </Label>
-            </TableCell>
-          </TableRow>
-        ))}
+              <TableCell>
+                <div className="flex">
+                  <Label>{item.aum}</Label>
+                </div>
+              </TableCell>
+              <TableCell>
+                <Label className="font-normal">
+                  {item.annual_commission_rate}
+                </Label>
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );

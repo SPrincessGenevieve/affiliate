@@ -78,14 +78,14 @@ export default function Header() {
       <div className="w-full flex gap-8 justify-end items-center avatar-cont">
         <div className="w-auto flex gap-2 justify-center items-center">
           <DropdownMenu modal={false}>
-            <DropdownMenuTrigger asChild>
+            {/* <DropdownMenuTrigger asChild>
               <div className="flex gap-2 items-center">
                 <div className="rounded-full p-2">
                   <Bell color="black"></Bell>
                 </div>
                 <ChevronDown size={17} color="gray"></ChevronDown>
               </div>
-            </DropdownMenuTrigger>
+            </DropdownMenuTrigger> */}
             <DropdownMenuContent className="w-full max-w-[400px] h-full ml-[2%] mr-0  notif-cont">
               <DropdownMenuLabel>Notification</DropdownMenuLabel>
               <DropdownMenuSeparator />

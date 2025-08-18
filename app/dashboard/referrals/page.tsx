@@ -60,7 +60,8 @@ export default function MyReferrals() {
           const responseMyReferralsFilter = await getMyReferralsFiilter(
             sessionkey,
             activeFilter,
-            search === "" ? false : true
+            search === "" ? false : true,
+            my_referrals_current_page
           );
 
           setUserDetails({

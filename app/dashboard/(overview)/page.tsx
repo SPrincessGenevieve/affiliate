@@ -12,7 +12,7 @@ import "@/app/globals.css";
 export default function Dashboard() {
   return (
     <div className="w-full h-full flex flex-col gap-4 dashboard-cont">
-      <Greetings></Greetings>
+      {/* <Greetings></Greetings> */}
 
       {/* Commission Rate */}
       <TierOne></TierOne>

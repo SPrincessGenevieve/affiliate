@@ -18,7 +18,8 @@ export const getMyReferrals = (page: number, sessionKey: string) =>
 export const getMyReferralsFiilter = (
   sessionKey: string,
   activeFilter: string,
-  isInput: boolean
+  isInput: boolean,
+  pageNumber: number
 ) => {
   return isInput
     ? api.get(`/api/affiliate/my-referral?client=${activeFilter}`, {
@@ -26,12 +27,13 @@ export const getMyReferralsFiilter = (
           Authorization: "Token " + sessionKey,
         },
       })
-    : api.get(`/api/affiliate/my-referral?ordering=${activeFilter}`, {
+    : api.get(`/api/affiliate/my-referral?ordering=${activeFilter}&page=${pageNumber}`, {
         headers: {
           Authorization: "Token " + sessionKey,
         },
       });
 };
+
 
 export const getEvents = (sessionKey: string) =>
   api.get(`/user/events`, {

@@ -29,6 +29,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TableItem } from "@/lib/type";
 import { MyReferralsTypes, useUserContext } from "../context/UserContext";
+import { Label } from "@/components/ui/label";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -97,21 +98,23 @@ export default function TableComponent({
 
       {/* My Client */}
       <TableCell
-        className={`flex items-center gap-2 ${
+        className={`w-60 flex items-center gap-2 ${
           selected ? "font-bold" : "font-normal"
         }`}
       >
         <Avatar>
           <AvatarImage src="" alt={`${item.full_name[0]}`} />
           <AvatarFallback
-            className={` ${
+            className={`${
               selected ? "bg-[#2E5257] text-white" : "font-normal"
             }`}
           >
             {`${item.full_name[0]}`.toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        {item.full_name}
+        <Label className="whitespace-normal break-words">
+          {item.full_name}
+        </Label>
       </TableCell>
 
       {/* Login Date & Time */}
@@ -147,6 +150,13 @@ export default function TableComponent({
 
       {/* Cases Sold */}
       <TableCell className="">{item.cases_sold}</TableCell>
+      {/* Monthly Commission */}
+      <TableCell className="">
+        {item.monthly_commission.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </TableCell>
 
       {/* Realised Profit Loss */}
       <TableCell className="">
@@ -298,6 +308,49 @@ export default function TableComponent({
                       setUserDetails({
                         activeFilter:
                           activeFilter === "-profit_loss" ? "" : "-profit_loss",
+                      })
+                    }
+                  >
+                    <ArrowDown strokeWidth={1.5} size={20} />
+                  </Button>
+                </div>
+              </div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">
+                Monthly Commission
+                <div>
+                  <Button
+                    variant={
+                      activeFilter === "monthly_commission"
+                        ? "default"
+                        : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "monthly_commission"
+                            ? ""
+                            : "monthly_commission",
+                      })
+                    }
+                  >
+                    <ArrowUp strokeWidth={1.5} size={20} />
+                  </Button>
+                  <Button
+                    variant={
+                      activeFilter === "-monthly_commission"
+                        ? "default"
+                        : "ghost"
+                    }
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "-monthly_commission"
+                            ? ""
+                            : "-monthly_commission",
                       })
                     }
                   >

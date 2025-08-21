@@ -18,7 +18,7 @@ export const postCalculate = (
   sessionKey: string
 ) =>
   api.post(
-    "/api/affiliate/commision-rate-calculator",
+    "/api/affiliate/commission-rate-calculator",
     {
       investment_amount: investment_amount,
       commission_rate: commission_rate,

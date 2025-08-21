@@ -150,13 +150,6 @@ export default function TableComponent({
 
       {/* Cases Sold */}
       <TableCell className="">{item.cases_sold}</TableCell>
-      {/* Monthly Commission */}
-      <TableCell className="">
-        {item.monthly_commission.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </TableCell>
 
       {/* Realised Profit Loss */}
       <TableCell className="">
@@ -165,9 +158,18 @@ export default function TableComponent({
           maximumFractionDigits: 2,
         })}
       </TableCell>
+
       {/* Percent Profit Loss */}
       <TableCell className="">
         {item.profit_loss.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </TableCell>
+
+      {/* Monthly Commission */}
+      <TableCell className="">
+        {item.monthly_commission.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}

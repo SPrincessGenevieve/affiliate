@@ -125,7 +125,7 @@ export default function TableComponent({
       </TableCell>
 
       {/* Tier */}
-      <TableCell className="">
+      <TableCell className="px-8">
         <div
           className={`px-2 font-semibold h-7 flex items-center justify-center rounded-2xl text-center ${
             item.rank === 1
@@ -160,11 +160,14 @@ export default function TableComponent({
       </TableCell>
 
       {/* Percent Profit Loss */}
-      <TableCell className="">
+      <TableCell
+        className={`${item.profit_loss > 0 ? "text-green-600" : "text-[red]"}`}
+      >
         {item.profit_loss.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}
+        %
       </TableCell>
 
       {/* Monthly Commission */}
@@ -177,8 +180,8 @@ export default function TableComponent({
 
       {/* My Commission Annual */}
       <TableCell className="">
-        {typeof item.estimated_annual_aum === "number"
-          ? item.estimated_annual_aum.toLocaleString(undefined, {
+        {typeof item.estimated_annual_commission === "number"
+          ? item.estimated_annual_commission.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })
@@ -196,7 +199,12 @@ export default function TableComponent({
             <TableHead>Rank</TableHead>
             <TableHead>My Clients</TableHead>
             <TableHead>Last Login Date/Time</TableHead>
-            <TableHead>Tier</TableHead>
+            <TableHead>
+              {" "}
+              <div className="flex text-center justify-center items-center gap-2 ">
+                Tier
+              </div>
+            </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 Market Value

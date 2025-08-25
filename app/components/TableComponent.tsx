@@ -152,8 +152,8 @@ export default function TableComponent({
       <TableCell className="">{item.cases_sold}</TableCell>
 
       {/* Realised Profit Loss */}
-      <TableCell className="">
-        {item.realised_profit_loss.toLocaleString(undefined, {
+      <TableCell className={`${item.realised_profit_loss > 0 ? "text-green-600" : "text-[red]"}`}>
+        £{item.realised_profit_loss.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}
@@ -172,7 +172,7 @@ export default function TableComponent({
 
       {/* Monthly Commission */}
       <TableCell className="">
-        {item.monthly_commission.toLocaleString(undefined, {
+        £{item.monthly_commission.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}
@@ -180,7 +180,7 @@ export default function TableComponent({
 
       {/* My Commission Annual */}
       <TableCell className="">
-        {typeof item.estimated_annual_commission === "number"
+        £{typeof item.estimated_annual_commission === "number"
           ? item.estimated_annual_commission.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,

@@ -52,7 +52,7 @@ export default function TierFour() {
         <div className="h-[90%] w-full  ">
           <div className="flex w-full justify-between p-4">
             <Label className="text-[16px]">Affiliated Leaderboard</Label>
-            <Select defaultValue="q1">
+            {/* <Select defaultValue="q1">
               <SelectTrigger>
                 <SelectValue></SelectValue>
               </SelectTrigger>
@@ -61,7 +61,7 @@ export default function TierFour() {
                 <SelectItem value="q4">Q4 2024</SelectItem>
                 <SelectItem value="q3">Q3 2024</SelectItem>
               </SelectContent>
-            </Select>
+            </Select> */}
           </div>
           <div className="w-full h-[80%] relative flex overflow-x-auto ">
             <div className="absolute w-full h-full flex px-4">

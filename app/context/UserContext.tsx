@@ -33,6 +33,20 @@ export type Level = {
   updated_at: string;
 };
 
+export type Leaderboard = {
+  id: number;
+  affiliator: string;
+  aum: number;
+  rank: number;
+  annual_commission_rate: number;
+};
+
+export type NextTier = {
+  next_level: string;
+  next_tier_to_go: number;
+  is_max_tier: boolean;
+};
+
 export type UserProfile = {
   first_name: string;
   middle_name: string;
@@ -46,18 +60,26 @@ export type UserProfile = {
   referral_code: string;
   referral_link: string;
   referral_total_clicks: number;
+  recent_user_referrals: [
+    {
+      full_name: string;
+      market_value: number;
+      created_at: string;
+    }
+  ];
   commision_rate: number;
   next_payment: number;
-  // total_aum: 0,
-  // total_aum_yearly: 0,
-  // estimated_next_payment: 0,
+  total_commission: number;
+  total_commission_yearly: number;
   due_date: string;
   total_clients: number;
   total_clients_month: number;
-  recent_user_referrals: [];
-  total_commission: number;
-  total_commission_yearly: number;
   total_monthly_aum: number;
+  leaderboard: Leaderboard[];
+  next_tier: NextTier;
+  // total_aum: 0,
+  // total_aum_yearly: 0,
+  // estimated_next_payment: 0,
 };
 
 export type UserUpdate = {
@@ -161,26 +183,35 @@ const defaultUserContext: UserContextType = {
     middle_name: "",
     last_name: "",
     email: "",
-    phone_number: "",
-    birth_date: null,
     current_level: 1,
     levels_list: [],
+    birth_date: null,
     profile_picture: null,
-    commision_rate: 0,
-    next_payment: 0,
+    phone_number: "",
     referral_code: "",
     referral_link: "",
     referral_total_clicks: 0,
-    // total_aum: 0,
-    // total_aum_yearly: 0,
-    // estimated_next_payment: 0,
+    recent_user_referrals: [
+      {
+        full_name: "",
+        market_value: 0,
+        created_at: "",
+      },
+    ],
+    commision_rate: 0,
+    next_payment: 0,
+    total_commission: 0,
+    total_commission_yearly: 0,
     due_date: "",
     total_clients: 0,
     total_clients_month: 0,
-    recent_user_referrals: [],
-    total_commission: 0,
-    total_commission_yearly: 0,
     total_monthly_aum: 0.0,
+    leaderboard: [],
+    next_tier: {
+      next_level: "",
+      next_tier_to_go: 0,
+      is_max_tier: false,
+    },
   },
   my_referrals: [],
   recent_referrals: [],

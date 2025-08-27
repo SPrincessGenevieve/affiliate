@@ -6,10 +6,15 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { CommissionChart } from "./CommissionChart";
+import { useUserContext } from "@/app/context/UserContext";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
-export default function CommissionTrend() {
+export default function ClientGrowth() {
   const filter = ["Monthly", "Quarterly", "Yearly"];
   const [selected, setSelected] = useState<string>("Quarterly");
+  const { client_growth } = useUserContext();
+
+  console.log("MONTH: ", selected);
 
   return (
     <Card className=" w-full min-h-[400px]">
@@ -34,7 +39,23 @@ export default function CommissionTrend() {
       <CardContent className="relative p-0 m-0 flex flex-col gap-4 w-full h-full">
         <div className="w-full h-full relative flex overflow-x-auto ">
           <div className="absolute w-full h-full flex">
-            <CommissionChart timeRange={selected} />
+            {client_growth.length > 0 ? (
+              <CommissionChart timeRange={selected} />
+            ) : (
+              <>
+                <div className="h-full w-full flex flex-col items-center justify-center">
+                  <DotLottieReact
+                    src="/empty.lottie"
+                    loop
+                    autoplay
+                    className="h-50"
+                  ></DotLottieReact>
+                  <Label>
+                    There are currently no records.
+                  </Label>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </CardContent>

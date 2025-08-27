@@ -37,8 +37,8 @@ const chartConfig = {
 
 export default function AUMGrowth() {
   const { aum_growth = [], commission_growth = [] } = useUserContext();
-  const [monthRange, setMonthRange] = useState("6");
-
+  const [monthRange, setMonthRange] = useState("3");
+  console.log("MONTH RANGE: ", monthRange);
   // Safely access aum_growth with a fallback to an empty array if undefined
 
   // Check if aum_growth is not empty before performing the slice operation
@@ -75,7 +75,7 @@ export default function AUMGrowth() {
       <text
         x={x}
         y={y}
-        transform={`rotate(-30, ${x}, ${y})`}
+        transform={`rotate(-25, ${x}, ${y})`}
         textAnchor="end"
         fontSize={10}
         dy={1}
@@ -83,13 +83,15 @@ export default function AUMGrowth() {
         {new Date(payload.value).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
-          year: "numeric",
         })}
       </text>
     );
   };
 
   const [isAUM, setIsAUM] = useState(true);
+
+  const data = isAUM ? aum_growth.length : commission_growth.length;
+  console.log("DATA: ", data);
 
   return (
     <div>
@@ -112,20 +114,20 @@ export default function AUMGrowth() {
             </Button>
           </div>
           <div className="flex gap-2 relative">
-            <Select defaultValue="6" onValueChange={setMonthRange}>
+            <Select defaultValue="3" onValueChange={setMonthRange}>
               <SelectTrigger className="w-[120px] pl-2 m-0">
                 <SelectValue className="" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="12">Last 12 Months</SelectItem>
-                <SelectItem value="6">Last 6 Months</SelectItem>
                 <SelectItem value="3">Last 3 Months</SelectItem>
+                <SelectItem value="6">Last 6 Months</SelectItem>
+                <SelectItem value="12">Last 12 Months</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </CardHeader>
         <CardContent className="p-0 m-0 flex flex-col gap-2 w-full h-full">
-          {filteredData.length > 0 || filteredCommissionData.length > 0 ? (
+          {data > 0 ? (
             <>
               <div className="w-full h-full relative flex overflow-x-auto ">
                 <div className="absolute w-full h-full flex">
@@ -236,7 +238,7 @@ export default function AUMGrowth() {
                               axisLine={false}
                               tick={<CustomTick />}
                               minTickGap={16}
-                              tickMargin={-3}
+                              tickMargin={7}
                             />
                             <ChartTooltip
                               cursor={false}

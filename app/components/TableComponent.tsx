@@ -84,7 +84,7 @@ export default function TableComponent({
       }`}
     >
       {/* Rank */}
-      <TableCell>
+      {/* <TableCell>
         <div className="flex items-center">
           <p
             className={`rounded-full w-7 h-7 text-center flex items-center justify-center ${
@@ -94,7 +94,7 @@ export default function TableComponent({
             {item.rank}
           </p>
         </div>
-      </TableCell>
+      </TableCell> */}
 
       {/* My Client */}
       <TableCell
@@ -152,8 +152,13 @@ export default function TableComponent({
       <TableCell className="">{item.cases_sold}</TableCell>
 
       {/* Realised Profit Loss */}
-      <TableCell className={`${item.realised_profit_loss > 0 ? "text-green-600" : "text-[red]"}`}>
-        £{item.realised_profit_loss.toLocaleString(undefined, {
+      <TableCell
+        className={`${
+          item.realised_profit_loss > 0 ? "text-green-600" : "text-[red]"
+        }`}
+      >
+        £
+        {item.realised_profit_loss.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}
@@ -172,7 +177,8 @@ export default function TableComponent({
 
       {/* Monthly Commission */}
       <TableCell className="">
-        £{item.monthly_commission.toLocaleString(undefined, {
+        £
+        {item.monthly_commission.toLocaleString(undefined, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}
@@ -180,7 +186,8 @@ export default function TableComponent({
 
       {/* My Commission Annual */}
       <TableCell className="">
-        £{typeof item.estimated_annual_commission === "number"
+        £
+        {typeof item.estimated_annual_commission === "number"
           ? item.estimated_annual_commission.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
@@ -199,12 +206,12 @@ export default function TableComponent({
             <TableHead>Rank</TableHead>
             <TableHead>My Clients</TableHead>
             <TableHead>Last Login Date/Time</TableHead>
-            <TableHead>
+            {/* <TableHead>
               {" "}
               <div className="flex text-center justify-center items-center gap-2 ">
                 Tier
               </div>
-            </TableHead>
+            </TableHead> */}
             <TableHead>
               <div className="flex items-center gap-2">
                 Market Value
@@ -250,7 +257,7 @@ export default function TableComponent({
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                Realised Profit/Loss
+                Profit/Loss
                 <div>
                   <Button
                     variant={

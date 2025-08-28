@@ -16,11 +16,11 @@ export default function TierTwo() {
   const level = user_profile.current_level || 0;
   const levelGradient = [
     "", // 0
-    "bg-gradient-to-r from-[#6C9EA0] to-[#165558]",
-    "bg-gradient-to-r from-[#BE382B] to-[#901D23]",
-    "bg-gradient-to-r from-[#CE919B] to-[#C25ABD]",
-    "bg-gradient-to-r from-[#DDC4A9] to-[#B7A088]",
-    "bg-gradient-to-r from-[#313435] to-[#2A2C2D]",
+    "bg-gradient-to-r from-[#145356] to-[#145356]",
+    "bg-gradient-to-r from-[#8D1B22] to-[#8D1B22]",
+    "bg-gradient-to-r from-[#F4F6F8] to-[#F4F6F8]",
+    "bg-gradient-to-r from-[#C4AD93] to-[#C4AD93]",
+    "bg-gradient-to-r from-[#121416] to-[#121416]",
   ];
 
   const progress_level =
@@ -75,7 +75,7 @@ export default function TierTwo() {
           <div className="w-full flex justify-between z-10 ">
             <div
               className={`bg-gradient-to-r ${
-                level >= 1 ? levelGradient[1] : "bg-[#D1D1D1]"
+                level >= 1 ? levelGradient[1] : "bg-[#145356]"
               } h-10 w-10 rounded-full flex items-center justify-center group hover:text-white`}
             >
               <Label
@@ -87,7 +87,7 @@ export default function TierTwo() {
               </Label>
             </div>
             <div
-              className={`hover:bg-gradient-to-r hover:from-[#BE382B] hover:to-[#901D23] ${
+              className={`hover:bg-gradient-to-r hover:from-[#8D1B22] hover:to-[#8D1B22] ${
                 level >= 2 ? levelGradient[2] : "bg-[#D1D1D1]"
               }  h-10 w-10 rounded-full flex items-center justify-center group hover:text-white`}
             >
@@ -100,12 +100,13 @@ export default function TierTwo() {
               </Label>
             </div>
             <div
-              className={`hover:bg-gradient-to-r hover:from-[#CE919B] hover:to-[#C25ABD] ${
+              className={`hover:bg-gradient-to-r border border-gray-300 hover:from-[#F4F6F8] hover:to-[#F4F6F8] ${
                 level >= 3 ? levelGradient[3] : "bg-[#D1D1D1]"
-              }  h-10 w-10 rounded-full flex items-center justify-center group hover:text-white`}
+              } 
+                h-10 w-10 rounded-full flex items-center justify-center group hover:text-white`}
             >
               <Label
-                className={`group-hover:text-white ${
+                className={`group-hover:text-gray-500 ${
                   level >= 3 ? "text-white" : "text-gray-500"
                 }  text-xl`}
               >
@@ -113,7 +114,7 @@ export default function TierTwo() {
               </Label>
             </div>
             <div
-              className={`hover:bg-gradient-to-r hover:from-[#DDC4A9] hover:to-[#B7A088] ${
+              className={`hover:bg-gradient-to-r hover:from-[#C4AD93] hover:to-[#C4AD93] ${
                 level >= 4 ? levelGradient[4] : "bg-[#D1D1D1]"
               } h-10 w-10 rounded-full flex items-center justify-center group hover:text-white`}
             >
@@ -126,7 +127,7 @@ export default function TierTwo() {
               </Label>
             </div>
             <div
-              className={`hover:bg-gradient-to-r hover:from-[#313435] hover:to-[#2A2C2D] ${
+              className={`hover:bg-gradient-to-r hover:from-[#121416] hover:to-[#121416] ${
                 level >= 5 ? levelGradient[5] : "bg-[#D1D1D1]"
               } h-10 w-10 rounded-full flex items-center justify-center group hover:text-white`}
             >
@@ -158,7 +159,8 @@ export default function TierTwo() {
         </div>
         <div className="w-full flex flex-col items-center justify-center gap-2">
           <Label className="text-green-600 font-normal">
-            £{formatPrice(goldTierProgressLabel)} more to reach Vintage Associate
+            £{formatPrice(goldTierProgressLabel)} more to reach Vintage
+            Associate
           </Label>
         </div>
       </CardContent>

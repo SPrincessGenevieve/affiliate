@@ -86,7 +86,7 @@ export default function TierFour() {
                       className="h-50"
                     ></DotLottieReact>
                     <Label>
-                      There are currently no affiliated boards listed.
+                      There are currently no records.
                     </Label>
                   </div>
                 </>

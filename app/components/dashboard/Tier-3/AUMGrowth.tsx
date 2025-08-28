@@ -119,9 +119,9 @@ export default function AUMGrowth() {
                 <SelectValue className="" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="3">Last 3 Months</SelectItem>
-                <SelectItem value="6">Last 6 Months</SelectItem>
-                <SelectItem value="12">Last 12 Months</SelectItem>
+                <SelectItem value="3">3 Months</SelectItem>
+                <SelectItem value="6">6 Months</SelectItem>
+                <SelectItem value="12">12 Months</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -318,7 +318,7 @@ export default function AUMGrowth() {
                   autoplay
                   className="h-50"
                 ></DotLottieReact>
-                <Label>There are currently no affiliated boards listed.</Label>
+                <Label>There are currently no records.</Label>
               </div>
             </>
           )}

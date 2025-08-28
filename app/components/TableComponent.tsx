@@ -203,15 +203,15 @@ export default function TableComponent({
         {caption && <TableCaption>{caption}</TableCaption>}
         <TableHeader>
           <TableRow className="">
-            <TableHead>Rank</TableHead>
+            {/* <TableHead>Rank</TableHead> */}
             <TableHead>My Clients</TableHead>
             <TableHead>Last Login Date/Time</TableHead>
-            {/* <TableHead>
+            <TableHead>
               {" "}
               <div className="flex text-center justify-center items-center gap-2 ">
                 Tier
               </div>
-            </TableHead> */}
+            </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 Market Value

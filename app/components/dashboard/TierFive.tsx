@@ -73,12 +73,12 @@ export default function TierFive() {
                     </div>
                     <Label
                       className={`text-[20px] ${
-                        Number(item.deposit_amount) <= 0
+                        Number(item.market_value) <= 0
                           ? "text-gray-400"
                           : "text-[#2E5257]"
                       } font-bold`}
                     >
-                      £{formatToK(Number(item.deposit_amount))}
+                      £{formatToK(Number(item.market_value))}
                     </Label>
                   </div>
                 ))

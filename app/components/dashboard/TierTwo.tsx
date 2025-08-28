@@ -60,7 +60,7 @@ export default function TierTwo() {
   };
 
   const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
-  const goldTierProgressLabel = Number(price) - user_profile.total_commission;
+  const goldTierProgressLabel = user_profile.next_tier.next_tier_to_go;
 
   console.log(user_profile.total_commission); // ✅ Shows "1T"
   return (
@@ -159,8 +159,11 @@ export default function TierTwo() {
         </div>
         <div className="w-full flex flex-col items-center justify-center gap-2">
           <Label className="text-green-600 font-normal">
-            £{formatPrice(goldTierProgressLabel)} more to reach Vintage
-            Associate
+            £{formatPrice(goldTierProgressLabel)} more to reach
+            <span className="capitalize">
+              {user_profile.next_tier.next_level.charAt(0).toUpperCase() +
+                user_profile.next_tier.next_level.slice(1).toLowerCase()}
+            </span>
           </Label>
         </div>
       </CardContent>

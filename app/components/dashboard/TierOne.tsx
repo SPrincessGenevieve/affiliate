@@ -18,9 +18,7 @@ export default function TierOne() {
   const matchNextLevel = user_profile.levels_list.find(
     (level) => level.id === next_level
   );
-  const next_tier =
-    (Number(matchNextLevel?.min_price) ?? 0) -
-    (Number(matchCurrentLevel?.min_price) ?? 0);
+  const next_tier = user_profile.next_tier.next_tier_to_go
 
   const formatPrice = (value: number) => {
     if (value >= 1_000_000) {

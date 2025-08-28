@@ -92,7 +92,7 @@ export type UserUpdate = {
 };
 
 export type RecentReferralsTypes = {
-  deposit_amount: number[];
+  market_value: number[];
   full_name: string;
   created_at: string;
 };

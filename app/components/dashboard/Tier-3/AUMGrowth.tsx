@@ -131,181 +131,201 @@ export default function AUMGrowth() {
             <>
               <div className="w-full h-full relative flex overflow-x-auto ">
                 <div className="absolute w-full h-full flex">
-                  {isAUM
-                    ? filteredData.length > 0 && (
-                        <ChartContainer
-                          config={chartConfig}
-                          className="w-full h-[250px]  flex"
+                  {isAUM ? (
+                    filteredData.length > 0 ? (
+                      <ChartContainer
+                        config={chartConfig}
+                        className="w-full h-[250px]  flex"
+                      >
+                        <AreaChart
+                          data={filteredData}
+                          margin={{
+                            left: 12,
+                            right: 12,
+                          }}
                         >
-                          <AreaChart
-                            data={filteredData}
-                            margin={{
-                              left: 12,
-                              right: 12,
-                            }}
+                          <CartesianGrid vertical={false} />
+                          <XAxis
+                            dataKey="created_at"
+                            tickLine={false}
+                            axisLine={false}
+                            tick={<CustomTick />}
+                            minTickGap={16}
+                            tickMargin={-3}
+                          />
+                          <ChartTooltip
+                            cursor={false}
+                            content={
+                              <ChartTooltipContent
+                                labelFormatter={(value) => {
+                                  return new Date(value).toLocaleDateString(
+                                    "en-US",
+                                    {
+                                      month: "short",
+                                      day: "numeric",
+                                    }
+                                  );
+                                }}
+                                indicator="dot"
+                              />
+                            }
+                          />
+                          <defs>
+                            <linearGradient
+                              id="fillVintage"
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="1"
+                            >
+                              <stop
+                                offset="5%"
+                                stopColor="var(--color-vintage)"
+                                stopOpacity={0.8}
+                              />
+                              <stop
+                                offset="95%"
+                                stopColor="var(--color-vintage)"
+                                stopOpacity={0.1}
+                              />
+                            </linearGradient>
+                            <linearGradient
+                              id="fillValue"
+                              x1="0"
+                              y1="0"
+                              x2="0"
+                              y2="1"
+                            >
+                              <stop
+                                offset="5%"
+                                stopColor="var(--color-value)"
+                                stopOpacity={0.8}
+                              />
+                              <stop
+                                offset="95%"
+                                stopColor="var(--color-value)"
+                                stopOpacity={0.1}
+                              />
+                            </linearGradient>
+                          </defs>
+                          <Area
+                            dataKey="total_aum"
+                            type="natural"
+                            fill="url(#fillValue)"
+                            fillOpacity={0.4}
+                            stroke="var(--color-value)"
+                            stackId="a"
+                          />
+                        </AreaChart>
+                      </ChartContainer>
+                    ) : (
+                      <div className="h-full w-full flex flex-col items-center justify-center">
+                        <DotLottieReact
+                          src="/empty.lottie"
+                          loop
+                          autoplay
+                          className="h-50"
+                        ></DotLottieReact>
+                        <Label>There are currently no records.</Label>
+                      </div>
+                    )
+                  ) : filteredCommissionData.length > 0 ? (
+                    <ChartContainer
+                      config={chartConfig}
+                      className="w-full h-[250px]  flex"
+                    >
+                      <AreaChart
+                        data={filteredCommissionData}
+                        margin={{
+                          left: 12,
+                          right: 12,
+                        }}
+                      >
+                        <CartesianGrid vertical={false} />
+                        <XAxis
+                          dataKey="created_at"
+                          tickLine={false}
+                          axisLine={false}
+                          tick={<CustomTick />}
+                          minTickGap={16}
+                          tickMargin={7}
+                        />
+                        <ChartTooltip
+                          cursor={false}
+                          content={
+                            <ChartTooltipContent
+                              labelFormatter={(value) => {
+                                return new Date(value).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    month: "short",
+                                    day: "numeric",
+                                  }
+                                );
+                              }}
+                              indicator="dot"
+                            />
+                          }
+                        />
+                        <defs>
+                          <linearGradient
+                            id="fillVintage"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
                           >
-                            <CartesianGrid vertical={false} />
-                            <XAxis
-                              dataKey="created_at"
-                              tickLine={false}
-                              axisLine={false}
-                              tick={<CustomTick />}
-                              minTickGap={16}
-                              tickMargin={-3}
+                            <stop
+                              offset="5%"
+                              stopColor="var(--color-vintage)"
+                              stopOpacity={0.8}
                             />
-                            <ChartTooltip
-                              cursor={false}
-                              content={
-                                <ChartTooltipContent
-                                  labelFormatter={(value) => {
-                                    return new Date(value).toLocaleDateString(
-                                      "en-US",
-                                      {
-                                        month: "short",
-                                        day: "numeric",
-                                      }
-                                    );
-                                  }}
-                                  indicator="dot"
-                                />
-                              }
+                            <stop
+                              offset="95%"
+                              stopColor="var(--color-vintage)"
+                              stopOpacity={0.1}
                             />
-                            <defs>
-                              <linearGradient
-                                id="fillVintage"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                              >
-                                <stop
-                                  offset="5%"
-                                  stopColor="var(--color-vintage)"
-                                  stopOpacity={0.8}
-                                />
-                                <stop
-                                  offset="95%"
-                                  stopColor="var(--color-vintage)"
-                                  stopOpacity={0.1}
-                                />
-                              </linearGradient>
-                              <linearGradient
-                                id="fillValue"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                              >
-                                <stop
-                                  offset="5%"
-                                  stopColor="var(--color-value)"
-                                  stopOpacity={0.8}
-                                />
-                                <stop
-                                  offset="95%"
-                                  stopColor="var(--color-value)"
-                                  stopOpacity={0.1}
-                                />
-                              </linearGradient>
-                            </defs>
-                            <Area
-                              dataKey="total_aum"
-                              type="natural"
-                              fill="url(#fillValue)"
-                              fillOpacity={0.4}
-                              stroke="var(--color-value)"
-                              stackId="a"
-                            />
-                          </AreaChart>
-                        </ChartContainer>
-                      )
-                    : filteredCommissionData.length > 0 && (
-                        <ChartContainer
-                          config={chartConfig}
-                          className="w-full h-[250px]  flex"
-                        >
-                          <AreaChart
-                            data={filteredCommissionData}
-                            margin={{
-                              left: 12,
-                              right: 12,
-                            }}
+                          </linearGradient>
+                          <linearGradient
+                            id="fillValue"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1"
                           >
-                            <CartesianGrid vertical={false} />
-                            <XAxis
-                              dataKey="created_at"
-                              tickLine={false}
-                              axisLine={false}
-                              tick={<CustomTick />}
-                              minTickGap={16}
-                              tickMargin={7}
+                            <stop
+                              offset="5%"
+                              stopColor="var(--color-value)"
+                              stopOpacity={0.8}
                             />
-                            <ChartTooltip
-                              cursor={false}
-                              content={
-                                <ChartTooltipContent
-                                  labelFormatter={(value) => {
-                                    return new Date(value).toLocaleDateString(
-                                      "en-US",
-                                      {
-                                        month: "short",
-                                        day: "numeric",
-                                      }
-                                    );
-                                  }}
-                                  indicator="dot"
-                                />
-                              }
+                            <stop
+                              offset="95%"
+                              stopColor="var(--color-value)"
+                              stopOpacity={0.1}
                             />
-                            <defs>
-                              <linearGradient
-                                id="fillVintage"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                              >
-                                <stop
-                                  offset="5%"
-                                  stopColor="var(--color-vintage)"
-                                  stopOpacity={0.8}
-                                />
-                                <stop
-                                  offset="95%"
-                                  stopColor="var(--color-vintage)"
-                                  stopOpacity={0.1}
-                                />
-                              </linearGradient>
-                              <linearGradient
-                                id="fillValue"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1"
-                              >
-                                <stop
-                                  offset="5%"
-                                  stopColor="var(--color-value)"
-                                  stopOpacity={0.8}
-                                />
-                                <stop
-                                  offset="95%"
-                                  stopColor="var(--color-value)"
-                                  stopOpacity={0.1}
-                                />
-                              </linearGradient>
-                            </defs>
-                            <Area
-                              dataKey="total_commission"
-                              type="natural"
-                              fill="url(#fillValue)"
-                              fillOpacity={0.4}
-                              stroke="var(--color-value)"
-                              stackId="a"
-                            />
-                          </AreaChart>
-                        </ChartContainer>
-                      )}
+                          </linearGradient>
+                        </defs>
+                        <Area
+                          dataKey="total_commission"
+                          type="natural"
+                          fill="url(#fillValue)"
+                          fillOpacity={0.4}
+                          stroke="var(--color-value)"
+                          stackId="a"
+                        />
+                      </AreaChart>
+                    </ChartContainer>
+                  ) : (
+                    <div className="h-full w-full flex flex-col items-center justify-center">
+                      <DotLottieReact
+                        src="/empty.lottie"
+                        loop
+                        autoplay
+                        className="h-50"
+                      ></DotLottieReact>
+                      <Label>There are currently no records.</Label>
+                    </div>
+                  )}
                 </div>
               </div>
             </>

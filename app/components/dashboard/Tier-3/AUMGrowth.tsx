@@ -19,7 +19,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { useUserContext } from "@/app/context/UserContext";
 import { Button } from "@/components/ui/button";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -38,7 +38,6 @@ const chartConfig = {
 export default function AUMGrowth() {
   const { aum_growth = [], commission_growth = [] } = useUserContext();
   const [monthRange, setMonthRange] = useState("3");
-  console.log("MONTH RANGE: ", monthRange);
   // Safely access aum_growth with a fallback to an empty array if undefined
 
   // Check if aum_growth is not empty before performing the slice operation
@@ -49,7 +48,7 @@ export default function AUMGrowth() {
             (d): d is { created_at: string; total_aum: number } =>
               d != null &&
               typeof d.created_at === "string" &&
-              typeof d.total_aum === "number"
+              typeof d.total_aum === "string"
           )
           .slice(-Number(monthRange))
       : [];
@@ -90,7 +89,7 @@ export default function AUMGrowth() {
 
   const [isAUM, setIsAUM] = useState(true);
 
-  const data = isAUM ? aum_growth.length : commission_growth.length;
+  const data = isAUM ? filteredData.length : filteredCommissionData.length;
   console.log("DATA: ", data);
 
   return (
@@ -127,7 +126,7 @@ export default function AUMGrowth() {
           </div>
         </CardHeader>
         <CardContent className="p-0 m-0 flex flex-col gap-2 w-full h-full">
-          {data > 0 ? (
+          {data > 0 && (
             <>
               <div className="w-full h-full relative flex overflow-x-auto ">
                 <div className="absolute w-full h-full flex">
@@ -153,23 +152,82 @@ export default function AUMGrowth() {
                             minTickGap={16}
                             tickMargin={-3}
                           />
+                          <YAxis
+                            tickLine={false}
+                            axisLine={false}
+                            width={70}
+                            tick={{ fontSize: 10 }}
+                            domain={[
+                              0,
+                              (dataMax: number) => {
+                                const order = Math.pow(
+                                  10,
+                                  Math.floor(Math.log10(dataMax))
+                                );
+                                const step = order / 2;
+                                return Math.ceil(dataMax / step) * step;
+                              },
+                            ]}
+                            ticks={(function () {
+                              return (dataMax: number) => {
+                                const order = Math.pow(
+                                  10,
+                                  Math.floor(Math.log10(dataMax))
+                                );
+                                const step = order / 2;
+                                const max = Math.ceil(dataMax / step) * step;
+                                const interval = max / 4; // 4 intervals = 5 ticks
+                                return Array.from(
+                                  { length: 5 },
+                                  (_, i) => i * interval
+                                );
+                              };
+                            })()(
+                              (isAUM
+                                ? Math.max(
+                                    ...filteredData.map((d) => d.total_aum)
+                                  )
+                                : Math.max(
+                                    ...filteredCommissionData.map(
+                                      (d) => d.total_commission
+                                    )
+                                  )) || 0
+                            )}
+                            tickFormatter={(value) =>
+                              new Intl.NumberFormat("en-US", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(value)
+                            }
+                          />
+
                           <ChartTooltip
                             cursor={false}
                             content={
                               <ChartTooltipContent
-                                labelFormatter={(value) => {
-                                  return new Date(value).toLocaleDateString(
-                                    "en-US",
-                                    {
-                                      month: "short",
-                                      day: "numeric",
-                                    }
-                                  );
+                                labelFormatter={(value) =>
+                                  new Date(value).toLocaleDateString("en-US", {
+                                    month: "short",
+                                    day: "numeric",
+                                  })
+                                }
+                                formatter={(value, name) => {
+                                  // Ensure it's a number before formatting
+                                  const num =
+                                    typeof value === "number"
+                                      ? value
+                                      : parseFloat(value as string);
+
+                                  return new Intl.NumberFormat("en-US", {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }).format(num);
                                 }}
                                 indicator="dot"
                               />
                             }
                           />
+
                           <defs>
                             <linearGradient
                               id="fillVintage"
@@ -250,23 +308,82 @@ export default function AUMGrowth() {
                           minTickGap={16}
                           tickMargin={7}
                         />
+                        <YAxis
+                          tickLine={false}
+                          axisLine={false}
+                          width={70}
+                          tick={{ fontSize: 10 }}
+                          domain={[
+                            0,
+                            (dataMax: number) => {
+                              const order = Math.pow(
+                                10,
+                                Math.floor(Math.log10(dataMax))
+                              );
+                              const step = order / 2;
+                              return Math.ceil(dataMax / step) * step;
+                            },
+                          ]}
+                          ticks={(function () {
+                            return (dataMax: number) => {
+                              const order = Math.pow(
+                                10,
+                                Math.floor(Math.log10(dataMax))
+                              );
+                              const step = order / 2;
+                              const max = Math.ceil(dataMax / step) * step;
+                              const interval = max / 4; // 4 intervals = 5 ticks
+                              return Array.from(
+                                { length: 5 },
+                                (_, i) => i * interval
+                              );
+                            };
+                          })()(
+                            (isAUM
+                              ? Math.max(
+                                  ...filteredData.map((d) => d.total_aum)
+                                )
+                              : Math.max(
+                                  ...filteredCommissionData.map(
+                                    (d) => d.total_commission
+                                  )
+                                )) || 0
+                          )}
+                          tickFormatter={(value) =>
+                            new Intl.NumberFormat("en-US", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            }).format(value)
+                          }
+                        />
+
                         <ChartTooltip
                           cursor={false}
                           content={
                             <ChartTooltipContent
-                              labelFormatter={(value) => {
-                                return new Date(value).toLocaleDateString(
-                                  "en-US",
-                                  {
-                                    month: "short",
-                                    day: "numeric",
-                                  }
-                                );
+                              labelFormatter={(value) =>
+                                new Date(value).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                })
+                              }
+                              formatter={(value, name) => {
+                                // Ensure it's a number before formatting
+                                const num =
+                                  typeof value === "number"
+                                    ? value
+                                    : parseFloat(value as string);
+
+                                return new Intl.NumberFormat("en-US", {
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(num);
                               }}
                               indicator="dot"
                             />
                           }
                         />
+
                         <defs>
                           <linearGradient
                             id="fillVintage"
@@ -327,18 +444,6 @@ export default function AUMGrowth() {
                     </div>
                   )}
                 </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="h-full w-full flex flex-col items-center justify-center">
-                <DotLottieReact
-                  src="/empty.lottie"
-                  loop
-                  autoplay
-                  className="h-50"
-                ></DotLottieReact>
-                <Label>There are currently no records.</Label>
               </div>
             </>
           )}

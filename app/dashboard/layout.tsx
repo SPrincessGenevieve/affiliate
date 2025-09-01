@@ -54,7 +54,7 @@ export default function DashboardLayout({
         const responseClientGrowth = await getClientGrowth(sessionkey);
         const responseAumGrowth = await getAUMGrowth(sessionkey);
         const responseCommission = await getCommissionGrowth(sessionkey);
-
+        console.log("AUM: ",responseAumGrowth.data.detail)
         setUserDetails({
           user_profile: responseUser.data.detail,
           events: responseEvent.data,

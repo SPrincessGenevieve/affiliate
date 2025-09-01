@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -35,14 +35,38 @@ export function CommissionChart({ data }: CommissionChartProps) {
     </text>
   );
 
+  function getDynamicTicks(data: number[], tickCount = 5) {
+    if (!data || data.length === 0) return [0];
+
+    const max = Math.max(...data);
+    const step = max / tickCount;
+
+    // generate ticks including one step above max
+    return Array.from(
+      { length: tickCount + 1 },
+      (_, i) => Number((i * step).toFixed(6)) // keep decimals precise
+    );
+  }
+
   return (
     <div className="w-full">
-      <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
+      <ChartContainer
+        config={chartConfig}
+        className="aspect-auto h-[250px] w-full"
+      >
         <AreaChart data={data}>
           <defs>
             <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="var(--color-value)" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="var(--color-value)" stopOpacity={0.1} />
+              <stop
+                offset="5%"
+                stopColor="var(--color-value)"
+                stopOpacity={0.8}
+              />
+              <stop
+                offset="95%"
+                stopColor="var(--color-value)"
+                stopOpacity={0.1}
+              />
             </linearGradient>
           </defs>
           <CartesianGrid vertical={false} />
@@ -54,11 +78,34 @@ export function CommissionChart({ data }: CommissionChartProps) {
             minTickGap={16}
             tickMargin={12}
           />
+          <YAxis
+            tickLine={false}
+            axisLine={false}
+            width={40}
+            tick={{ fontSize: 10 }}
+            domain={[0, "dataMax"]}
+            ticks={getDynamicTicks(
+              data.map((d) => d.total_clients),
+              4
+            )} // 4 intervals → 5 ticks
+          />
+
           <ChartTooltip
             cursor={false}
-            content={<ChartTooltipContent labelFormatter={(value) => value} indicator="dot" />}
+            content={
+              <ChartTooltipContent
+                labelFormatter={(value) => value}
+                indicator="dot"
+              />
+            }
           />
-          <Area dataKey="total_clients" type="natural" fill="url(#fillValue)" stroke="var(--color-value)" stackId="a" />
+          <Area
+            dataKey="total_clients"
+            type="natural"
+            fill="url(#fillValue)"
+            stroke="var(--color-value)"
+            stackId="a"
+          />
         </AreaChart>
       </ChartContainer>
     </div>

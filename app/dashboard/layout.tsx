@@ -54,7 +54,8 @@ export default function DashboardLayout({
         const responseClientGrowth = await getClientGrowth(sessionkey);
         const responseAumGrowth = await getAUMGrowth(sessionkey);
         const responseCommission = await getCommissionGrowth(sessionkey);
-        console.log("AUM: ",responseAumGrowth.data.detail)
+        
+        console.log("LEADERBOARD: ",responseUser.data.detail.leaderboard)
         setUserDetails({
           user_profile: responseUser.data.detail,
           events: responseEvent.data,
@@ -62,6 +63,7 @@ export default function DashboardLayout({
           client_growth: responseClientGrowth.data.detail,
           aum_growth: responseAumGrowth.data.detail,
           commission_growth: responseCommission.data.detail,
+          affiliated_leaderboard: responseUser.data.detail.leaderboard
         });
       } catch (error) {}
     };

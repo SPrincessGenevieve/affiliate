@@ -62,7 +62,6 @@ export default function TierTwo() {
   const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
   const goldTierProgressLabel = user_profile.next_tier.next_tier_to_go;
 
-  console.log(user_profile.total_commission); // ✅ Shows "1T"
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">

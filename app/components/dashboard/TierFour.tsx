@@ -32,18 +32,18 @@ export default function TierFour() {
     useUserContext();
 
 
-  useEffect(() => {
-    const fetchAffilicated = async () => {
-      try {
-        const responseAffilicated = await getLeaderboard(sessionkey);
-        setUserDetails({
-          affiliated_leaderboard: responseAffilicated.data.results,
-        });
-      } catch (error) {}
-    };
+  // useEffect(() => {
+  //   const fetchAffilicated = async () => {
+  //     try {
+  //       const responseAffilicated = await getLeaderboard(sessionkey);
+  //       setUserDetails({
+  //         affiliated_leaderboard: responseAffilicated.data.results,
+  //       });
+  //     } catch (error) {}
+  //   };
 
-    fetchAffilicated();
-  });
+  //   fetchAffilicated();
+  // });
 
 
   return (

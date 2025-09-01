@@ -90,7 +90,6 @@ export default function AUMGrowth() {
   const [isAUM, setIsAUM] = useState(true);
 
   const data = isAUM ? filteredData.length : filteredCommissionData.length;
-  console.log("DATA: ", data);
 
   return (
     <div>

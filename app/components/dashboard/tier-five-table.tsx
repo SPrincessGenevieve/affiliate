@@ -34,9 +34,9 @@ export default function TierFiveTable({
       <TableCaption></TableCaption>
       <TableHeader className="">
         <TableRow className="">
-          <TableHead>
+          {/* <TableHead>
             <div className="flex items-baseline h-full  gap-2">Rank</div>
-          </TableHead>
+          </TableHead> */}
           <TableHead>
             <div className="flex items-baseline h-full  gap-2">My Clients</div>
           </TableHead>
@@ -56,13 +56,13 @@ export default function TierFiveTable({
               key={item.rank}
               onClick={() => setSelectedRow(item.rank)}
               className={cn(
-                "cursor-pointer transition-colors ",
+                "border-y border-gray-300 cursor-pointer transition-colors ",
                 selectedRow === item.rank
                   ? "bg-[#F3E8E9] font-bold"
                   : "font-normal"
               )}
             >
-              <TableCell>
+              {/* <TableCell>
                 <Label
                   className={`w-6 h-6 text-center flex items-center justify-center rounded-full bg-[#F3F4F6] ${
                     selectedRow === item.rank && "bg-[#2E5257] text-white"
@@ -70,7 +70,7 @@ export default function TierFiveTable({
                 >
                   {item.rank}
                 </Label>
-              </TableCell>
+              </TableCell> */}
               <TableCell className="flex gap-2">
                 <Avatar>
                   <AvatarImage src={""}></AvatarImage>

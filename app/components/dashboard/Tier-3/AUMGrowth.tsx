@@ -193,6 +193,7 @@ export default function AUMGrowth() {
                                   )) || 0
                             )}
                             tickFormatter={(value) =>
+                              "£" +
                               new Intl.NumberFormat("en-US", {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,
@@ -217,10 +218,13 @@ export default function AUMGrowth() {
                                       ? value
                                       : parseFloat(value as string);
 
-                                  return new Intl.NumberFormat("en-US", {
-                                    minimumFractionDigits: 2,
-                                    maximumFractionDigits: 2,
-                                  }).format(num);
+                                  return (
+                                    "£" +
+                                    new Intl.NumberFormat("en-US", {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2,
+                                    }).format(num)
+                                  );
                                 }}
                                 indicator="dot"
                               />
@@ -349,6 +353,7 @@ export default function AUMGrowth() {
                                 )) || 0
                           )}
                           tickFormatter={(value) =>
+                            "£" +
                             new Intl.NumberFormat("en-US", {
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
@@ -373,10 +378,13 @@ export default function AUMGrowth() {
                                     ? value
                                     : parseFloat(value as string);
 
-                                return new Intl.NumberFormat("en-US", {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2,
-                                }).format(num);
+                                return (
+                                  "£" +
+                                  new Intl.NumberFormat("en-US", {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                  }).format(num)
+                                );
                               }}
                               indicator="dot"
                             />

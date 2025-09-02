@@ -94,12 +94,12 @@ export default function TierFiveTable({
 
               <TableCell>
                 <div className="flex">
-                  <Label>{item.aum}</Label>
+                  <Label>£{item.aum.toLocaleString()}</Label>
                 </div>
               </TableCell>
               <TableCell>
                 <Label className="font-normal">
-                  {item.annual_commission_rate}
+                  £{item.annual_commission_rate.toLocaleString()}
                 </Label>
               </TableCell>
             </TableRow>

@@ -51,7 +51,7 @@ export function AppSidebar() {
     setUserDetails({
       isOpen: collapsed,
     });
-  }, [isOpen, collapsed]);
+  }, [collapsed]);
 
   useEffect(() => {
     const handleResize = () => {

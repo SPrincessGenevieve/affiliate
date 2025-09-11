@@ -99,12 +99,12 @@ export default function InviteNewClients() {
               <Input className="pl-5" placeholder="Amount"></Input>
             </div>
           </div> */}
-          <div className="flex justify-center items-center flex-col gap-2">
+          {/* <div className="flex justify-center items-center flex-col gap-2">
             <div className="flex items-start w-full">
               <Label className="text-gray-600">Referral Link</Label>
             </div>
             <CopyInput full_link={invitation_link}></CopyInput>
-          </div>
+          </div> */}
         </div>
 
         <div className="w-full p-4">

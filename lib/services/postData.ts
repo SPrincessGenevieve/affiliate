@@ -39,8 +39,8 @@ export const postInvite = (
   api.post(
     "/api/affiliate/invite-user",
     {
-      client_name: client_name,
-      email_address: email_address,
+      name: client_name,
+      email: email_address,
     },
     {
       headers: {

@@ -28,170 +28,67 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { TableItem } from "@/lib/type";
-import { MyReferralsTypes, useUserContext } from "../context/UserContext";
 import { Label } from "@/components/ui/label";
+import { InviteUserResult, useUserContext } from "@/app/context/UserContext";
 
 const ITEMS_PER_PAGE = 12;
 
 interface TableComponentProps {
-  data: MyReferralsTypes[];
+  data: InviteUserResult[];
   itemsPerPage?: number;
   caption?: string;
   renderRow?: (
-    item: MyReferralsTypes,
+    item: InviteUserResult,
     selected: boolean,
     onSelect: () => void
   ) => React.ReactNode;
 }
 
-export default function TableComponent({
+export default function TableComponentInviteUser({
   data,
   itemsPerPage = ITEMS_PER_PAGE,
   caption,
   renderRow,
 }: TableComponentProps) {
   const {
-    my_referrals_total_pages,
-    my_referrals_current_page,
+    invite_user_total_pages,
+    invite_user_current_page,
     activeFilter,
     setUserDetails,
   } = useUserContext();
 
   const [selectedRow, setSelectedRow] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(
-    my_referrals_current_page || 1
+    invite_user_current_page || 1
   );
-  const totalPages = my_referrals_total_pages;
+  const totalPages = invite_user_total_pages;
   const paginatedData = data;
 
   useEffect(() => {
-    if (currentPage !== my_referrals_current_page) {
-      setUserDetails({ my_referrals_current_page: currentPage });
+    if (currentPage !== invite_user_current_page) {
+      setUserDetails({ invite_user_current_page: currentPage });
     }
   }, [currentPage]);
 
   const defaultRenderRow = (
-    item: MyReferralsTypes,
+    item: InviteUserResult,
     selected: boolean,
     onSelect: () => void
   ) => (
     <TableRow
-      key={item.rank}
       onClick={onSelect}
       className={`border-t border-b h-10 cursor-pointer transition-colors ${
         selected ? "bg-[#F3F4F6]" : "font-normal"
       }`}
     >
-      {/* Rank */}
-      {/* <TableCell>
-        <div className="flex items-center">
-          <p
-            className={`rounded-full w-7 h-7 text-center flex items-center justify-center ${
-              selected ? "bg-[#2E5257] text-white" : "font-normal"
-            }`}
-          >
-            {item.rank}
-          </p>
-        </div>
-      </TableCell> */}
-
-      {/* My Client */}
-      <TableCell
-        className={`w-60 flex items-center gap-2 ${
-          selected ? "font-bold" : "font-normal"
-        }`}
-      >
-        <Avatar>
-          <AvatarImage src="" alt={`${item.full_name[0]}`} />
-          <AvatarFallback
-            className={`${
-              selected ? "bg-[#2E5257] text-white" : "font-normal"
-            }`}
-          >
-            {`${item.full_name[0]}`.toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
-        <Label className="whitespace-normal break-words">
-          {item.full_name}
-        </Label>
-      </TableCell>
-
-      {/* Login Date & Time */}
+      <TableCell className="">{item.name}</TableCell>
+      <TableCell className="">{item.email}</TableCell>
+      <TableCell className="">{item.phone}</TableCell>
+      <TableCell className="">{item.status}</TableCell>
       <TableCell>
         <div className="flex">
-          <p>{item.last_login?.slice(0, 10)}</p>
+          <p>{item.expires_at?.slice(0, 10)}</p>
         </div>
-      </TableCell>
-
-      {/* Tier */}
-      <TableCell className="px-8">
-        <div
-          className={`px-2 font-semibold h-7 flex items-center justify-center rounded-2xl text-center ${
-            item.rank === 1
-              ? "bg-[#C4AD93] text-[#fff]"
-              : "bg-[#F3F4F6] text-gray-800"
-          }`}
-        >
-          {item.level}
-        </div>
-      </TableCell>
-
-      {/* Market Value */}
-      <TableCell className="">
-        {item.market_value.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </TableCell>
-
-      {/* Total Cases */}
-      <TableCell className="">{item.total_cases}</TableCell>
-
-      {/* Cases Sold */}
-      <TableCell className="">{item.cases_sold}</TableCell>
-
-      {/* Realised Profit Loss */}
-      <TableCell
-        className={`${
-          item.realised_profit_loss > 0 ? "text-green-600" : "text-[red]"
-        }`}
-      >
-        £
-        {item.realised_profit_loss.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </TableCell>
-
-      {/* Percent Profit Loss */}
-      <TableCell
-        className={`${item.profit_loss > 0 ? "text-green-600" : "text-[red]"}`}
-      >
-        {item.profit_loss.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-        %
-      </TableCell>
-
-      {/* Monthly Commission */}
-      <TableCell className="">
-        £
-        {item.monthly_commission.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </TableCell>
-
-      {/* My Commission Annual */}
-      <TableCell className="">
-        £
-        {typeof item.estimated_annual_commission === "number"
-          ? item.estimated_annual_commission.toLocaleString(undefined, {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })
-          : "0.00"}
       </TableCell>
     </TableRow>
   );
@@ -203,92 +100,27 @@ export default function TableComponent({
         <TableHeader>
           <TableRow className="">
             {/* <TableHead>Rank</TableHead> */}
-            <TableHead>My Clients</TableHead>
-            <TableHead>Last Login Date/Time</TableHead>
-            <TableHead>
-              {" "}
-              <div className="flex text-center justify-center items-center gap-2 ">
-                Tier
-              </div>
-            </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                Market Value
+                Name
                 <div>
                   <Button
-                    variant={
-                      activeFilter === "market_value" ? "default" : "ghost"
-                    }
+                    variant={activeFilter === "name" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
-                        activeFilter:
-                          activeFilter === "market_value" ? "" : "market_value",
+                        activeFilter: activeFilter === "name" ? "" : "name",
                       })
                     }
                   >
                     <ArrowUp strokeWidth={1.5} size={20} />
                   </Button>
                   <Button
-                    variant={
-                      activeFilter === "-market_value" ? "default" : "ghost"
-                    }
+                    variant={activeFilter === "-name" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
-                        activeFilter:
-                          activeFilter === "-market_value"
-                            ? ""
-                            : "-market_value",
-                      })
-                    }
-                  >
-                    <ArrowDown strokeWidth={1.5} size={20} />
-                  </Button>
-                </div>
-              </div>
-            </TableHead>
-            <TableHead>
-              <div className="flex items-center gap-2">Total Cases</div>
-            </TableHead>
-            <TableHead>
-              <div className="flex items-center gap-2">Cases Sold</div>
-            </TableHead>
-            <TableHead>
-              <div className="flex items-center gap-2">
-                Profit/Loss
-                <div>
-                  <Button
-                    variant={
-                      activeFilter === "realised_profit_loss"
-                        ? "default"
-                        : "ghost"
-                    }
-                    className="h-7 w-7 rounded-full"
-                    onClick={() =>
-                      setUserDetails({
-                        activeFilter:
-                          activeFilter === "realised_profit_loss"
-                            ? ""
-                            : "realised_profit_loss",
-                      })
-                    }
-                  >
-                    <ArrowUp strokeWidth={1.5} size={20} />
-                  </Button>
-                  <Button
-                    variant={
-                      activeFilter === "-realised_profit_loss"
-                        ? "default"
-                        : "ghost"
-                    }
-                    className="h-7 w-7 rounded-full"
-                    onClick={() =>
-                      setUserDetails({
-                        activeFilter:
-                          activeFilter === "-realised_profit_loss"
-                            ? ""
-                            : "-realised_profit_loss",
+                        activeFilter: activeFilter === "-name" ? "" : "-name",
                       })
                     }
                   >
@@ -299,31 +131,25 @@ export default function TableComponent({
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                %Profit/Loss
+                Email
                 <div>
                   <Button
-                    variant={
-                      activeFilter === "profit_loss" ? "default" : "ghost"
-                    }
+                    variant={activeFilter === "email" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
-                        activeFilter:
-                          activeFilter === "profit_loss" ? "" : "profit_loss",
+                        activeFilter: activeFilter === "email" ? "" : "email",
                       })
                     }
                   >
                     <ArrowUp strokeWidth={1.5} size={20} />
                   </Button>
                   <Button
-                    variant={
-                      activeFilter === "-profit_loss" ? "default" : "ghost"
-                    }
+                    variant={activeFilter === "-email" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
-                        activeFilter:
-                          activeFilter === "-profit_loss" ? "" : "-profit_loss",
+                        activeFilter: activeFilter === "-email" ? "" : "-email",
                       })
                     }
                   >
@@ -334,39 +160,25 @@ export default function TableComponent({
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                Monthly Commission
+                Phone
                 <div>
                   <Button
-                    variant={
-                      activeFilter === "monthly_commission"
-                        ? "default"
-                        : "ghost"
-                    }
+                    variant={activeFilter === "phone" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
-                        activeFilter:
-                          activeFilter === "monthly_commission"
-                            ? ""
-                            : "monthly_commission",
+                        activeFilter: activeFilter === "phone" ? "" : "phone",
                       })
                     }
                   >
                     <ArrowUp strokeWidth={1.5} size={20} />
                   </Button>
                   <Button
-                    variant={
-                      activeFilter === "-monthly_commission"
-                        ? "default"
-                        : "ghost"
-                    }
+                    variant={activeFilter === "-phone" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
-                        activeFilter:
-                          activeFilter === "-monthly_commission"
-                            ? ""
-                            : "-monthly_commission",
+                        activeFilter: activeFilter === "-phone" ? "" : "-phone",
                       })
                     }
                   >
@@ -377,21 +189,47 @@ export default function TableComponent({
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
-                My Commission (Annual)
+                Status
+                <div>
+                  <Button
+                    variant={activeFilter === "status" ? "default" : "ghost"}
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter: activeFilter === "status" ? "" : "status",
+                      })
+                    }
+                  >
+                    <ArrowUp strokeWidth={1.5} size={20} />
+                  </Button>
+                  <Button
+                    variant={activeFilter === "-status" ? "default" : "ghost"}
+                    className="h-7 w-7 rounded-full"
+                    onClick={() =>
+                      setUserDetails({
+                        activeFilter:
+                          activeFilter === "-status" ? "" : "-status",
+                      })
+                    }
+                  >
+                    <ArrowDown strokeWidth={1.5} size={20} />
+                  </Button>
+                </div>
+              </div>
+            </TableHead>
+            <TableHead>
+              <div className="flex items-center gap-2">
+                Valid Until
                 <div>
                   <Button
                     variant={
-                      activeFilter === "estimated_annual_aum"
-                        ? "default"
-                        : "ghost"
+                      activeFilter === "expires_at" ? "default" : "ghost"
                     }
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
                         activeFilter:
-                          activeFilter === "estimated_annual_aum"
-                            ? ""
-                            : "estimated_annual_aum",
+                          activeFilter === "expires_at" ? "" : "expires_at",
                       })
                     }
                   >
@@ -399,17 +237,13 @@ export default function TableComponent({
                   </Button>
                   <Button
                     variant={
-                      activeFilter === "-estimated_annual_aum"
-                        ? "default"
-                        : "ghost"
+                      activeFilter === "-expires_at" ? "default" : "ghost"
                     }
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
                         activeFilter:
-                          activeFilter === "-estimated_annual_aum"
-                            ? ""
-                            : "-estimated_annual_aum",
+                          activeFilter === "-expires_at" ? "" : "-expires_at",
                       })
                     }
                   >
@@ -421,13 +255,13 @@ export default function TableComponent({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {paginatedData.map((item) =>
+          {paginatedData.map((item, index) =>
             renderRow
-              ? renderRow(item, selectedRow === item.rank, () =>
-                  setSelectedRow(item.rank)
+              ? renderRow(item, selectedRow === index, () =>
+                  setSelectedRow(index)
                 )
-              : defaultRenderRow(item, selectedRow === item.rank, () =>
-                  setSelectedRow(item.rank)
+              : defaultRenderRow(item, selectedRow === index, () =>
+                  setSelectedRow(index)
                 )
           )}
         </TableBody>

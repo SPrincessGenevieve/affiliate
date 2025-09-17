@@ -8,32 +8,6 @@ export const getUser = (sessionKey: string) => {
     },
   });
 };
-export const getMyReferrals = (page: number, sessionKey: string) =>
-  api.get(`/api/affiliate/my-referral?page=${page}`, {
-    headers: {
-      Authorization: "Token " + sessionKey,
-    },
-  });
-
-export const getMyReferralsFiilter = (
-  sessionKey: string,
-  activeFilter: string,
-  isInput: boolean,
-  pageNumber: number
-) => {
-  return isInput
-    ? api.get(`/api/affiliate/my-referral?client=${activeFilter}`, {
-        headers: {
-          Authorization: "Token " + sessionKey,
-        },
-      })
-    : api.get(`/api/affiliate/my-referral?ordering=${activeFilter}&page=${pageNumber}`, {
-        headers: {
-          Authorization: "Token " + sessionKey,
-        },
-      });
-};
-
 
 export const getEvents = (sessionKey: string) =>
   api.get(`/user/events`, {
@@ -70,3 +44,54 @@ export const getCommissionGrowth = (sessionKey: string) =>
     },
   });
 //
+
+export const getMyReferrals = (page: number, sessionKey: string) =>
+  api.get(`/api/affiliate/my-referral?page=${page}`, {
+    headers: {
+      Authorization: "Token " + sessionKey,
+    },
+  });
+
+export const getMyReferralsFiilter = (
+  sessionKey: string,
+  activeFilter: string,
+  isInput: boolean,
+  pageNumber: number
+) => {
+  return isInput
+    ? api.get(`/api/affiliate/my-referral?client=${activeFilter}`, {
+        headers: {
+          Authorization: "Token " + sessionKey,
+        },
+      })
+    : api.get(
+        `/api/affiliate/my-referral?ordering=${activeFilter}&page=${pageNumber}`,
+        {
+          headers: {
+            Authorization: "Token " + sessionKey,
+          },
+        }
+      );
+};
+
+export const getInviteUser = (page: number, sessionKey: string) =>
+  api.get(`/api/affiliate/invite-user?page=${page}`, {
+    headers: {
+      Authorization: "Token " + sessionKey,
+    },
+  });
+
+export const getInviteUserFiilter = (
+  sessionKey: string,
+  activeFilter: string,
+  pageNumber: number
+) => {
+  return api.get(
+    `/api/affiliate/invite-user?ordering=${activeFilter}&page=${pageNumber}`,
+    {
+      headers: {
+        Authorization: "Token " + sessionKey,
+      },
+    }
+  );
+};

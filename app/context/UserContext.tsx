@@ -136,6 +136,15 @@ export type EventTypes = {
   ];
 };
 
+export type InviteUserResult = {
+  name: string;
+  email: string;
+  phone: string;
+  status: string;
+  expires_at: string;
+};
+
+
 type UserContextType = {
   activeFilter: string;
   isOpen: boolean;
@@ -168,6 +177,9 @@ type UserContextType = {
       created_at: string;
     }
   ];
+  invite_users: InviteUserResult[],
+  invite_user_current_page: number;
+  invite_user_total_pages: number;
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
@@ -237,6 +249,9 @@ const defaultUserContext: UserContextType = {
       created_at: "",
     },
   ],
+  invite_users: [],
+  invite_user_current_page: 1,
+  invite_user_total_pages: 1,
   setUserDetails: () => {},
 };
 

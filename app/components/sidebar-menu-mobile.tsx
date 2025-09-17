@@ -6,6 +6,7 @@ import {
   CircleHelp,
   HandHelping,
   Headset,
+  Users,
 } from "lucide-react";
 
 import {
@@ -26,6 +27,7 @@ import "@/app/globals.css";
 const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "My Referrals", url: "/dashboard/referrals", icon: HandHelping },
+  { title: "My Invites", url: "/dashboard/my-invites", icon: Users },
 ];
 
 export function AppSidebarMobile() {

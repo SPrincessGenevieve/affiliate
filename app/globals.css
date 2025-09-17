@@ -286,3 +286,32 @@
     flex-direction: column;
   }
 }
+
+
+
+.float-pulse {
+  display: inline-block;
+  animation: float 2s ease-in-out infinite, glow 1s ease-in-out infinite;
+}
+
+.float-pulse:hover {
+  animation-play-state: paused;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.363));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.459));
+  }
+}

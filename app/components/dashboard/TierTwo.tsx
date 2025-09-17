@@ -6,13 +6,22 @@ import React from "react";
 import "@/app/globals.css";
 import { useUserContext } from "@/app/context/UserContext";
 import Decimal from "decimal.js";
+import { CheckCheck } from "lucide-react";
+import Image from "next/image";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function TierTwo() {
-  const { user_profile } = useUserContext();
+  const { user_profile, aum_growth } = useUserContext();
   const sortedLevels = [...user_profile.levels_list].sort(
     (a, b) => a.level - b.level
   );
 
+  const total_investment = aum_growth[0].total_aum;
   const level = user_profile.current_level || 0;
   const levelGradient = [
     "", // 0
@@ -23,16 +32,9 @@ export default function TierTwo() {
     "bg-gradient-to-r from-[#121416] to-[#121416]",
   ];
 
-  const progress_level =
-    level === 1
-      ? 0
-      : level === 2
-      ? 25
-      : level === 3
-      ? 50
-      : level === 4
-      ? 75
-      : 100;
+  const progress_level = (total_investment / 5000000) * 100;
+
+  console.log("TOTAL INVESTMENT: ", sortedLevels);
 
   const formatNumber = (value: number, digits = 1) => {
     return new Intl.NumberFormat("en-US", {
@@ -61,16 +63,37 @@ export default function TierTwo() {
 
   const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
   const goldTierProgressLabel = user_profile.next_tier.next_tier_to_go;
-
+  const currentPosition = Math.min(
+    (total_investment / 5_000_000) * 100,
+    100 // cap at 100%
+  );
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">
         <Label className="text-[16px]">Tier Progress</Label>
-        <div className="w-full h-auto relative flex justify-center items-center">
-          <Progress
-            value={progress_level}
-            className="w-full   absolute z-10"
-          ></Progress>
+        <div className="w-full h-auto relative flex flex-col  justify-center items-center">
+          <div className="relative w-full my-8">
+            <Progress value={progress_level} className="w-full" />
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div
+                    className="absolute top-0 -translate-y-2 w-4 h-4 rounded-full bg-transparent shadow-lg cursor-pointer"
+                    style={{
+                      left: `${currentPosition}%`,
+                      transform: "translateX(-50%)",
+                    }}
+                  />
+                </TooltipTrigger>
+
+                <TooltipContent side="top" sideOffset={-5}>
+                  <p>You are here: £{formatPrice(total_investment)}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+
           <div className="w-full flex justify-between z-10 ">
             <div
               className={`bg-gradient-to-r ${
@@ -82,7 +105,16 @@ export default function TierTwo() {
                   level >= 1 ? "text-white" : "text-gray-500"
                 } text-xl`}
               >
-                1
+                {level >= 1 ? (
+                  <Image
+                    src={"checkWhite.svg"}
+                    width={20}
+                    height={20}
+                    alt="check"
+                  ></Image>
+                ) : (
+                  1
+                )}
               </Label>
             </div>
             <div
@@ -95,7 +127,17 @@ export default function TierTwo() {
                   level >= 2 ? "text-white" : "text-gray-500"
                 } text-xl`}
               >
-                2
+                {level >= 2 ? (
+                  <Image
+                    className=""
+                    src={"checkWhite.svg"}
+                    width={20}
+                    height={20}
+                    alt="check"
+                  ></Image>
+                ) : (
+                  2
+                )}
               </Label>
             </div>
             <div
@@ -105,11 +147,21 @@ export default function TierTwo() {
                 h-10 w-10 rounded-full flex items-center justify-center group hover:text-white`}
             >
               <Label
-                className={`group-hover:text-gray-500 ${
+                className={` group-hover:text-gray-500 ${
                   level >= 3 ? "text-white" : "text-gray-500"
                 }  text-xl`}
               >
-                3
+                {level >= 3 ? (
+                  <Image
+                    className="drop-shadow-[0_0px_0px_rgba(0,0,0,1)]"
+                    src="/checkWhite.svg"
+                    width={20}
+                    height={20}
+                    alt="check"
+                  />
+                ) : (
+                  3
+                )}
               </Label>
             </div>
             <div
@@ -122,7 +174,16 @@ export default function TierTwo() {
                   level >= 4 ? "text-white" : "text-gray-500"
                 } text-xl`}
               >
-                4
+                {level >= 4 ? (
+                  <Image
+                    src={"checkWhite.svg"}
+                    width={20}
+                    height={20}
+                    alt="check"
+                  ></Image>
+                ) : (
+                  4
+                )}
               </Label>
             </div>
             <div
@@ -135,7 +196,16 @@ export default function TierTwo() {
                   level >= 5 ? "text-white" : "text-gray-500"
                 } text-xl`}
               >
-                5
+                {level >= 5 ? (
+                  <Image
+                    src={"checkWhite.svg"}
+                    width={20}
+                    height={20}
+                    alt="check"
+                  ></Image>
+                ) : (
+                  5
+                )}
               </Label>
             </div>
           </div>
@@ -151,7 +221,12 @@ export default function TierTwo() {
                 )}
               </Label>
               <Label className="text-[10px] text-center">
-                {Number(item.fee)}%
+                {item.level === 1
+                  ? "0.4"
+                  : item.level === 3
+                  ? "0.55"
+                  : Number(item.fee)}
+                %
               </Label>
             </div>
           ))}

@@ -113,7 +113,7 @@ export default function InviteNewClients() {
             className="w-full p-0"
             variant={"ghost"}
           >
-            <div className="h-10 flex items-center justify-center rounded-[10px] bg-[#2E5257] hover:bg-[hsl(358,47%,27%)] w-full text-white">
+            <div className="h-10 flex items-center justify-center rounded-[10px] bg-[#2E5257] hover:bg-[#40686e] w-full text-white">
               <Label>
                 {loading && <SpinnerIcon strokeColor="white"></SpinnerIcon>}Send
                 Invitation

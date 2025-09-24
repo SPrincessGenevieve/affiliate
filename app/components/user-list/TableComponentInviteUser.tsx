@@ -84,7 +84,7 @@ export default function TableComponentInviteUser({
       <TableCell className="">{item.name}</TableCell>
       <TableCell className="">{item.email}</TableCell>
       <TableCell className="">{item.phone}</TableCell>
-      <TableCell className="">{item.status}</TableCell>
+      <TableCell className="capitalize">{item.status}</TableCell>
       <TableCell>
         <div className="flex">
           <p>{item.expires_at?.slice(0, 10)}</p>
@@ -103,7 +103,7 @@ export default function TableComponentInviteUser({
             <TableHead>
               <div className="flex items-center gap-2">
                 Name
-                <div>
+                {/* <div>
                   <Button
                     variant={activeFilter === "name" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
@@ -126,13 +126,13 @@ export default function TableComponentInviteUser({
                   >
                     <ArrowDown strokeWidth={1.5} size={20} />
                   </Button>
-                </div>
+                </div> */}
               </div>
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 Email
-                <div>
+                {/* <div>
                   <Button
                     variant={activeFilter === "email" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
@@ -155,13 +155,13 @@ export default function TableComponentInviteUser({
                   >
                     <ArrowDown strokeWidth={1.5} size={20} />
                   </Button>
-                </div>
+                </div> */}
               </div>
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 Phone
-                <div>
+                {/* <div>
                   <Button
                     variant={activeFilter === "phone" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
@@ -184,13 +184,13 @@ export default function TableComponentInviteUser({
                   >
                     <ArrowDown strokeWidth={1.5} size={20} />
                   </Button>
-                </div>
+                </div> */}
               </div>
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 Status
-                <div>
+                {/* <div>
                   <Button
                     variant={activeFilter === "status" ? "default" : "ghost"}
                     className="h-7 w-7 rounded-full"
@@ -214,13 +214,13 @@ export default function TableComponentInviteUser({
                   >
                     <ArrowDown strokeWidth={1.5} size={20} />
                   </Button>
-                </div>
+                </div> */}
               </div>
             </TableHead>
             <TableHead>
               <div className="flex items-center gap-2">
                 Valid Until
-                <div>
+                {/* <div>
                   <Button
                     variant={
                       activeFilter === "expires_at" ? "default" : "ghost"
@@ -249,7 +249,7 @@ export default function TableComponentInviteUser({
                   >
                     <ArrowDown strokeWidth={1.5} size={20} />
                   </Button>
-                </div>
+                </div> */}
               </div>
             </TableHead>
           </TableRow>

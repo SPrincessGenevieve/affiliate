@@ -32,7 +32,37 @@ export default function TierTwo() {
     "bg-gradient-to-r from-[#121416] to-[#121416]",
   ];
 
-  const progress_level = (total_investment / 5000000) * 100;
+  const milestones = [
+    { amount: 25_000, percent: 10 },
+    { amount: 250_000, percent: 30 },
+    { amount: 500_000, percent: 50 },
+    { amount: 1_000_000, percent: 75 },
+    { amount: 2_500_000, percent: 100 },
+  ];
+
+  function getProgress(amount: number) {
+    if (amount <= milestones[0].amount) {
+      return (amount / milestones[0].amount) * milestones[0].percent;
+    }
+
+    for (let i = 0; i < milestones.length - 1; i++) {
+      const curr = milestones[i];
+      const next = milestones[i + 1];
+      if (amount <= next.amount) {
+        const rangeAmount = next.amount - curr.amount;
+        const rangePercent = next.percent - curr.percent;
+        const progressInRange =
+          ((amount - curr.amount) / rangeAmount) * rangePercent;
+        return curr.percent + progressInRange;
+      }
+    }
+
+    return 100; // cap
+  }
+
+  const progress_level = getProgress(total_investment);
+  const currentPosition = progress_level;
+  // const progress_level = (total_investment / 5000000) * 100;
 
   console.log("TOTAL INVESTMENT: ", sortedLevels);
 
@@ -63,10 +93,8 @@ export default function TierTwo() {
 
   const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
   const goldTierProgressLabel = user_profile.next_tier.next_tier_to_go;
-  const currentPosition = Math.min(
-    (total_investment / 5_000_000) * 100,
-    100 // cap at 100%
-  );
+
+  console.log("currentPosition: ", currentPosition);
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">

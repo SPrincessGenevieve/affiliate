@@ -52,11 +52,24 @@ export default function InviteNewClients() {
       setTitle("Invitation was not sent");
       if (data && typeof data === "object") {
         Object.entries(data).forEach(([key, value]) => {
-          setMessage(`${Array.isArray(value) ? value.join(", ") : value}`);
+          if (Array.isArray(value)) {
+            // Case: value is an array
+            setMessage(value.join(", "));
+          } else if (typeof value === "object" && value !== null) {
+            // Case: value is an object (like { detail: "..." })
+            if ("detail" in value) {
+              setMessage((value as any).detail);
+            } else {
+              setMessage(JSON.stringify(value));
+            }
+          } else {
+            // Case: simple string or number
+            setMessage(String(value));
+          }
         });
       } else {
         console.log("Unknown error format:", error);
-        setMessage(`Something went wrong. Please try again later.`);
+        setMessage("Something went wrong. Please try again later.");
       }
     } finally {
       setLoading(false);

@@ -81,11 +81,11 @@ export default function TableComponentInviteUser({
         selected ? "bg-[#F3F4F6]" : "font-normal"
       }`}
     >
-      <TableCell className="">{item.name}</TableCell>
-      <TableCell className="">{item.email}</TableCell>
-      <TableCell className="">{item.phone}</TableCell>
-      <TableCell className="capitalize">{item.status}</TableCell>
-      <TableCell>
+      <TableCell className="border-b">{item.name}</TableCell>
+      <TableCell className="border-b">{item.email}</TableCell>
+      <TableCell className="border-b">{item.phone}</TableCell>
+      <TableCell className="border-b capitalize">{item.status}</TableCell>
+      <TableCell className="border-b">
         <div className="flex">
           <p>{item.expires_at?.slice(0, 10)}</p>
         </div>

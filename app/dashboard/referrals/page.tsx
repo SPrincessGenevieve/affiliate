@@ -132,10 +132,10 @@ export default function MyReferrals() {
             <Search></Search>
           </Button>
         </div>
-        <ReferralFilter
+        {/* <ReferralFilter
           onFilterChange={handleFilterChange}
           filters={filters}
-        ></ReferralFilter>
+        ></ReferralFilter> */}
       </div>
       <Card className=" w-full h-[90%] hover:mt-0">
         <CardContent className=" w-full h-full flex flex-col relative justify-center items-center">

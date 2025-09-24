@@ -127,7 +127,7 @@ export default function TierOne() {
               <div className="flex gap-2">
                 <div>
                   <Label className="font-normal text-gray-600">
-                    Total Commission Growth
+                    Total Commission Earned
                   </Label>
                   <Label className="font-bold text-2xl text-[#2E5257]">
                     £

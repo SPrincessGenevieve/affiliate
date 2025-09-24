@@ -62,7 +62,7 @@ export default function InvestmentAmount() {
             ></Input>
           </div>
           <div className="flex flex-col gap-2">
-            <Label className="text-gray-600">Your Commission Rate</Label>
+            <Label className="text-gray-600">Total Earnings</Label>
             <Select
               defaultValue={commissionRate}
               onValueChange={setCommissionRate}

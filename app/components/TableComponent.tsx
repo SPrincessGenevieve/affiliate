@@ -165,13 +165,9 @@ export default function TableComponent({
 
       {/* Percent Profit Loss */}
       <TableCell
-        className={`${item.profit_loss > 0 ? "text-green-600" : "text-[red]"}`}
+        className={`${item.profit_lost_by_percent > 0 ? "text-green-600" : "text-[red]"}`}
       >
-        {item.profit_loss.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-        %
+        {item.profit_lost_by_percent > 0 && `${item.profit_lost_by_percent}%`}
       </TableCell>
 
       {/* Monthly Commission */}
@@ -195,6 +191,8 @@ export default function TableComponent({
       </TableCell>
     </TableRow>
   );
+
+  console.log("ACTIVE FILTER: ", activeFilter)
 
   return (
     <div className="w-full h-full flex flex-col justify-between relative">
@@ -303,13 +301,17 @@ export default function TableComponent({
                 <div>
                   <Button
                     variant={
-                      activeFilter === "profit_loss" ? "default" : "ghost"
+                      activeFilter === "profit_lost_by_percent"
+                        ? "default"
+                        : "ghost"
                     }
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
                         activeFilter:
-                          activeFilter === "profit_loss" ? "" : "profit_loss",
+                          activeFilter === "profit_lost_by_percent"
+                            ? ""
+                            : "profit_lost_by_percent",
                       })
                     }
                   >
@@ -317,13 +319,17 @@ export default function TableComponent({
                   </Button>
                   <Button
                     variant={
-                      activeFilter === "-profit_loss" ? "default" : "ghost"
+                      activeFilter === "-profit_lost_by_percent"
+                        ? "default"
+                        : "ghost"
                     }
                     className="h-7 w-7 rounded-full"
                     onClick={() =>
                       setUserDetails({
                         activeFilter:
-                          activeFilter === "-profit_loss" ? "" : "-profit_loss",
+                          activeFilter === "-profit_lost_by_percent"
+                            ? ""
+                            : "-profit_lost_by_percent",
                       })
                     }
                   >

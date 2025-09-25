@@ -105,7 +105,7 @@ export type MyReferralsTypes = {
   total_cases: number;
   cases_sold: number;
   realised_profit_loss: number;
-  profit_loss: number;
+  profit_lost_by_percent: number;
   monthly_commission: number;
   monthly_aum: number;
   estimated_annual_commission: number;

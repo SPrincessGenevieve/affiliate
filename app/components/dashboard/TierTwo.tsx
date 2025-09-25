@@ -21,7 +21,7 @@ export default function TierTwo() {
     (a, b) => a.level - b.level
   );
 
-  const total_investment = aum_growth[0].total_aum;
+  const total_investment = user_profile.total_monthly_aum;
   const level = user_profile.current_level || 0;
   const levelGradient = [
     "", // 0

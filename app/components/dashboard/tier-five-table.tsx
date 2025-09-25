@@ -44,7 +44,7 @@ export default function TierFiveTable({
             <div className="flex items-baseline h-full  gap-2">AUM</div>
           </TableHead>
           <TableHead className="flex items-baseline h-full  gap-2">
-            Annual Commission Rate
+            Total Earnings
           </TableHead>
         </TableRow>
       </TableHeader>

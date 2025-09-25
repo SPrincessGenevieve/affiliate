@@ -158,7 +158,7 @@ export default function TierOne() {
                   <Label className="font-normal text-gray-600">Total AUM</Label>
                   <Label className="font-bold text-2xl text-[#2E5257]">
                     £
-                    {Number(aum_growth?.[0]?.total_aum ?? 0).toLocaleString(
+                    {Number(user_profile?.total_monthly_aum ?? 0).toLocaleString(
                       undefined,
                       {
                         minimumFractionDigits: 2,

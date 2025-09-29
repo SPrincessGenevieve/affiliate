@@ -35,12 +35,14 @@ export const postInvite = (
   sessionKey: string,
   client_name: string,
   email_address: string,
+  phone_number: string,
 ) =>
   api.post(
     "/api/affiliate/invite-user",
     {
       name: client_name,
       email: email_address,
+      phone: phone_number,
     },
     {
       headers: {

@@ -37,7 +37,12 @@ export default function Home() {
       });
       SuccessLogin(router);
     } catch (err: any) {
-      const nonFieldErrors = err?.response?.data?.non_field_errors[0];
+      console.log("ERROR: ", err?.response?.data?.detail);
+      const nonFieldErrors =
+        err?.response?.data?.non_field_errors?.[0] ||
+        err?.response?.data?.detail ||
+        err?.message ||
+        "Login failed";
       const errorFallout = err?.message;
       setError(nonFieldErrors || "Invalid email or password");
       toast.custom(

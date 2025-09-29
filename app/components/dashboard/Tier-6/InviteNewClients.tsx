@@ -30,6 +30,7 @@ export default function InviteNewClients() {
   const invitation_link = user_profile.referral_link;
   const [client_name, setClientName] = useState("");
   const [email_addres, setEmailAddress] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleInvite = async () => {
@@ -43,7 +44,12 @@ export default function InviteNewClients() {
     }
     setLoading(true);
     try {
-      const response = await postInvite(sessionkey, client_name, email_addres);
+      const response = await postInvite(
+        sessionkey,
+        client_name,
+        email_addres,
+        phone_number
+      );
       console.log(response);
       setOpen(true);
     } catch (error: any) {
@@ -103,7 +109,12 @@ export default function InviteNewClients() {
           </div>
           <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Phone Number (Optional)</Label>
-            <Input name="phone_number" placeholder="+44 1234 567890"></Input>
+            <Input
+              value={phone_number}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              name="phone_number"
+              placeholder="+44 1234 567890"
+            ></Input>
           </div>
           {/* <div className="flex flex-col gap-2">
             <Label className="text-gray-600">Potential Investment</Label>

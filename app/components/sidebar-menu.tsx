@@ -40,9 +40,9 @@ export function AppSidebar() {
   const fname = user_profile.first_name;
   const full_name = fname + lname;
   const current_level = user_profile.current_level;
-  const level_name = user_profile.levels_list.map(
-    (item) => item.id === current_level && item.name
-  );
+  // const level_name = user_profile.levels_list.map(
+  //   (item) => item.id === current_level && item.name
+  // );
 
   const handleCollapse = () => {
     const newCollapsed = !collapsed;
@@ -122,7 +122,7 @@ export function AppSidebar() {
                 <p
                   className={`text-[12px] text-center font-normal text-gray-500 w-full `}
                 >
-                  {level_name}
+                  {/* {level_name} */}
                 </p>
               </div>
             </div>

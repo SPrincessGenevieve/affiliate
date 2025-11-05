@@ -17,9 +17,9 @@ import {
 
 export default function TierTwo() {
   const { user_profile, aum_growth } = useUserContext();
-  const sortedLevels = [...user_profile.levels_list].sort(
-    (a, b) => a.level - b.level
-  );
+  // const sortedLevels = [...user_profile.levels_list].sort(
+  //   (a, b) => a.level - b.level
+  // );
 
   const total_investment = user_profile.total_monthly_aum;
   const level = user_profile.current_level || 0;
@@ -64,7 +64,7 @@ export default function TierTwo() {
   const currentPosition = progress_level;
   // const progress_level = (total_investment / 5000000) * 100;
 
-  console.log("TOTAL INVESTMENT: ", sortedLevels);
+  // console.log("TOTAL INVESTMENT: ", sortedLevels);
 
   const formatNumber = (value: number, digits = 1) => {
     return new Intl.NumberFormat("en-US", {
@@ -91,10 +91,10 @@ export default function TierTwo() {
     return formatNumber(value);
   };
 
-  const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
-  const goldTierProgressLabel = user_profile.next_tier.next_tier_to_go;
+  // const price = new Decimal(sortedLevels[4]?.min_price ?? 0);
+  // const goldTierProgressLabel = user_profile.next_tier.next_tier_to_go;
 
-  console.log("currentPosition: ", currentPosition);
+  // console.log("currentPosition: ", currentPosition);
   return (
     <Card>
       <CardContent className="w-full flex flex-col gap-4">
@@ -239,7 +239,7 @@ export default function TierTwo() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          {sortedLevels.map((item, index) => (
+          {/* {sortedLevels.map((item, index) => (
             <div className="w-10 flex flex-col items-center justify-center">
               <Label className="text-[11px] text-center">{item.name}</Label>
               <Label className="text-gray-600 text-[11px]">
@@ -257,15 +257,17 @@ export default function TierTwo() {
                 %
               </Label>
             </div>
-          ))}
+          ))} */}
+          <p>LEVEL WAS HEREE</p>
         </div>
         <div className="w-full flex flex-col items-center justify-center gap-2">
           <Label className="text-green-600 font-normal">
-            £{formatPrice(goldTierProgressLabel)} more to reach
+            {/* £{formatPrice(goldTierProgressLabel)} more to reach
             <span className="capitalize">
               {user_profile.next_tier.next_level.charAt(0).toUpperCase() +
                 user_profile.next_tier.next_level.slice(1).toLowerCase()}
-            </span>
+            </span> */}
+            POSITION WAS HERE
           </Label>
         </div>
       </CardContent>

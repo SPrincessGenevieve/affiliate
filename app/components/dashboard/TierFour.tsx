@@ -50,9 +50,9 @@ export default function TierFour() {
     <Card className="m-0 p-0 w-full h-full flex ">
       <CardContent className="p-0 m-0 flex flex-col  justify-between h-full w-full">
         <div className="h-[90%] w-full  ">
-          <div className="flex w-full justify-between p-4">
+          {/* <div className="flex w-full justify-between p-4">
             <Label className="text-[16px]">Affiliated Leaderboard</Label>
-            {/* <Select defaultValue="q1">
+            <Select defaultValue="q1">
               <SelectTrigger>
                 <SelectValue></SelectValue>
               </SelectTrigger>
@@ -61,15 +61,15 @@ export default function TierFour() {
                 <SelectItem value="q4">Q4 2024</SelectItem>
                 <SelectItem value="q3">Q3 2024</SelectItem>
               </SelectContent>
-            </Select> */}
-          </div>
+            </Select>
+          </div> */}
           <div className="w-full h-[80%] relative flex overflow-x-auto ">
             <div className="absolute w-full h-full flex px-4">
               {/* <TierFiveTable
                 sliceCount={5}
                 affiliated_data={affiliated_leaderboard}
               /> */}
-              {affiliated_leaderboard.length > 0 ? (
+              {/* {affiliated_leaderboard.length > 0 ? (
                 <>
                   <TierFiveTable
                     sliceCount={5}
@@ -90,7 +90,7 @@ export default function TierFour() {
                     </Label>
                   </div>
                 </>
-              )}
+              )} */}
               {/* <div className="h-full w-full flex flex-col items-center justify-center">
                 <DotLottieReact
                   src="/maintenance.lottie"
@@ -106,7 +106,7 @@ export default function TierFour() {
             </div>
           </div>
         </div>
-        <Separator></Separator>
+        {/* <Separator></Separator>
         <div className="h-[10%] w-full flex items-center justify-center">
           <Dialog>
             <DialogTrigger
@@ -128,7 +128,7 @@ export default function TierFour() {
               </DialogHeader>
             </DialogContent>
           </Dialog>
-        </div>
+        </div> */}
       </CardContent>
     </Card>
   );

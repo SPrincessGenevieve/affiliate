@@ -18,7 +18,7 @@ export default function Dashboard() {
       <TierOne></TierOne>
 
       {/* Tier Progress */}
-      <TierTwo></TierTwo>
+      {/* <TierTwo></TierTwo> */}
 
       <div>
         {/* Client Growth & AUM Growth */}
@@ -26,13 +26,12 @@ export default function Dashboard() {
       </div>
       <div className="w-full flex flex-col gap-4">
         <div className="w-full tier-4-5-cont flex gap-4 max-h-[450px] h-full justify-evenly">
-          <div className="w-full max-h-[450px] h-screen tier-4-cont">
+          {/* <div className="w-full max-h-[450px] h-screen tier-4-cont">
             <div className="w-full h-full min-h-[450px]">
-              {/* Affiliated Leaderboard*/}
               <TierFour></TierFour>
             </div>
-          </div>
-          <div className="w-[49%] h-full flex tier-5-cont">
+          </div> */}
+          <div className="w-full h-full flex tier-5-cont">
             {/* Recent Referrals */}
             <TierFive></TierFive>
           </div>

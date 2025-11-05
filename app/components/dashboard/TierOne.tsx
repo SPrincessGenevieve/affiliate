@@ -10,15 +10,15 @@ import { Switch } from "@/components/ui/switch";
 
 export default function TierOne() {
   const { user_profile, aum_growth } = useUserContext();
-  const currentLevel = user_profile.current_level;
-  const matchCurrentLevel = user_profile.levels_list.find(
-    (level) => level.id === user_profile.current_level
-  );
-  const next_level = currentLevel + 1;
-  const matchNextLevel = user_profile.levels_list.find(
-    (level) => level.id === next_level
-  );
-  const next_tier = user_profile.next_tier.next_tier_to_go
+  // const currentLevel = user_profile.current_level;
+  // const matchCurrentLevel = user_profile.levels_list.find(
+  //   (level) => level.id === user_profile.current_level
+  // );
+  // const next_level = currentLevel + 1;
+  // const matchNextLevel = user_profile.levels_list.find(
+  //   (level) => level.id === next_level
+  // );
+  // const next_tier = user_profile.next_tier.next_tier_to_go
 
   const formatPrice = (value: number) => {
     if (value >= 1_000_000) {
@@ -53,9 +53,9 @@ export default function TierOne() {
             </div>
           </div>
           <div className="flex justify-between">
-            <Label className="font-normal text-gray-600">Next tier: </Label>
+            {/* <Label className="font-normal text-gray-600">Next tier: </Label> */}
             <Label className="font-normal text-green-500">
-              £{formatPrice(Number(next_tier))} to go
+              {/* £{formatPrice(Number(next_tier))} to go */}
             </Label>
           </div>
         </CardContent>

@@ -26,7 +26,7 @@ interface CalculateProps {
 export default function InvestmentAmount() {
   const { sessionkey, setUserDetails } = useUserContext();
   const [investmentAmount, setInvestmentAmount] = useState("");
-  const [commissionRate, setCommissionRate] = useState("1.0");
+  const [commissionRate, setCommissionRate] = useState("0.5");
   const [investmentTerm, setInvestmentTerm] = useState("1");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CalculateProps>();

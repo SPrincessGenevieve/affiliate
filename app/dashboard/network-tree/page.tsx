@@ -13,6 +13,8 @@ import {
 import React from "react";
 import { useUserContext } from "@/app/context/UserContext";
 import { getNetworkTree } from "@/lib/services/getData";
+import { mockNetworkTree } from "@/lib/mock-data/networking_tree_data";
+import { Progress } from "@/components/ui/progress";
 
 const header_content = [
   {
@@ -70,12 +72,12 @@ export default function NetworkTree() {
   console.log("DATA: ", network_details);
 
   return (
-    <div className="w-full h-full flex flex-row gap-4">
-      <div className="w-[20%] h-full shadow-md bg-[white] rounded-2xl">
+    <div className="w-full h-full networking-cont flex flex-row gap-4">
+      <div className="net-sidebar w-[20%] min-w-80 h-full shadow-md bg-[white] rounded-2xl">
         <SidebarTree></SidebarTree>
       </div>
-      <div className="bg-[white] shadow-md w-[80%] h-full flex flex-col rounded-2xl">
-        <div className="w-full flex gap-2 p-4">
+      <div className="net-table bg-[white] shadow-md w-[80%] h-full flex flex-col rounded-2xl">
+        <div className="w-full flex flex-wrap gap-2 p-4">
           {btn_header.map((item, index) => (
             <Button
               key={index}
@@ -99,7 +101,7 @@ export default function NetworkTree() {
                 className={`text-center text-[18px] font-bold ${
                   item.title === "Annual Commission"
                     ? "text-red-600"
-                    : "text-gray-500"
+                    : "text-black"
                 }`}
               >
                 {item.value}
@@ -123,15 +125,15 @@ export default function NetworkTree() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {Array.from({ length: 50 }).map((_, index) => (
-                <TableRow key={index}>
-                  <TableCell className="">sdsd {index + 1}</TableCell>
-                  <TableCell className="">sdsd</TableCell>
-                  <TableCell className="">sdsd</TableCell>
-                  <TableCell className="">sdsd</TableCell>
-                  <TableCell className="">sdsd</TableCell>
-                  <TableCell className="">sdsd</TableCell>
-                  <TableCell className="">sdsd</TableCell>
+              {mockNetworkTree.map((item, index) => (
+                <TableRow>
+                  <TableCell className="">{item.Affiliate}</TableCell>
+                  <TableCell className="">{item.Level}</TableCell>
+                  <TableCell className="">£{item.DirectAssets.toLocaleString()}</TableCell>
+                  <TableCell className="">£{item.NetworkAssets.toLocaleString()}</TableCell>
+                  <TableCell className="">{item.Clients}</TableCell>
+                  <TableCell className="">{item.Referrals}</TableCell>
+                  <TableCell className=""><Progress value={item.Contribution * 100}></Progress></TableCell>
                 </TableRow>
               ))}
             </TableBody>

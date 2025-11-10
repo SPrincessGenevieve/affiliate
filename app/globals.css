@@ -175,6 +175,16 @@
 }
 
 @media (max-width: 782px) {
+  .networking-cont{
+    flex-direction: column;
+  }
+  .net-sidebar{
+    width: 100%;
+  }
+  .net-table{
+    width: 100%;
+  }
+
   .settings-desktop{
     display: none;
   }

@@ -88,6 +88,7 @@ export default function TierFive() {
                     src="/empty.lottie"
                     loop
                     autoplay
+                    className="h-52"
                   ></DotLottieReact>
                   <Label className="text-center">
                     You haven’t made any referrals yet. Share your link to get

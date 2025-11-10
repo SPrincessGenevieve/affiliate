@@ -48,7 +48,7 @@ export default function AUMGrowth() {
             (d): d is { created_at: string; total_aum: number } =>
               d != null &&
               typeof d.created_at === "string" &&
-              typeof d.total_aum === "string"
+              typeof d.total_aum === "number"
           )
           .slice(-Number(monthRange))
       : [];

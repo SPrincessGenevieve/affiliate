@@ -82,12 +82,20 @@ export function CommissionChart({ data }: CommissionChartProps) {
             tickLine={false}
             axisLine={false}
             width={40}
-            tick={{ fontSize: 10 }}
+            tick={({ x, y, payload }) => (
+              <text x={x} y={y} textAnchor="end" fontSize={10}>
+                {payload.value}
+              </text>
+            )}
             domain={[0, "dataMax"]}
-            ticks={getDynamicTicks(
-              data.map((d) => d.total_clients),
-              4
-            )} // 4 intervals → 5 ticks
+            ticks={Array.from(
+              new Set(
+                getDynamicTicks(
+                  data.map((d) => d.total_clients),
+                  4
+                )
+              )
+            )}
           />
 
           <ChartTooltip

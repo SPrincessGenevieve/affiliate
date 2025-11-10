@@ -95,3 +95,17 @@ export const getInviteUserFiilter = (
     }
   );
 };
+
+
+export const getNetworkTree = (
+  sessionKey: string,
+) => {
+  return api.get(
+    `/api/affiliate/affiliate-detail`,
+    {
+      headers: {
+        Authorization: "Token " + sessionKey,
+      },
+    }
+  );
+};

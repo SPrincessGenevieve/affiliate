@@ -8,6 +8,35 @@ import {
   useEffect,
 } from "react";
 
+export interface NetworkNode {
+  id: number;
+  user_email: string;
+  profile_picture?: string; // optional if you want to support it later
+  children: NetworkNode[];
+}
+
+// Define the entire "detail" object
+export interface NetworkUserDetail {
+  first_name: string;
+  last_name: string;
+  email: string;
+  current_level: number;
+  birth_date: string | null;
+  profile_picture: string | null;
+  phone_number: string;
+  referral_total_clicks: number;
+  recent_user_referrals: any[]; // or a more specific type if you know it
+  commision_rate: number;
+  next_payment: number;
+  total_commission: number;
+  total_commission_yearly: number;
+  due_date: string;
+  total_clients: number;
+  total_clients_month: number;
+  total_monthly_aum: number;
+  network_tree: NetworkNode;
+}
+
 export type UserRegistration = {
   email: string;
   password1: string;
@@ -180,6 +209,7 @@ type UserContextType = {
   invite_users: InviteUserResult[],
   invite_user_current_page: number;
   invite_user_total_pages: number;
+  network_details: NetworkUserDetail | null;
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
@@ -252,6 +282,7 @@ const defaultUserContext: UserContextType = {
   invite_users: [],
   invite_user_current_page: 1,
   invite_user_total_pages: 1,
+  network_details: null,
   setUserDetails: () => {},
 };
 

@@ -7,6 +7,7 @@ import {
   HandHelping,
   Headset,
   Users,
+  ListTree,
 } from "lucide-react";
 
 import {
@@ -29,10 +30,11 @@ const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "My Referrals", url: "/dashboard/referrals", icon: HandHelping },
   { title: "My Invites", url: "/dashboard/my-invites", icon: Users },
+  { title: "Network Tree", url: "/dashboard/network-tree", icon: ListTree },
 ];
 
 export function AppSidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const pathname = usePathname();
   const { setUserDetails, isOpen, user_profile } = useUserContext();
 
@@ -55,17 +57,21 @@ export function AppSidebar() {
     });
   }, [collapsed]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const shouldCollapse = window.innerWidth <= 885;
-      setCollapsed(shouldCollapse);
-    };
+ useEffect(() => {
+  const handleResize = () => {
+    if (window.innerWidth <= 885) {
+      setCollapsed(true);
+    }
+  };
 
-    handleResize(); // run once on mount
-    window.addEventListener("resize", handleResize);
+  handleResize(); // run once on mount
+  window.addEventListener("resize", handleResize);
 
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  return () => window.removeEventListener("resize", handleResize);
+}, []);
+
+  console.log("COLLAPSE: ", collapsed)
+
 
   return (
     <div className="max-w-[245px] h-full relative">

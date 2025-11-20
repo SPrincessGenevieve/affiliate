@@ -8,6 +8,7 @@ import TierThree from "@/app/components/dashboard/TierThree";
 import TierTwo from "@/app/components/dashboard/TierTwo";
 import React from "react";
 import "@/app/globals.css";
+import NetworkTree from "@/app/components/dashboard/NetworkTree";
 
 export default function Dashboard() {
   return (
@@ -16,10 +17,12 @@ export default function Dashboard() {
 
       {/* Commission Rate */}
       <TierOne></TierOne>
-
       {/* Tier Progress */}
       {/* <TierTwo></TierTwo> */}
+    <div>
+      <NetworkTree></NetworkTree>
 
+    </div>
       <div>
         {/* Client Growth & AUM Growth */}
         <TierThree></TierThree>

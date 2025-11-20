@@ -173,7 +173,6 @@ export type InviteUserResult = {
   expires_at: string;
 };
 
-
 type UserContextType = {
   activeFilter: string;
   isOpen: boolean;
@@ -206,10 +205,11 @@ type UserContextType = {
       created_at: string;
     }
   ];
-  invite_users: InviteUserResult[],
+  invite_users: InviteUserResult[];
   invite_user_current_page: number;
   invite_user_total_pages: number;
   network_details: NetworkUserDetail | null;
+  selectedNode: any | null;
   setUserDetails: (details: Partial<UserContextType>) => void;
 };
 
@@ -283,6 +283,7 @@ const defaultUserContext: UserContextType = {
   invite_user_current_page: 1,
   invite_user_total_pages: 1,
   network_details: null,
+  selectedNode: null,
   setUserDetails: () => {},
 };
 

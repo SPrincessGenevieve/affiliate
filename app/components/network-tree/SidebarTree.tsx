@@ -10,35 +10,54 @@ import {
 } from "@/app/context/UserContext";
 import { Input } from "@/components/ui/input";
 
-function TreeNode({ node }: { node: NetworkNode }) {
-  const [collapsed, setCollapsed] = useState(true);
+interface SidebarTreeProps {
+  onNodeClick?: (node: NetworkNode) => void;
+  expandedIds?: Set<number>;
+}
+
+function TreeNode({
+  node,
+  onNodeClick,
+  expandedIds,
+}: {
+  node: NetworkNode;
+  onNodeClick?: (node: NetworkNode) => void;
+  expandedIds?: Set<number>;
+}) {
+  const [collapsed, setCollapsed] = useState(
+    node.children && node.children.length > 0 ? true : false
+  );
   const hasChildren = node.children && node.children.length > 0;
+
+  const isExpanded = expandedIds?.has(node.id) ?? !collapsed;
+
+  const handleClick = () => {
+    if (hasChildren) {
+      onNodeClick?.(node);
+      setCollapsed(!collapsed); // optional for local collapse
+    }
+  };
 
   return (
     <div className="flex flex-col items-start w-full">
-      {/* Main node */}
       <div
-        onClick={() => hasChildren && setCollapsed(!collapsed)}
+        onClick={handleClick}
         className="cursor-pointer border-l-4 border-[#385A5F] flex items-center gap-2 bg-gray-50 hover:bg-gray-100 p-2 rounded-md w-full"
       >
-        {/* Arrow */}
         <div className="flex-shrink-0 w-3 flex justify-center pt-1">
           {hasChildren ? (
             <Image
-              src={collapsed ? "/play.png" : "/down.png"}
+              src={isExpanded ? "/down.png" : "/play.png"}
               alt=""
               width={400}
               height={400}
-              className={`w-3 h-auto transition-transform ${
-                collapsed ? "rotate-0" : "rotate-90"
-              }`}
+              className="w-3 h-auto transition-transform"
             />
           ) : (
             <div className="w-3" />
           )}
         </div>
 
-        {/* Avatar + Email */}
         <div className="flex items-center gap-2 w-full max-w-full relative">
           <Avatar className="rounded-[5px] w-6 h-6 shrink-0">
             {node.profile_picture ? (
@@ -63,11 +82,15 @@ function TreeNode({ node }: { node: NetworkNode }) {
         </div>
       </div>
 
-      {/* Children */}
-      {hasChildren && !collapsed && (
+      {hasChildren && isExpanded && (
         <div className="mt-1 pl-6 gap-1 flex flex-col w-full border-l-2 border-gray-200">
           {node.children.map((child) => (
-            <TreeNode key={child.id} node={child} />
+            <TreeNode
+              key={child.id}
+              node={child}
+              onNodeClick={onNodeClick}
+              expandedIds={expandedIds}
+            />
           ))}
         </div>
       )}
@@ -75,7 +98,10 @@ function TreeNode({ node }: { node: NetworkNode }) {
   );
 }
 
-export default function SidebarTree() {
+export default function SidebarTree({
+  onNodeClick,
+  expandedIds,
+}: SidebarTreeProps) {
   const { network_details } = useUserContext();
 
   if (!network_details) {
@@ -91,10 +117,13 @@ export default function SidebarTree() {
     <div className="flex flex-col gap-2 bg-white rounded-xl w-full">
       <div className="border-b p-4">
         <Label className="font-bold mb-2 text-[14px]">Network Tree</Label>
-        <Input placeholder="Search affiliates..."></Input>
       </div>
       <div className="p-4">
-        <TreeNode node={network_details.network_tree} />
+        <TreeNode
+          node={network_details.network_tree}
+          onNodeClick={onNodeClick}
+          expandedIds={expandedIds}
+        />
       </div>
     </div>
   );

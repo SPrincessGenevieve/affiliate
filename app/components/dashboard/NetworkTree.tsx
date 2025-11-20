@@ -1,0 +1,205 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import SidebarTree from "@/app/components/network-tree/SidebarTree";
+import { Label } from "@/components/ui/label";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Progress } from "@/components/ui/progress";
+import { useUserContext } from "@/app/context/UserContext";
+import { getNetworkTree } from "@/lib/services/getData";
+
+const header_content = [
+  { title: "Direct Assets", value: "£1.2M" },
+  { title: "Network Assets", value: "£24.8M" },
+  { title: "Direct Referrals", value: "12" },
+  { title: "Annual Commission", value: "£124,000" },
+];
+
+const column = [
+  "Affiliate",
+  "Level",
+  "Direct Assets",
+  "Network Assets",
+  "Clients",
+  "Referrals",
+  "Contribution",
+];
+
+export default function NetworkTree() {
+  const { setUserDetails, sessionkey, network_details } = useUserContext();
+  const [flatData, setFlatData] = useState<any[]>([]);
+  const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
+
+  // Flatten network tree and include children
+  const flattenTree = (node: any, parentId: number | null = null) => {
+    const result: any[] = [];
+    const traverse = (n: any, parentId: number | null) => {
+      result.push({
+        id: n.id,
+        parentId,
+        Affiliate: n.user_email,
+        Level: n.level,
+        DirectAssets: n.direct_assets,
+        NetworkAssets: n.network_assets,
+        Clients: n.direct_refferals,
+        Referrals: n.direct_refferals,
+        Contribution:
+          n.network_assets + n.direct_assets > 0
+            ? n.direct_assets / (n.network_assets + n.direct_assets)
+            : 0,
+        children: n.children || [],
+      });
+      if (n.children && n.children.length > 0) {
+        n.children.forEach((child: any) => traverse(child, n.id));
+      }
+    };
+    traverse(node, parentId);
+    setFlatData(result);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getNetworkTree(sessionkey);
+        setUserDetails({ network_details: response.data.detail });
+        flattenTree(response.data.detail.network_tree);
+      } catch (error: any) {
+        console.log("ERROR: ", error);
+      }
+    };
+    fetchData();
+  }, [sessionkey, setUserDetails]);
+
+  // Generate visible rows based on expandedIds
+  const getVisibleData = () => {
+    const visible: any[] = [];
+    const map = new Map(flatData.map((item) => [item.id, item]));
+
+    // show first-level nodes
+    flatData
+      .filter((item) => item.parentId === null)
+      .forEach((node) => {
+        visible.push(node);
+        addExpandedChildren(node);
+      });
+
+    function addExpandedChildren(node: any) {
+      if (expandedIds.has(node.id) && node.children) {
+        node.children.forEach((child: any) => {
+          const childNode = map.get(child.id);
+          if (childNode) {
+            visible.push(childNode);
+            addExpandedChildren(childNode); // recursive
+          }
+        });
+      }
+    }
+
+    return visible;
+  };
+
+  const toggleExpand = (id: number) => {
+    setExpandedIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) newSet.delete(id);
+      else newSet.add(id);
+      return newSet;
+    });
+  };
+
+  const visibleData = getVisibleData();
+
+  return (
+    <div className="w-full h-full networking-cont flex flex-row gap-4 rounded-t-2xl">
+      <div className="net-sidebar w-[20%] min-w-80 h-full shadow-md bg-white rounded-2xl">
+        <SidebarTree
+          onNodeClick={(node: any) => toggleExpand(node.id)}
+          expandedIds={expandedIds}
+        />
+      </div>
+
+      <div className="net-table bg-white shadow-md w-[80%] h-full flex flex-col rounded-2xl">
+        <div className="w-full flex flex-wrap gap-2 p-4 py-5">
+          <Label className="text-[14px] font-bold">Network Overview</Label>
+        </div>
+
+        <div className="flex flex-row gap-2 items-center justify-center border-y bg-gray-100">
+          {header_content.map((item, index) => (
+            <div
+              key={index}
+              className="w-[25%] h-20 flex flex-col items-center justify-center"
+            >
+              <Label className="text-center uppercase text-[10px] text-gray-500">
+                {item.title}
+              </Label>
+              <Label
+                className={`text-center text-[18px] font-bold ${
+                  item.title === "Annual Commission"
+                    ? "text-red-600"
+                    : "text-black"
+                }`}
+              >
+                {item.value}
+              </Label>
+            </div>
+          ))}
+        </div>
+
+        <div className="w-full p-4 h-[calc(90vh-150px)] flex flex-col bg-white rounded-lg overflow-auto">
+          <Table>
+            <TableHeader className="border-b bg-white">
+              <TableRow>
+                {column.map((item) => (
+                  <TableCell
+                    key={item}
+                    className="font-bold uppercase text-[12px] text-gray-500"
+                  >
+                    {item}
+                  </TableCell>
+                ))}
+              </TableRow>
+            </TableHeader>
+
+            <TableBody>
+              {visibleData.length > 0 ? (
+                visibleData.map((item, index) => (
+                  <TableRow
+                    key={index}
+                    className="cursor-pointer"
+                    onClick={() => toggleExpand(item.id)}
+                  >
+                    <TableCell>
+                      {item.Affiliate}
+                    </TableCell>
+                    <TableCell>{item.Level}</TableCell>
+                    <TableCell>
+                      £{item.DirectAssets.toLocaleString()}
+                    </TableCell>
+                    <TableCell>£{item.NetworkAssets.toLocaleString()}</TableCell>
+                    <TableCell>{item.Clients}</TableCell>
+                    <TableCell>{item.Referrals}</TableCell>
+                    <TableCell>
+                      <Progress value={item.Contribution * 100} />
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center">
+                    No data available
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
+}

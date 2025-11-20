@@ -71,7 +71,7 @@ export default function ClientGrowth() {
         <div className="w-full h-full relative flex overflow-x-auto">
           <div className="absolute w-full h-full flex">
             {aggregatedData.length > 0 ? (
-              <CommissionChart timeRange={selected} data={aggregatedData} />
+              <CommissionChart data={aggregatedData} />
             ) : (
               <div className="h-full w-full flex flex-col items-center justify-center">
                 <DotLottieReact

@@ -11,8 +11,19 @@ import {
 export interface NetworkNode {
   id: number;
   user_email: string;
+  level: number;
+  direct_assets: number;
+  network_assets: number;
+  direct_refferals: number;
+  montly_commission: number;
   profile_picture?: string; // optional if you want to support it later
   children: NetworkNode[];
+}
+
+export interface RecentReferal {
+  full_name: string;
+  market_value: number;
+  created_at: string;
 }
 
 // Define the entire "detail" object
@@ -25,7 +36,7 @@ export interface NetworkUserDetail {
   profile_picture: string | null;
   phone_number: string;
   referral_total_clicks: number;
-  recent_user_referrals: any[]; // or a more specific type if you know it
+  recent_user_referrals: RecentReferal[]; // or a more specific type if you know it
   commision_rate: number;
   next_payment: number;
   total_commission: number;

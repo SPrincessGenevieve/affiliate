@@ -14,13 +14,6 @@ import { Progress } from "@/components/ui/progress";
 import { useUserContext } from "@/app/context/UserContext";
 import { getNetworkTree } from "@/lib/services/getData";
 
-const header_content = [
-  { title: "Direct Assets", value: "£1.2M" },
-  { title: "Network Assets", value: "£24.8M" },
-  { title: "Direct Referrals", value: "12" },
-  { title: "Annual Commission", value: "£124,000" },
-];
-
 const column = [
   "Affiliate",
   "Level",
@@ -28,14 +21,20 @@ const column = [
   "Network Assets",
   "Clients",
   "Referrals",
-  "Contribution",
+  // "Contribution",
 ];
 
 export default function NetworkTree() {
   const { setUserDetails, sessionkey, network_details } = useUserContext();
   const [flatData, setFlatData] = useState<any[]>([]);
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
-
+  const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
+  const [headerContent, setHeaderContent] = useState([
+    { title: "Direct Assets", value: 0 },
+    { title: "Network Assets", value: 0 },
+    { title: "Direct Referrals", value: 0 },
+    { title: "Monthly Commission", value: 0 },
+  ]);
   // Flatten network tree and include children
   const flattenTree = (node: any, parentId: number | null = null) => {
     const result: any[] = [];
@@ -49,6 +48,7 @@ export default function NetworkTree() {
         NetworkAssets: n.network_assets,
         Clients: n.direct_refferals,
         Referrals: n.direct_refferals,
+        Monthly: n.monthly_commission,
         Contribution:
           n.network_assets + n.direct_assets > 0
             ? n.direct_assets / (n.network_assets + n.direct_assets)
@@ -115,13 +115,42 @@ export default function NetworkTree() {
 
   const visibleData = getVisibleData();
 
+  const handleNodeClick = (clickedNode: any) => {
+    setSelectedNodeId(clickedNode.id); // mark this node as selected
+
+    // Update header content
+    const node = flatData.find((n) => n.id === clickedNode.id);
+    if (!node) return;
+
+    setHeaderContent([
+      {
+        title: "Direct Assets",
+        value: node.DirectAssets,
+      },
+      {
+        title: "Network Assets",
+        value: node.NetworkAssets,
+      },
+      {
+        title: "Direct Referrals",
+        value: node.Referrals,
+      },
+      {
+        title: "Monthly Commission",
+        value: node.Monthly, // or calculate dynamically
+      },
+    ]);
+
+    // Only toggle expansion if the node has children
+    if (node.children && node.children.length > 0) {
+      toggleExpand(node.id);
+    }
+  };
+
   return (
     <div className="w-full h-full networking-cont flex flex-row gap-4 rounded-t-2xl">
       <div className="net-sidebar w-[20%] min-w-80 h-full shadow-md bg-white rounded-2xl">
-        <SidebarTree
-          onNodeClick={(node: any) => toggleExpand(node.id)}
-          expandedIds={expandedIds}
-        />
+        <SidebarTree onNodeClick={handleNodeClick} expandedIds={expandedIds} />
       </div>
 
       <div className="net-table bg-white shadow-md w-[80%] h-full flex flex-col rounded-2xl">
@@ -130,7 +159,7 @@ export default function NetworkTree() {
         </div>
 
         <div className="flex flex-row gap-2 items-center justify-center border-y bg-gray-100">
-          {header_content.map((item, index) => (
+          {headerContent.map((item, index) => (
             <div
               key={index}
               className="w-[25%] h-20 flex flex-col items-center justify-center"
@@ -140,18 +169,20 @@ export default function NetworkTree() {
               </Label>
               <Label
                 className={`text-center text-[18px] font-bold ${
-                  item.title === "Annual Commission"
-                    ? "text-red-600"
-                    : "text-black"
+                  item.title !== "Monthly Commission"
+                    ? "text-black"
+                    :  item.value >= 0
+                    ? "text-green-500"
+                    : "text-red-500"
                 }`}
               >
-                {item.value}
+                £{Number(Number(item.value ?? 0).toFixed(2)).toLocaleString()}
               </Label>
             </div>
           ))}
         </div>
 
-        <div className="w-full p-4 h-[calc(90vh-150px)] flex flex-col bg-white rounded-lg overflow-auto">
+        <div className="w-full p-4 h-auto min-h-[100px] flex flex-col bg-white rounded-lg overflow-auto">
           <Table>
             <TableHeader className="border-b bg-white">
               <TableRow>
@@ -172,21 +203,37 @@ export default function NetworkTree() {
                   <TableRow
                     key={index}
                     className="cursor-pointer"
-                    onClick={() => toggleExpand(item.id)}
+                    onClick={() => {
+                      // Update header only
+                      setHeaderContent([
+                        {
+                          title: "Direct Assets",
+                          value: item.DirectAssets,
+                        },
+                        {
+                          title: "Network Assets",
+                          value: item.NetworkAssets,
+                        },
+                        {
+                          title: "Direct Referrals",
+                          value: item.Referrals,
+                        },
+                        {
+                          title: "Monthly Commission",
+                          value: item.Monthly, // calculate if available
+                        },
+                      ]);
+                      setSelectedNodeId(item.id); // optional: highlight selected
+                    }}
                   >
-                    <TableCell>
-                      {item.Affiliate}
-                    </TableCell>
+                    <TableCell>{item.Affiliate}</TableCell>
                     <TableCell>{item.Level}</TableCell>
+                    <TableCell>£{item.DirectAssets.toLocaleString()}</TableCell>
                     <TableCell>
-                      £{item.DirectAssets.toLocaleString()}
+                      £{item.NetworkAssets.toLocaleString()}
                     </TableCell>
-                    <TableCell>£{item.NetworkAssets.toLocaleString()}</TableCell>
                     <TableCell>{item.Clients}</TableCell>
                     <TableCell>{item.Referrals}</TableCell>
-                    <TableCell>
-                      <Progress value={item.Contribution * 100} />
-                    </TableCell>
                   </TableRow>
                 ))
               ) : (

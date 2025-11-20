@@ -32,9 +32,12 @@ function TreeNode({
   const isExpanded = expandedIds?.has(node.id) ?? !collapsed;
 
   const handleClick = () => {
+    // Always call onNodeClick
+    onNodeClick?.(node);
+
+    // Only toggle collapse/expand if node has children
     if (hasChildren) {
-      onNodeClick?.(node);
-      setCollapsed(!collapsed); // optional for local collapse
+      setCollapsed(!collapsed);
     }
   };
 

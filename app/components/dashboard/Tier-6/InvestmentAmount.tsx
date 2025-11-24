@@ -19,8 +19,10 @@ import { Button } from "@/components/ui/button";
 import SpinnerIcon from "@/app/images/Spinner";
 
 interface CalculateProps {
-  total_earnings: number;
-  monthly_earnings: number;
+  initial_investment: number;
+  interest_rate: number;
+  average_annual_growth: string;
+  total_growth: number;
 }
 
 export default function InvestmentAmount() {
@@ -47,6 +49,8 @@ export default function InvestmentAmount() {
       setLoading(false);
     }
   };
+
+  console.log("RESULT: ", result);
   return (
     <Card className="p-0 m-0 w-full">
       <CardContent className="m-0 p-0">
@@ -67,12 +71,12 @@ export default function InvestmentAmount() {
               defaultValue={commissionRate}
               onValueChange={setCommissionRate}
             >
-              <SelectTrigger className="w-full">
+              <SelectTrigger disabled className="w-full">
                 <SelectValue></SelectValue>
               </SelectTrigger>
               <SelectContent>
                 {/* <SelectItem value="0.4">0.4% (Vintage)</SelectItem> */}
-                <SelectItem value="0.5">0.5% (Vintage Cru)</SelectItem>
+                <SelectItem value="0.5">0.5%</SelectItem>
                 {/* <SelectItem value="0.55">0.55% (Vintage Vault)</SelectItem>
                 <SelectItem value="0.6">0.6% (Vintage Enclosure)</SelectItem>
                 <SelectItem value="0.65">0.65% (Vintage Associate)</SelectItem> */}
@@ -99,25 +103,23 @@ export default function InvestmentAmount() {
           </div>
         </div>
         <Separator></Separator>
-        <div className="flex justify-between p-4">
+        {/* <div className="flex justify-between p-4">
           <div className="flex flex-col items-start gap-2">
-            {/* <Label className="text-gray-600">Initial Commission</Label> */}
             <Label className="text-gray-600">Monthly Earnings</Label>
           </div>
           <div className="flex flex-col items-end gap-2">
-            {/* <Label>£1,000</Label> */}
             <Label>
-              £{Number(result?.monthly_earnings || 0).toLocaleString()}
+              {result?.average_annual_growth}
             </Label>
           </div>
-        </div>
+        </div> */}
         <Separator></Separator>
         <div className="flex justify-between gap-2 p-4">
           <Label className="text-gray-600 font-bold">
             Total Earnings (Year {investmentTerm})
           </Label>
           <Label className="text-[#2E5257] font-bold">
-            £{Number(result?.total_earnings || 0).toLocaleString()}
+            £{Number(result?.total_growth || 0).toLocaleString()}
           </Label>
         </div>
         <div className="p-4 w-full">

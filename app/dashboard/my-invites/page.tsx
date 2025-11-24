@@ -46,6 +46,7 @@ export default function MyInvites() {
   }, [sessionkey, invite_user_current_page, activeFilter]);
 
   console.log("SESSION: ", activeFilter);
+  console.log("CURRENT PAGE: ", invite_user_current_page);
 
   return (
     <div className="relative flex  w-full h-full gap-4 flex-col justify-between">

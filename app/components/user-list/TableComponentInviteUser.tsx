@@ -76,6 +76,7 @@ export default function TableComponentInviteUser({
     onSelect: () => void
   ) => (
     <TableRow
+      key={`${item.name}-${item.expires_at}`}
       onClick={onSelect}
       className={`border-t border-b h-10 cursor-pointer transition-colors ${
         selected ? "bg-[#F3F4F6]" : "font-normal"

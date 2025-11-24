@@ -11,7 +11,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Progress } from "@/components/ui/progress";
-import { useUserContext } from "@/app/context/UserContext";
+import {
+  NetworkNode,
+  NetworkUserDetail,
+  useUserContext,
+} from "@/app/context/UserContext";
 import { getNetworkTree } from "@/lib/services/getData";
 
 const column = [
@@ -24,9 +28,23 @@ const column = [
   // "Contribution",
 ];
 
+export interface FlatNetworkNode {
+  id: number;
+  parentId: number | null;
+  Affiliate: string;
+  Level: number;
+  DirectAssets: number;
+  NetworkAssets: number;
+  Clients: number;
+  Referrals: number;
+  Monthly: number;
+  Contribution: number;
+  children: NetworkNode[];
+}
+
 export default function NetworkTree() {
   const { setUserDetails, sessionkey, network_details } = useUserContext();
-  const [flatData, setFlatData] = useState<any[]>([]);
+  const [flatData, setFlatData] = useState<FlatNetworkNode[]>([]);
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
   const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
   const [headerContent, setHeaderContent] = useState([
@@ -37,12 +55,13 @@ export default function NetworkTree() {
   ]);
   // Flatten network tree and include children
   const flattenTree = (node: any, parentId: number | null = null) => {
-    const result: any[] = [];
+    const result: FlatNetworkNode[] = [];
+
     const traverse = (n: any, parentId: number | null) => {
       result.push({
         id: n.id,
         parentId,
-        Affiliate: n.user_email,
+        Affiliate: n.full_name,
         Level: n.level,
         DirectAssets: n.direct_assets,
         NetworkAssets: n.network_assets,
@@ -162,21 +181,24 @@ export default function NetworkTree() {
           {headerContent.map((item, index) => (
             <div
               key={index}
-              className="w-[25%] h-20 flex flex-col items-center justify-center"
+              className="w-[25%] min-h-20 flex flex-col items-center justify-baseline"
             >
-              <Label className="text-center uppercase text-[10px] text-gray-500">
-                {item.title}
-              </Label>
+              <div className="min-h-7 mt-2">
+                <Label className="text-center  uppercase text-[10px] text-gray-500">
+                  {item.title}
+                </Label>
+              </div>
               <Label
-                className={`text-center text-[18px] font-bold ${
+                className={`block table-header-text text-[2.5vw] text-center w-full font-bold break-words whitespace-normal ${
                   item.title !== "Monthly Commission"
                     ? "text-black"
-                    :  item.value >= 0
+                    : item.value >= 0
                     ? "text-green-500"
                     : "text-red-500"
                 }`}
               >
-                £{Number(Number(item.value ?? 0).toFixed(2)).toLocaleString()}
+                {item.title !== "Direct Referrals" && "£"}
+                {Number(Number(item.value ?? 0).toFixed(2)).toLocaleString()}
               </Label>
             </div>
           ))}

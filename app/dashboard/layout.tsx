@@ -29,6 +29,7 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const { isLoggedIn, sessionkey, setUserDetails } = useUserContext();
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
 
   const hasFetched = useRef(false);
 
@@ -36,15 +37,19 @@ export default function DashboardLayout({
     pathname.includes("/dashboard/settings") ||
     pathname.includes("/dashboard/billing");
 
+  // Set mounted = true after hydration
   useEffect(() => {
-    if (isLoggedIn === null) {
-      return;
-    }
+    setMounted(true);
+  }, []);
+
+  // After mounted AND login state is known → fetch
+  useEffect(() => {
+    if (!mounted) return; // <--- IMPORTANT
+    if (isLoggedIn === null) return;
+
     if (isLoggedIn === false) {
-      setUserDetails({
-        isLoggedIn: false,
-      });
       router.replace("/");
+      return;
     }
 
     const fetchData = async () => {
@@ -54,8 +59,7 @@ export default function DashboardLayout({
         const responseClientGrowth = await getClientGrowth(sessionkey);
         const responseAumGrowth = await getAUMGrowth(sessionkey);
         const responseCommission = await getCommissionGrowth(sessionkey);
-        
-        console.log("LEADERBOARD: ",responseUser.data.detail.leaderboard)
+
         setUserDetails({
           user_profile: responseUser.data.detail,
           events: responseEvent.data,
@@ -63,12 +67,23 @@ export default function DashboardLayout({
           client_growth: responseClientGrowth.data.detail,
           aum_growth: responseAumGrowth.data.detail,
           commission_growth: responseCommission.data.detail,
-          affiliated_leaderboard: responseUser.data.detail.leaderboard
+          affiliated_leaderboard: responseUser.data.detail.leaderboard,
         });
       } catch (error) {}
     };
+
     fetchData();
-  });
+  }, [mounted, isLoggedIn]); // <--- dependencies
+
+  if (!mounted) {
+    return (
+      <div className="absolute w-full h-full flex items-center justify-center z-60">
+        <div className="w-20">
+          <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <SidebarProvider className="relative bg-[#F6F6F6] flex w-full h-full">
@@ -84,7 +99,6 @@ export default function DashboardLayout({
       )}
       {isLoggedIn ? (
         <>
-          {" "}
           <div className="flex  w-full h-full bg-[#F6F6F6]">
             <div
               className={`w-full h-full flex items-center flex-col  overflow-auto ${children_visibility}`}

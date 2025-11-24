@@ -67,7 +67,7 @@ function TreeNode({
               <AvatarImage src={node.profile_picture} />
             ) : (
               <AvatarFallback className="rounded-[5px] bg-[#385A5F] text-white font-bold text-[10px]">
-                {node.user_email?.[0]?.toUpperCase() || "?"}
+                {node.full_name?.[0]?.toUpperCase() || "?"}
               </AvatarFallback>
             )}
           </Avatar>
@@ -75,7 +75,7 @@ function TreeNode({
             className="text-sm text-gray-700 w-full break-words whitespace-normal leading-tight"
             style={{ wordBreak: "break-all" }}
           >
-            {node.user_email}
+            {node.full_name}
           </Label>
           {hasChildren && (
             <Label className="bg-gray-300 text-[12px] font-bold p-1 px-4 text-center rounded-full">

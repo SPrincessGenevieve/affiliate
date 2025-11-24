@@ -69,7 +69,7 @@ export default function TrainingResources() {
               </DialogHeader>
               <div className="px-4 flex flex-col gap-4 overflow-auto">
                 {events.map((item, index) => (
-                  <div className="flex rounded-xl items-center justify-between p-4 gap-4 bg-[#F9FAFB]">
+                  <div key={index} className="flex rounded-xl items-center justify-between p-4 gap-4 bg-[#F9FAFB]">
                     <div className="flex items-center justify-center">
                       <div className="w-[30px] ">
                         <div

@@ -25,7 +25,8 @@ export default function Header() {
   const router = useRouter();
   const [loadingLogout, setLoadingLogout] = useState(false);
   const [open, setOpen] = useState(false);
-  const { setUserDetails, isLoggedIn, user_profile } = useUserContext();
+  const { setUserDetails, invite_user_current_page, user_profile } =
+    useUserContext();
 
   const navigateSettings = () => {
     setUserDetails({
@@ -45,7 +46,9 @@ export default function Header() {
     setLoadingLogout(true);
     setUserDetails({
       isLoggedIn: false,
-      sessionkey: ""
+      sessionkey: "",
+      invite_user_current_page: 1,
+      my_referrals_current_page: 1,
     });
     router.push("/");
   };
@@ -104,7 +107,11 @@ export default function Header() {
                 user_profile.profile_picture === "" ? (
                   <>
                     <div className="relative w-10 h-10 flex items-center justify-center">
-                      <DotLottieReact className="absolute w-[70px] h-[70px]" src="/profile.lottie" autoplay />
+                      <DotLottieReact
+                        className="absolute w-[70px] h-[70px]"
+                        src="/profile.lottie"
+                        autoplay
+                      />
                     </div>
                   </>
                 ) : (

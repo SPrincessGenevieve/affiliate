@@ -32,7 +32,8 @@ export function CommissionChart({ data }: CommissionChartProps) {
     return Array.from({ length: tickCount + 1 }, (_, i) => Number((i * step).toFixed(6)));
   };
 
-  const ticks = getTicks(data.map((d) => d.total_clients), 4);
+  const ticks = Array.from(new Set(getTicks(data.map(d => d.total_clients), 4)));
+
 
   return (
     <ChartContainer config={chartConfig} className="w-full h-[250px]">

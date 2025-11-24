@@ -76,7 +76,7 @@ export default function TableComponent({
     onSelect: () => void
   ) => (
     <TableRow
-      key={item.rank}
+      key={`${item.rank}-${item.full_name}`}
       onClick={onSelect}
       className={`border-t border-b h-10 cursor-pointer transition-colors ${
         selected ? "bg-[#F3F4F6]" : "font-normal"

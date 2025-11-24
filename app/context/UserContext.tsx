@@ -10,7 +10,7 @@ import {
 
 export interface NetworkNode {
   id: number;
-  user_email: string;
+  full_name: string;
   level: number;
   direct_assets: number;
   network_assets: number;

@@ -189,7 +189,7 @@ export default function NetworkTree() {
                 </Label>
               </div>
               <Label
-                className={`block table-header-text text-[2.5vw] text-center w-full font-bold break-words whitespace-normal ${
+                className={`block table-header-text text-[20px] text-center w-full font-bold break-words whitespace-normal ${
                   item.title !== "Monthly Commission"
                     ? "text-black"
                     : item.value >= 0

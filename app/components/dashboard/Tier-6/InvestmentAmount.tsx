@@ -114,9 +114,17 @@ export default function InvestmentAmount() {
           </div>
         </div> */}
         <Separator></Separator>
-        <div className="flex justify-between gap-2 p-4">
+        <div className="flex justify-between gap-2 px-4 py-2 mt-2">
           <Label className="text-gray-600 font-bold">
-            Total Earnings (Year {investmentTerm})
+            Average Annual Growth
+          </Label>
+          <Label className="text-[#2E5257] font-bold">
+            £{result?.average_annual_growth}
+          </Label>
+        </div>
+        <div className="flex justify-between gap-2 px-4 py-2">
+          <Label className="text-gray-600 font-bold">
+            Total Growth
           </Label>
           <Label className="text-[#2E5257] font-bold">
             £{Number(result?.total_growth || 0).toLocaleString()}

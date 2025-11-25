@@ -28,7 +28,7 @@ interface CalculateProps {
 export default function InvestmentAmount() {
   const { sessionkey, setUserDetails } = useUserContext();
   const [investmentAmount, setInvestmentAmount] = useState("");
-  const [commissionRate, setCommissionRate] = useState("0.5");
+  const [commissionRate, setCommissionRate] = useState("1.5");
   const [investmentTerm, setInvestmentTerm] = useState("1");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CalculateProps>();
@@ -49,6 +49,31 @@ export default function InvestmentAmount() {
       setLoading(false);
     }
   };
+
+  function extractNumber(growthString: string) {
+    if (typeof growthString !== "string") {
+      // If it's already a number or null/undefined, return it as is
+      return growthString;
+    }
+
+    // 1. Remove " per year" (case-insensitive)
+    // 2. Remove any other non-numeric character (except the decimal point and minus sign)
+    //    If the original value is just "12.5", this will be fine too.
+
+    // For your specific case of removing " per year":
+    const cleanedString = growthString.replace(/\s*per year/i, "").trim();
+
+    // If you want to be extremely robust and remove all non-numeric text:
+    // const numberMatch = cleanedString.match(/^-?[\d,.]+/);
+    // if (numberMatch) {
+    //   return parseFloat(numberMatch[0].replace(/,/g, '')); // Handles potential commas and returns a number
+    // }
+
+    return cleanedString; // Returns the cleaned string (e.g., "12.5%")
+  }
+
+  // Example of how to use it
+  const cleanedGrowth = extractNumber(result?.average_annual_growth || "0");
 
   console.log("RESULT: ", result);
   return (
@@ -76,7 +101,7 @@ export default function InvestmentAmount() {
               </SelectTrigger>
               <SelectContent>
                 {/* <SelectItem value="0.4">0.4% (Vintage)</SelectItem> */}
-                <SelectItem value="0.5">0.5%</SelectItem>
+                <SelectItem value="1.5">0.5%</SelectItem>
                 {/* <SelectItem value="0.55">0.55% (Vintage Vault)</SelectItem>
                 <SelectItem value="0.6">0.6% (Vintage Enclosure)</SelectItem>
                 <SelectItem value="0.65">0.65% (Vintage Associate)</SelectItem> */}
@@ -119,15 +144,14 @@ export default function InvestmentAmount() {
             Average Annual Growth
           </Label>
           <Label className="text-[#2E5257] font-bold">
-            £{result?.average_annual_growth}
+            £{Math.round(Number(cleanedGrowth)).toLocaleString()}{" "}
+            {cleanedGrowth && "per year"}
           </Label>
         </div>
         <div className="flex justify-between gap-2 px-4 py-2">
-          <Label className="text-gray-600 font-bold">
-            Total Growth
-          </Label>
+          <Label className="text-gray-600 font-bold">Total Growth</Label>
           <Label className="text-[#2E5257] font-bold">
-            £{Number(result?.total_growth || 0).toLocaleString()}
+            £{Math.round(Number(result?.total_growth || 0)).toLocaleString()}
           </Label>
         </div>
         <div className="p-4 w-full">

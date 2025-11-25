@@ -28,7 +28,7 @@ interface CalculateProps {
 export default function InvestmentAmount() {
   const { sessionkey, setUserDetails } = useUserContext();
   const [investmentAmount, setInvestmentAmount] = useState("");
-  const [commissionRate, setCommissionRate] = useState("1.5");
+  const [commissionRate, setCommissionRate] = useState("0.5");
   const [investmentTerm, setInvestmentTerm] = useState("1");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CalculateProps>();
@@ -101,7 +101,7 @@ export default function InvestmentAmount() {
               </SelectTrigger>
               <SelectContent>
                 {/* <SelectItem value="0.4">0.4% (Vintage)</SelectItem> */}
-                <SelectItem value="1.5">0.5%</SelectItem>
+                <SelectItem value="0.5">0.5%</SelectItem>
                 {/* <SelectItem value="0.55">0.55% (Vintage Vault)</SelectItem>
                 <SelectItem value="0.6">0.6% (Vintage Enclosure)</SelectItem>
                 <SelectItem value="0.65">0.65% (Vintage Associate)</SelectItem> */}

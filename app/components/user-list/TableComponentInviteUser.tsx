@@ -78,15 +78,17 @@ export default function TableComponentInviteUser({
     <TableRow
       key={`${item.name}-${item.expires_at}`}
       onClick={onSelect}
-      className={`border-t border-b h-10 cursor-pointer transition-colors ${
-        selected ? "bg-[#F3F4F6]" : "font-normal"
+      className={`border-y border-[#C4AD93] text-white/70 h-10 cursor-pointer transition-colors ${
+        selected ? "bg-[#121416]" : "font-normal"
       }`}
     >
-      <TableCell className="border-b">{item.name}</TableCell>
-      <TableCell className="border-b">{item.email}</TableCell>
-      <TableCell className="border-b">{item.phone}</TableCell>
-      <TableCell className="border-b capitalize">{item.status}</TableCell>
-      <TableCell className="border-b">
+      <TableCell className="border-b border-[#C4AD93]">{item.name}</TableCell>
+      <TableCell className="border-b border-[#C4AD93]">{item.email}</TableCell>
+      <TableCell className="border-b border-[#C4AD93]">{item.phone}</TableCell>
+      <TableCell className="border-b border-[#C4AD93] capitalize">
+        {item.status}
+      </TableCell>
+      <TableCell className="border-b border-[#C4AD93]">
         <div className="flex">
           <p>{item.expires_at?.slice(0, 10)}</p>
         </div>
@@ -99,9 +101,9 @@ export default function TableComponentInviteUser({
       <Table className="">
         {caption && <TableCaption>{caption}</TableCaption>}
         <TableHeader>
-          <TableRow className="">
+          <TableRow className="text-white/70 border-y border-[#C4AD93]">
             {/* <TableHead>Rank</TableHead> */}
-            <TableHead>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Name
                 {/* <div>
@@ -129,8 +131,8 @@ export default function TableComponentInviteUser({
                   </Button>
                 </div> */}
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Email
                 {/* <div>
@@ -158,8 +160,8 @@ export default function TableComponentInviteUser({
                   </Button>
                 </div> */}
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Phone
                 {/* <div>
@@ -187,8 +189,8 @@ export default function TableComponentInviteUser({
                   </Button>
                 </div> */}
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Status
                 {/* <div>
@@ -217,8 +219,8 @@ export default function TableComponentInviteUser({
                   </Button>
                 </div> */}
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Valid Until
                 {/* <div>
@@ -252,7 +254,7 @@ export default function TableComponentInviteUser({
                   </Button>
                 </div> */}
               </div>
-            </TableHead>
+            </TableCell>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -268,7 +270,7 @@ export default function TableComponentInviteUser({
         </TableBody>
       </Table>
 
-      <div className="mt-4 flex justify-end w-full h-auto bg-white">
+      <div className="mt-4 flex justify-end w-full h-auto bg-[#2A2C2D]">
         <Pagination>
           <PaginationContent>
             <PaginationItem>
@@ -308,14 +310,10 @@ export default function TableComponentInviteUser({
                     )}
                     <PaginationItem key={page}>
                       <Button
-                        variant="ghost"
+                        variant={page === currentPage ? "default" : "ghost"}
                         size="icon"
                         onClick={() => setCurrentPage(page)}
-                        className={`${
-                          page === currentPage
-                            ? "bg-[#2E5257] text-white font-bold"
-                            : ""
-                        } text-[12px]`}
+                        className={`text-[12px]`}
                       >
                         {page}
                       </Button>

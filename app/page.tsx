@@ -98,7 +98,7 @@ export default function Home() {
           width={400}
           height={400}
           alt="logo"
-        ></Image>
+        />
       </div>
       <form
         onSubmit={(e) => {
@@ -108,7 +108,7 @@ export default function Home() {
         className="flex flex-col gap-4 h-auto mt-5 p-4"
       >
         <div className="flex flex-col gap-2">
-          <Label className="font-normal">Email</Label>
+          <Label className="font-normal text-white/70">Email</Label>
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -118,7 +118,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label className="font-normal">Password</Label>
+          <Label className="font-normal text-white/70">Password</Label>
           <Input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -129,7 +129,7 @@ export default function Home() {
 
         <div></div>
 
-        <Button type="submit" className="bg-[#2E5257]">
+        <Button type="submit" className="">
           {loading && <SpinnerIcon strokeColor="white" />} Login <ArrowRight />
         </Button>
       </form>

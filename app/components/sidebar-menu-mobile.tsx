@@ -80,8 +80,8 @@ export function AppSidebarMobile() {
                               : ""
                           } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none ${
                             isActive
-                              ? "bg-[#2e525725] text-black border-b-3 border-[#2E5257]"
-                              : "hover:bg-[#F9FAFB]"
+                              ? "bg-[#2A2C2D] text-white/70 border-b-3 border-[#C4AD93]"
+                              : "hover:bg-[#2A2C2D]"
                           }`}
                         >
                           <div className={`${collapsed ? "" : "hidden"}`}>
@@ -89,8 +89,8 @@ export function AppSidebarMobile() {
                               size={30}
                               className={`w-auto h-[25px] ${
                                 isActive
-                                  ? "stroke-black"
-                                  : "stroke-black group-hover:stroke-[#0B6540]"
+                                  ? "stroke-[#C4AD93]"
+                                  : "stroke-[#C4AD93] group-hover:stroke-[#C4AD93]"
                               }`}
                             />
                           </div>

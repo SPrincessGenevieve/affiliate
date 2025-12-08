@@ -78,8 +78,8 @@ export default function TableComponent({
     <TableRow
       key={`${item.rank}-${item.full_name}`}
       onClick={onSelect}
-      className={`border-t border-b h-10 cursor-pointer transition-colors ${
-        selected ? "bg-[#F3F4F6]" : "font-normal"
+      className={`border-y border-[#C4AD93] h-10 text-white/70 cursor-pointer transition-colors ${
+        selected ? "bg-[#2A2C2D]" : "font-normal"
       }`}
     >
       {/* Rank */}
@@ -105,7 +105,9 @@ export default function TableComponent({
           <AvatarImage src="" alt={`${item.full_name[0]}`} />
           <AvatarFallback
             className={`${
-              selected ? "bg-[#2E5257] text-white" : "font-normal"
+              selected
+                ? "bg-[#121416] text-white"
+                : "bg-[#121416]/70 font-normal"
             }`}
           >
             {`${item.full_name[0]}`.toUpperCase()}
@@ -125,15 +127,17 @@ export default function TableComponent({
 
       {/* Tier */}
       <TableCell className="px-8">
-        <div
-          className={`px-2 font-semibold h-7 flex items-center justify-center rounded-2xl text-center ${
-            item.rank === 1
-              ? "bg-[#C4AD93] text-[#fff]"
-              : "bg-[#F3F4F6] text-gray-800"
-          }`}
-        >
-          {item.level}
-        </div>
+        <Avatar>
+          <AvatarFallback
+            className={` ${
+              item.rank === 1
+                ? "bg-[#C4AD93] text-[#fff]"
+                : "bg-[#F3F4F6] text-gray-800"
+            }`}
+          >
+            {item.level}
+          </AvatarFallback>
+        </Avatar>
       </TableCell>
 
       {/* Market Value */}
@@ -165,7 +169,9 @@ export default function TableComponent({
 
       {/* Percent Profit Loss */}
       <TableCell
-        className={`${item.profit_lost_by_percent > 0 ? "text-green-600" : "text-[red]"}`}
+        className={`${
+          item.profit_lost_by_percent > 0 ? "text-green-600" : "text-[red]"
+        }`}
       >
         {item.profit_lost_by_percent > 0 && `${item.profit_lost_by_percent}%`}
       </TableCell>
@@ -192,24 +198,24 @@ export default function TableComponent({
     </TableRow>
   );
 
-  console.log("ACTIVE FILTER: ", activeFilter)
+  console.log("ACTIVE FILTER: ", activeFilter);
 
   return (
     <div className="w-full h-full flex flex-col justify-between relative">
       <Table className="">
         {caption && <TableCaption>{caption}</TableCaption>}
         <TableHeader>
-          <TableRow className="">
+          <TableRow className="text-white/70">
             {/* <TableHead>Rank</TableHead> */}
-            <TableHead>My Clients</TableHead>
-            <TableHead>Last Login Date/Time</TableHead>
-            <TableHead>
+            <TableCell>My Clients</TableCell>
+            <TableCell>Last Login Date/Time</TableCell>
+            <TableCell>
               {" "}
               <div className="flex text-center justify-center items-center gap-2 ">
                 Tier
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Market Value
                 <div>
@@ -245,14 +251,14 @@ export default function TableComponent({
                   </Button>
                 </div>
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">Total Cases</div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">Cases Sold</div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Profit/Loss
                 <div>
@@ -294,8 +300,8 @@ export default function TableComponent({
                   </Button>
                 </div>
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 %Profit/Loss
                 <div>
@@ -337,8 +343,8 @@ export default function TableComponent({
                   </Button>
                 </div>
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 Monthly Commission
                 <div>
@@ -380,8 +386,8 @@ export default function TableComponent({
                   </Button>
                 </div>
               </div>
-            </TableHead>
-            <TableHead>
+            </TableCell>
+            <TableCell>
               <div className="flex items-center gap-2">
                 My Commission (Annual)
                 <div>
@@ -423,7 +429,7 @@ export default function TableComponent({
                   </Button>
                 </div>
               </div>
-            </TableHead>
+            </TableCell>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -439,7 +445,7 @@ export default function TableComponent({
         </TableBody>
       </Table>
 
-      <div className="mt-4 flex justify-end w-full h-auto bg-white">
+      <div className="mt-4 flex justify-end w-full h-auto bg-[#2A2C2D]">
         <Pagination>
           <PaginationContent>
             <PaginationItem>
@@ -479,14 +485,10 @@ export default function TableComponent({
                     )}
                     <PaginationItem key={page}>
                       <Button
-                        variant="ghost"
+                        variant={page === currentPage ? "default" : "ghost"}
                         size="icon"
                         onClick={() => setCurrentPage(page)}
-                        className={`${
-                          page === currentPage
-                            ? "bg-[#2E5257] text-white font-bold"
-                            : ""
-                        } text-[12px]`}
+                        className={`text-[12px]`}
                       >
                         {page}
                       </Button>

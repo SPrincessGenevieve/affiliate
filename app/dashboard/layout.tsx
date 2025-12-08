@@ -79,19 +79,19 @@ export default function DashboardLayout({
     return (
       <div className="absolute w-full h-full flex items-center justify-center z-60">
         <div className="w-20">
-          <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+          <SpinnerIcon strokeColor="#C4AD93"></SpinnerIcon>
         </div>
       </div>
     );
   }
 
   return (
-    <SidebarProvider className="relative bg-[#F6F6F6] flex w-full h-full">
+    <SidebarProvider className="relative bg-[#121416] flex w-full h-full">
       {isLoggedIn === null && (
         <>
           <div className="absolute w-full h-full flex items-center justify-center z-60">
             <div className="w-20">
-              <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+              <SpinnerIcon strokeColor="#C4AD93"></SpinnerIcon>
             </div>
           </div>
           <div className="w-full h-full flex items-center justify-center absolute blur-3xl bg-[#ffffff] z-50"></div>
@@ -99,15 +99,15 @@ export default function DashboardLayout({
       )}
       {isLoggedIn ? (
         <>
-          <div className="flex  w-full h-full bg-[#F6F6F6]">
+          <div className="flex  w-full h-full bg-[#121416]">
             <div
               className={`w-full h-full flex items-center flex-col  overflow-auto ${children_visibility}`}
             >
-              <div className="w-full h-[55px] bg-white shadow-sm z-20">
+              <div className="w-full h-[55px] bg-[#2A2C2D] shadow-sm z-20">
                 <Header></Header>
               </div>
               <div className="w-full h-full flex px-4 gap-2 pb-4 overflow-hidden content-cont">
-                <div className="w-full h-auto  flex bg-[#F9FAFB] desktop">
+                <div className="w-full h-auto  flex bg-[#121416] desktop">
                   <div className="w-[100%] mt-4 flex justify-center children-sidebar-cont">
                     {!isSettings && <AppSidebar />}
                     <div

@@ -20,6 +20,7 @@ import { useUserContext } from "@/app/context/UserContext";
 import { Bell, ChevronDown } from "lucide-react";
 import ToggleNotif from "@/app/components/header/ToggleNotif";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import Logo from "@/app/images/gold-log.png"
 
 export default function Header() {
   const router = useRouter();
@@ -66,15 +67,13 @@ export default function Header() {
       <div className=" flex gap-2 w-full items-center affiliate_cont">
         <Image
           onClick={handleDashboard}
-          className="cursor-pointer w-[40] h-[40] rounded-full"
+          className="cursor-pointer w-auto h-[40]"
           width={400}
           height={400}
-          src={
-            "https://play-lh.googleusercontent.com/zpUiqoOvCo7k_9-M4KS2LYaYNJCGxA0jytnbo2LU902wATuhphtCtbPrJEqAfzZCBt0=w240-h480-rw"
-          }
+          src={Logo}
           alt=""
         ></Image>
-        <p className="text-gray-500 font-semibold bg-[#F3F4F6] affiliate text-[12px] w-auto p-2 rounded-[5px]">
+        <p className="text-[#C4AD93] font-semibold bg-[#121416] affiliate text-[12px] w-auto p-2 rounded-[5px]">
           Affiliate Portal
         </p>
       </div>
@@ -117,7 +116,7 @@ export default function Header() {
                 ) : (
                   <>
                     <div className="w-full flex gap-2 justify-center items-center">
-                      <Avatar className="w-[40px] h-[40px] shadow border">
+                      <Avatar className="w-[40px] h-[40px] shadow border border-[#C4AD93]">
                         <AvatarImage
                           src={user_profile.profile_picture}
                         ></AvatarImage>

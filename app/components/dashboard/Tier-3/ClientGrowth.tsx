@@ -49,18 +49,15 @@ export default function ClientGrowth() {
 
   return (
     <Card className="w-full min-h-[400px]">
-      <CardHeader className="relative border-b flex justify-between items-center flex-wrap">
-        <Label className="text-[16px]">Client Growth</Label>
+      <CardHeader className="relative border-b border-[#C4AD93] flex justify-between items-center flex-wrap">
+        <Label className="text-[16px] text-[#C4AD93]">Client Growth</Label>
         <div className="flex gap-2 flex-wrap">
           {filter.map((item, index) => (
             <Button
               key={index}
               onClick={() => setSelected(item)}
-              className={`h-7 rounded-full text-[12px] transition-colors ${
-                selected === item
-                  ? "bg-[#2E5257] text-white"
-                  : "bg-[#F3F4F6] text-gray-600 hover:bg-gray-200"
-              }`}
+              className={`h-7 rounded-full text-[12px] transition-colors`}
+              variant={selected === item ? "default" : "outline"}
             >
               {item}
             </Button>
@@ -80,7 +77,7 @@ export default function ClientGrowth() {
                   autoplay
                   className="h-50"
                 />
-                <Label>There are currently no records.</Label>
+                <Label className="text-white/70">There are currently no records.</Label>
               </div>
             )}
           </div>

@@ -57,29 +57,28 @@ export function AppSidebar() {
     });
   }, [collapsed]);
 
- useEffect(() => {
-  const handleResize = () => {
-    if (window.innerWidth <= 885) {
-      setCollapsed(true);
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 885) {
+        setCollapsed(true);
+      }
+    };
 
-  handleResize(); // run once on mount
-  window.addEventListener("resize", handleResize);
+    handleResize(); // run once on mount
+    window.addEventListener("resize", handleResize);
 
-  return () => window.removeEventListener("resize", handleResize);
-}, []);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  console.log("COLLAPSE: ", collapsed)
-
+  console.log("COLLAPSE: ", collapsed);
 
   return (
     <div className="max-w-[245px] h-full relative">
-      <Card className="bg-[white] h-full ">
+      <Card className="bg-[#121416] h-full border border-[#C4AD93] ">
         <CardContent
           className={`rounded-3xl p-0 m-0 mt-0 h-auto  ${
             collapsed ? "w-16" : "w-60 sidebar_width transition-all ease-in-out"
-          } bg-[white] border-0 rounded-none`}
+          } bg-[#121416] border-0 rounded-none`}
         >
           <div
             className={`flex w-full justify-between ${
@@ -106,7 +105,7 @@ export function AppSidebar() {
                 </>
               ) : (
                 <>
-                  <Avatar className="h-auto w-auto max-h-30 max-w-30 border">
+                  <Avatar className="h-auto w-auto max-h-30 max-w-30 border border-[#C4AD93]">
                     <AvatarImage
                       src={user_profile.profile_picture || ""}
                     ></AvatarImage>
@@ -121,12 +120,12 @@ export function AppSidebar() {
                 }`}
               >
                 <Label
-                  className={`text-black text-center text-[14px] font-medium w-full `}
+                  className={`text-white/70 text-center text-[14px] font-medium w-full `}
                 >
                   {full_name}
                 </Label>
                 <p
-                  className={`text-[12px] text-center font-normal text-gray-500 w-full `}
+                  className={`text-[12px] text-center font-normal text-white/70 w-full `}
                 >
                   {/* {level_name} */}
                 </p>
@@ -135,7 +134,7 @@ export function AppSidebar() {
           </div>
           <Separator></Separator>
           <Label
-            className={`my-4 px-4 text-gray-500 text-[12px] ${
+            className={`my-4 px-4 text-white/70 text-[12px] ${
               collapsed ? "hidden" : ""
             }`}
           >
@@ -151,21 +150,21 @@ export function AppSidebar() {
                     return (
                       <div key={item.url}>
                         {showSupportLabel && !collapsed && (
-                          <Label className="px-4 pt-6 pb-2 text-[12px] text-gray-500">
+                          <Label className="px-4 pt-6 pb-2 text-[12px] text-white/70">
                             SUPPORT
                           </Label>
                         )}
                         <Link
                           href={item.url}
-                          className={`text-black ${
+                          className={`text-white/70 ${
                             collapsed === true
                               ? "pl-0 w-full  flex justify-center items-center"
                               : "pl-10"
                           } flex items-center gap-2 py-3 text-[14px] transition ease-in-out rounded-none 
         ${
           isActive
-            ? "bg-[#2e525725] text-black border-l-3 border-[#2E5257]"
-            : "hover:bg-[#F9FAFB]"
+            ? "bg-[#2A2C2D] text-black border-l-3 border-[#C4AD93]"
+            : "hover:bg-[#2A2C2D]"
         }`}
                         >
                           <div className={`${collapsed ? "" : "hidden"}`}>
@@ -173,8 +172,8 @@ export function AppSidebar() {
                               size={30}
                               className={`w-auto h-[25px] ${
                                 isActive
-                                  ? "stroke-black"
-                                  : "stroke-black group-hover:stroke-[#0B6540]"
+                                  ? "stroke-[#C4AD93]"
+                                  : "stroke-[#C4AD93] group-hover:stroke-[#C4AD93]"
                               }`}
                             />
                           </div>

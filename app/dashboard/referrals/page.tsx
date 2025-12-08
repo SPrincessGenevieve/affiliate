@@ -120,7 +120,7 @@ export default function MyReferrals() {
 
   return (
     <div className="relative flex  w-full h-full gap-4 flex-col justify-between">
-      <div className="bg-white relative shadow h-full max-h-16 rounded-2xl p-2 w-full flex items-center justify-between">
+      <div className="bg-[#2A2C2D] relative shadow h-full max-h-16 rounded-2xl p-2 w-full flex items-center justify-between">
         <div className="relative flex items-center gap-2">
           <Input
             value={search}
@@ -140,9 +140,9 @@ export default function MyReferrals() {
       <Card className=" w-full h-[90%] hover:mt-0">
         <CardContent className=" w-full h-full flex flex-col relative justify-center items-center">
           {isLoading && (
-            <div className="w-[97%] h-[90%] top-0 bg-[white] absolute z-20 flex justify-center items-center">
+            <div className="w-[97%] h-[90%] top-0 bg-[#2A2C2D] absolute z-20 flex justify-center items-center">
               <div className="w-20">
-                <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+                <SpinnerIcon strokeColor="#C4AD93"></SpinnerIcon>
               </div>
             </div>
           )}
@@ -150,7 +150,7 @@ export default function MyReferrals() {
             <TableComponent data={my_referrals}></TableComponent>
           ) : (
             <div>
-              <Label>Table is empty</Label>
+              <Label className="text-white/70">Table is empty</Label>
             </div>
           )}
         </CardContent>

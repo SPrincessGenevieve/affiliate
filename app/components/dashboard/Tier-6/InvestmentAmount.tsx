@@ -78,12 +78,12 @@ export default function InvestmentAmount() {
   console.log("RESULT: ", result);
   return (
     <Card className="p-0 m-0 w-full">
-      <CardContent className="m-0 p-0">
+      <CardContent className="m-0 p-0 rounded-2xl">
         <Label className="text-[16px] px-4 p-5">Commission Calculator</Label>
         <Separator></Separator>
         <div className="flex flex-col p-4 gap-4">
           <div className="flex flex-col gap-2">
-            <Label className="text-gray-600">Investment Amount (£)</Label>
+            <Label className="text-white/70">Investment Amount (£)</Label>
             <Input
               value={investmentAmount}
               onChange={(e) => setInvestmentAmount(e.target.value)}
@@ -91,7 +91,7 @@ export default function InvestmentAmount() {
             ></Input>
           </div>
           <div className="flex flex-col gap-2">
-            <Label className="text-gray-600">Annual Commission Rate</Label>
+            <Label className="text-white/70">Annual Commission Rate</Label>
             <Select
               defaultValue={commissionRate}
               onValueChange={setCommissionRate}
@@ -109,7 +109,7 @@ export default function InvestmentAmount() {
             </Select>
           </div>
           <div className="flex flex-col gap-2">
-            <Label className="text-gray-600">Investment Term</Label>
+            <Label className="text-white/70">Investment Term</Label>
             <Select
               defaultValue={investmentTerm}
               onValueChange={setInvestmentTerm}
@@ -130,7 +130,7 @@ export default function InvestmentAmount() {
         <Separator></Separator>
         {/* <div className="flex justify-between p-4">
           <div className="flex flex-col items-start gap-2">
-            <Label className="text-gray-600">Monthly Earnings</Label>
+            <Label className="text-white/70">Monthly Earnings</Label>
           </div>
           <div className="flex flex-col items-end gap-2">
             <Label>
@@ -140,27 +140,23 @@ export default function InvestmentAmount() {
         </div> */}
         <Separator></Separator>
         <div className="flex justify-between gap-2 px-4 py-2 mt-2">
-          <Label className="text-gray-600 font-bold">
+          <Label className="text-white/70 font-bold">
             Average Annual Growth
           </Label>
-          <Label className="text-[#2E5257] font-bold">
+          <Label className="text-[#C4AD93] font-bold">
             £{Math.round(Number(cleanedGrowth)).toLocaleString()}{" "}
             {cleanedGrowth && "per year"}
           </Label>
         </div>
         <div className="flex justify-between gap-2 px-4 py-2">
-          <Label className="text-gray-600 font-bold">Total Growth</Label>
-          <Label className="text-[#2E5257] font-bold">
+          <Label className="text-white/70 font-bold">Total Growth</Label>
+          <Label className="text-[#C4AD93] font-bold">
             £{Math.round(Number(result?.total_growth || 0)).toLocaleString()}
           </Label>
         </div>
         <div className="p-4 w-full">
-          <Button onClick={handleCalculate} className="w-full bg-[#2E5257]">
-            {loading && (
-              <div>
-                <SpinnerIcon strokeColor="white"></SpinnerIcon>
-              </div>
-            )}
+          <Button onClick={handleCalculate} className="w-full">
+            {loading && <SpinnerIcon strokeColor="#ddd"></SpinnerIcon>}
             Calculate
           </Button>
         </div>

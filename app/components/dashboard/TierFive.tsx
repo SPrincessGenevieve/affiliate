@@ -42,7 +42,7 @@ export default function TierFive() {
 
   return (
     <Card className="m-0 p-0 w-full flex tier-five-cont">
-      <CardContent className="p-0 flex flex-col w-full h-full">
+      <CardContent className="p-0 flex flex-col w-full h-full rounded-2xl">
         <div className="w-full h-[90%]">
           <Label className="text-[16px] px-4 py-5">Recent Referrals</Label>
           <Separator />
@@ -52,14 +52,14 @@ export default function TierFive() {
                 safeReferrals.slice(0, 4).map((item, index) => (
                   <div
                     key={index}
-                    className="bg-[#F9FAFB] min-h-10 flex w-full gap-2 items-center justify-between rounded-xl p-2"
+                    className="bg-[#121416] px-4 min-h-10 flex w-full gap-2 items-center justify-between rounded-xl p-2"
                   >
                     <div className="flex flex-col gap-2">
                       <Label className="text-[16px] capitalize">
                         {item.full_name}
                       </Label>
                       <div className="flex justify-between gap-4">
-                        <Label className="text-[12px] text-gray-400 font-normal">
+                        <Label className="text-[12px] text-white/70 font-normal">
                           {new Date(item.created_at).toLocaleDateString(
                             "en-US",
                             {
@@ -74,8 +74,8 @@ export default function TierFive() {
                     <Label
                       className={`text-[20px] ${
                         Number(item.market_value) <= 0
-                          ? "text-gray-400"
-                          : "text-[#2E5257]"
+                          ? "text-white/70"
+                          : "text-white/70"
                       } font-bold`}
                     >
                       £{formatToK(Number(item.market_value))}
@@ -103,10 +103,10 @@ export default function TierFive() {
         <div className="w-full h-[10%]">
           <Button
             onClick={navigateReferral}
-            className="text-[14px] text-[#2E5257] font-normal h-10 w-full hover:underline cursor-pointer"
+            className="text-[14px] text-white/70 font-normal h-10 w-full hover:underline cursor-pointer"
             variant={"ghost"}
           >
-            {loading && <SpinnerIcon strokeColor="#2E5257" />}
+            {loading && <SpinnerIcon strokeColor="#ddd" />}
             View All Referrals
           </Button>
         </div>

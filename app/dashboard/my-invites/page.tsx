@@ -53,9 +53,9 @@ export default function MyInvites() {
       <Card className=" w-full h-[100%] hover:mt-0">
         <CardContent className=" w-full h-full flex flex-col relative justify-center items-center">
           {isLoading && (
-            <div className="w-[97%] h-[90%] top-0 bg-[white] absolute z-20 flex justify-center items-center">
+            <div className="w-[97%] h-[90%] top-0 bg-[#2A2C2D] absolute z-20 flex justify-center items-center">
               <div className="w-20">
-                <SpinnerIcon strokeColor="#2E5257"></SpinnerIcon>
+                <SpinnerIcon strokeColor="#C4AD93"></SpinnerIcon>
               </div>
             </div>
           )}
@@ -65,7 +65,7 @@ export default function MyInvites() {
             ></TableComponentInviteUser>
           ) : (
             <div>
-              <Label>Table is empty</Label>
+              <Label className="text-white/70">Table is empty</Label>
             </div>
           )}
         </CardContent>

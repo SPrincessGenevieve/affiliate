@@ -168,30 +168,30 @@ export default function NetworkTree() {
 
   return (
     <div className="w-full h-full networking-cont flex flex-row gap-4 rounded-t-2xl">
-      <div className="net-sidebar w-[20%] min-w-80 h-full shadow-md bg-white rounded-2xl">
+      <div className="net-sidebar w-[20%] min-w-80 h-full shadow-md bg-[#2A2C2D] border border-[#C4AD93] rounded-2xl">
         <SidebarTree onNodeClick={handleNodeClick} expandedIds={expandedIds} />
       </div>
 
-      <div className="net-table bg-white shadow-md w-[80%] h-full flex flex-col rounded-2xl">
+      <div className="net-table bg-[#2A2C2D] border border-[#C4AD93] shadow-md w-[80%] h-full flex flex-col rounded-2xl">
         <div className="w-full flex flex-wrap gap-2 p-4 py-5">
           <Label className="text-[14px] font-bold">Network Overview</Label>
         </div>
 
-        <div className="flex flex-row gap-2 items-center justify-center border-y bg-gray-100">
+        <div className="flex flex-row gap-2 items-center justify-center border-y border-[#C4AD93] bg-[#121416]">
           {headerContent.map((item, index) => (
             <div
               key={index}
               className="w-[25%] min-h-20 flex flex-col items-center justify-baseline"
             >
               <div className="min-h-7 mt-2">
-                <Label className="text-center  uppercase text-[10px] text-gray-500">
+                <Label className="text-center  uppercase text-[10px] text-white/70">
                   {item.title}
                 </Label>
               </div>
               <Label
                 className={`block table-header-text text-[20px] text-center w-full font-bold break-words whitespace-normal ${
                   item.title !== "Monthly Commission"
-                    ? "text-black"
+                    ? "text-[#C4AD93]"
                     : item.value >= 0
                     ? "text-green-500"
                     : "text-red-500"
@@ -204,14 +204,14 @@ export default function NetworkTree() {
           ))}
         </div>
 
-        <div className="w-full p-4 h-auto min-h-[100px] flex flex-col bg-white rounded-lg overflow-auto">
-          <Table>
-            <TableHeader className="border-b bg-white">
+        <div className="w-full p-4 h-auto min-h-[100px] flex flex-col bg-[#2A2C2D] rounded-b-xl overflow-auto">
+          <Table className="">
+            <TableHeader className="border-b border-[#C4AD93] bg-[#2A2C2D]">
               <TableRow>
                 {column.map((item) => (
                   <TableCell
                     key={item}
-                    className="font-bold uppercase text-[12px] text-gray-500"
+                    className="font-bold uppercase text-[12px] text-white/70"
                   >
                     {item}
                   </TableCell>
@@ -224,7 +224,7 @@ export default function NetworkTree() {
                 visibleData.map((item, index) => (
                   <TableRow
                     key={index}
-                    className="cursor-pointer"
+                    className="cursor-pointer text-white/70"
                     onClick={() => {
                       // Update header only
                       setHeaderContent([
@@ -260,7 +260,7 @@ export default function NetworkTree() {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={7} className="text-center">
+                  <TableCell colSpan={7} className="text-center text-white/70">
                     No data available
                   </TableCell>
                 </TableRow>

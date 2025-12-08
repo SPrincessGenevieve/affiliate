@@ -45,7 +45,7 @@ function TreeNode({
     <div className="flex flex-col items-start w-full">
       <div
         onClick={handleClick}
-        className="cursor-pointer border-l-4 border-[#385A5F] flex items-center gap-2 bg-gray-50 hover:bg-gray-100 p-2 rounded-md w-full"
+        className="cursor-pointer border-l-4 border-[#C4AD93] flex items-center gap-2 bg-[#121416] hover:bg-[#121416] p-2 rounded-md w-full"
       >
         <div className="flex-shrink-0 w-3 flex justify-center pt-1">
           {hasChildren ? (
@@ -66,19 +66,19 @@ function TreeNode({
             {node.profile_picture ? (
               <AvatarImage src={node.profile_picture} />
             ) : (
-              <AvatarFallback className="rounded-[5px] bg-[#385A5F] text-white font-bold text-[10px]">
+              <AvatarFallback className="rounded-[5px] bg-[#2A2C2D] text-[white] font-bold text-[10px]">
                 {node.full_name?.[0]?.toUpperCase() || "?"}
               </AvatarFallback>
             )}
           </Avatar>
           <Label
-            className="text-sm text-gray-700 w-full break-words whitespace-normal leading-tight"
+            className="text-sm text-white/70 w-full break-words whitespace-normal leading-tight"
             style={{ wordBreak: "break-all" }}
           >
             {node.full_name}
           </Label>
           {hasChildren && (
-            <Label className="bg-gray-300 text-[12px] font-bold p-1 px-4 text-center rounded-full">
+            <Label className="bg-[#C4AD93] text-black text-[12px] font-bold p-1 px-4 text-center rounded-full">
               {node.children.length}
             </Label>
           )}
@@ -86,7 +86,7 @@ function TreeNode({
       </div>
 
       {hasChildren && isExpanded && (
-        <div className="mt-1 pl-6 gap-1 flex flex-col w-full border-l-2 border-gray-200">
+        <div className="mt-1 pl-6 gap-1 flex flex-col w-full border-l-2 border-[#C4AD93]">
           {node.children.map((child) => (
             <TreeNode
               key={child.id}
@@ -109,16 +109,16 @@ export default function SidebarTree({
 
   if (!network_details) {
     return (
-      <div className="p-4 flex flex-col gap-2 bg-white rounded-xl w-full">
-        <Label className="font-semibold text-gray-600 mb-2">Network Tree</Label>
+      <div className="p-4 flex flex-col gap-2 bg-[#2A2C2D] rounded-xl w-full">
+        <Label className="font-semibold text-white/70 mb-2">Network Tree</Label>
         <p className="text-sm text-gray-500">No network data available.</p>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-2 bg-white rounded-xl w-full">
-      <div className="border-b p-4">
+    <div className="flex flex-col gap-2 bg-[#2A2C2D] rounded-xl w-full">
+      <div className="border-b border-[#C4AD93] p-4">
         <Label className="font-bold mb-2 text-[14px]">Network Tree</Label>
       </div>
       <div className="p-4">

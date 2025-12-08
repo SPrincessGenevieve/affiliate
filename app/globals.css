@@ -131,6 +131,30 @@
   display: none;                
 } */
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4ad93;           /* your color */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b49b82;           /* darker hover tint */
+}
+
+/* ===== Firefox ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c4ad93 transparent;
+}
+
 @media (max-width: 1140px) {
   .tier-4-5-cont {
     flex-direction: column;

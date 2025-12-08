@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -26,8 +22,8 @@ import { Button } from "@/components/ui/button";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const chartConfig = {
-  vintage: { label: "Vintage", color: "#8466C5" },
-  value: { label: "Value", color: "#8466C5" },
+  vintage: { label: "Vintage", color: "#C4AD93" },
+  value: { label: "Value", color: "#C4AD93" },
 } satisfies ChartConfig;
 
 export default function AUMGrowth() {
@@ -84,7 +80,9 @@ export default function AUMGrowth() {
   );
 
   const getMaxValue = () => {
-    const dataArray = isAUM ? filteredData.map((d) => d.total_aum) : filteredCommissionData.map((d) => d.total_commission);
+    const dataArray = isAUM
+      ? filteredData.map((d) => d.total_aum)
+      : filteredCommissionData.map((d) => d.total_commission);
     return dataArray.length > 0 ? Math.max(...dataArray) : 0;
   };
 
@@ -99,21 +97,21 @@ export default function AUMGrowth() {
 
   return (
     <Card className="w-full h-full min-h-[400px] aum-cont">
-      <CardHeader className="flex-wrap border-b flex justify-between items-center py-1">
-        <div className="flex gap-1 flex-wrap bg-gray-200 p-1 rounded-4xl">
+      <CardHeader className="flex-wrap border-b border-[#C4AD93] flex justify-between items-center py-1">
+        <div className="flex gap-1 flex-wrap bg-[#121416] p-1 rounded-4xl">
           <Button
             variant={isAUM ? "default" : "ghost"}
-            className="h-7 rounded-full"
+            className="h-7  transition-all rounded-full"
             onClick={() => setIsAUM(true)}
           >
-            <Label className="text-[12px]">AUM Growth</Label>
+            AUM Growth
           </Button>
           <Button
             variant={!isAUM ? "default" : "ghost"}
-            className="h-7 rounded-full"
+            className="h-7 rounded-full "
             onClick={() => setIsAUM(false)}
           >
-            <Label className="text-[12px]">Total Commission Growth</Label>
+            Total Commission Growth
           </Button>
         </div>
         <Select defaultValue="3" onValueChange={setMonthRange}>
@@ -130,7 +128,10 @@ export default function AUMGrowth() {
 
       <CardContent className="p-0 m-0 flex flex-col gap-2 w-full h-full">
         {dataAvailable ? (
-          <ChartContainer className="w-full h-[250px] flex" config={chartConfig}>
+          <ChartContainer
+            className="w-full h-[250px] flex"
+            config={chartConfig}
+          >
             <AreaChart
               data={isAUM ? filteredData : filteredCommissionData}
               margin={{ left: 12, right: 12 }}
@@ -151,7 +152,11 @@ export default function AUMGrowth() {
                 domain={[0, (dataMax: any) => dataMax || 0]}
                 ticks={generateTicks(getMaxValue())}
                 tickFormatter={(v) =>
-                  "£" + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(v)
+                  "£" +
+                  new Intl.NumberFormat("en-US", {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(v)
                 }
               />
               <ChartTooltip
@@ -159,11 +164,23 @@ export default function AUMGrowth() {
                 content={
                   <ChartTooltipContent
                     labelFormatter={(val) =>
-                      new Date(val).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+                      new Date(val).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })
                     }
                     formatter={(val) => {
-                      const num = typeof val === "number" ? val : parseFloat(val as string) || 0;
-                      return "£" + new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(num);
+                      const num =
+                        typeof val === "number"
+                          ? val
+                          : parseFloat(val as string) || 0;
+                      return (
+                        "£" +
+                        new Intl.NumberFormat("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        }).format(num)
+                      );
                     }}
                     indicator="dot"
                   />
@@ -171,8 +188,16 @@ export default function AUMGrowth() {
               />
               <defs>
                 <linearGradient id="fillValue" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--color-value)" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="var(--color-value)" stopOpacity={0.1} />
+                  <stop
+                    offset="5%"
+                    stopColor="var(--color-value)"
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor="var(--color-value)"
+                    stopOpacity={0.1}
+                  />
                 </linearGradient>
               </defs>
               <Area
@@ -187,7 +212,12 @@ export default function AUMGrowth() {
           </ChartContainer>
         ) : (
           <div className="h-full w-full flex flex-col items-center justify-center">
-            <DotLottieReact src="/empty.lottie" loop autoplay className="h-50" />
+            <DotLottieReact
+              src="/empty.lottie"
+              loop
+              autoplay
+              className="h-50"
+            />
             <Label>There are currently no records.</Label>
           </div>
         )}

@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/chart";
 
 const chartConfig = {
-  vintage: { label: "Vintage", color: "#8466C5" },
-  value: { label: "Value", color: "#8466C5" },
+  vintage: { label: "Vintage", color: "#C4AD93" },
+  value: { label: "Value", color: "#C4AD93" },
 } satisfies ChartConfig;
 
 interface CommissionChartProps {
@@ -20,7 +20,7 @@ interface CommissionChartProps {
 
 export function CommissionChart({ data }: CommissionChartProps) {
   const CustomTick = ({ x, y, payload }: any) => (
-    <text x={x} y={y} transform={`rotate(-30, ${x}, ${y})`} textAnchor="end" fontSize={10}>
+    <text  x={x} y={y} transform={`rotate(-30, ${x}, ${y})`} textAnchor="end" fontSize={10}>
       {payload.value}
     </text>
   );

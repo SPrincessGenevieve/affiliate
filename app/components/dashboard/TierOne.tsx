@@ -44,16 +44,16 @@ export default function TierOne() {
               ></Circle>
             </div>
             <div>
-              <Label className="font-normal text-gray-600">
+              <Label className="font-normal text-white/70">
                 Commission Rate
               </Label>
-              <Label className="font-bold text-2xl text-[#2E5257]">
+              <Label className="font-bold text-2xl text-[#C4AD93]">
                 {user_profile.commision_rate || 0}%
               </Label>
             </div>
           </div>
           <div className="flex justify-between">
-            {/* <Label className="font-normal text-gray-600">Next tier: </Label> */}
+            {/* <Label className="font-normal text-white/70">Next tier: </Label> */}
             <Label className="font-normal text-green-500">
               {/* £{formatPrice(Number(next_tier))} to go */}
             </Label>
@@ -71,8 +71,8 @@ export default function TierOne() {
               ></Circle>
             </div>
             <div>
-              <Label className="font-normal text-gray-600">Next Payment</Label>
-              <Label className="font-bold text-2xl text-[#2E5257]">
+              <Label className="font-normal text-white/70">Next Payment</Label>
+              <Label className="font-bold text-2xl text-[#C4AD93]">
                 £
                 {Number(user_profile.next_payment).toLocaleString(undefined, {
                   minimumFractionDigits: 2,
@@ -82,8 +82,8 @@ export default function TierOne() {
             </div>
           </div>
           <div className="flex justify-between">
-            <Label className="font-normal text-gray-600">Due date</Label>
-            <Label className="font-normal text-gray-600">
+            <Label className="font-normal text-white/70">Due date</Label>
+            <Label className="font-normal text-white/70">
               {user_profile.due_date || ""}
             </Label>
           </div>
@@ -100,14 +100,14 @@ export default function TierOne() {
               ></Circle>
             </div>
             <div>
-              <Label className="font-normal text-gray-600">Total Clients</Label>
-              <Label className="font-bold text-2xl text-[#2E5257]">
+              <Label className="font-normal text-white/70">Total Clients</Label>
+              <Label className="font-bold text-2xl text-[#C4AD93]">
                 {user_profile.total_clients || 0}
               </Label>
             </div>
           </div>
           <div className="flex justify-between">
-            <Label className="font-normal text-gray-600">This month</Label>
+            <Label className="font-normal text-white/70">This month</Label>
             <Label className="font-normal text-green-500">
               {user_profile.total_clients_month}
             </Label>
@@ -126,10 +126,10 @@ export default function TierOne() {
             <>
               <div className="flex gap-2">
                 <div>
-                  <Label className="font-normal text-gray-600">
+                  <Label className="font-normal text-white/70">
                     Total Commission Earned
                   </Label>
-                  <Label className="font-bold text-2xl text-[#2E5257]">
+                  <Label className="font-bold text-2xl text-[#C4AD93]">
                     £
                     {Number(user_profile.total_commission).toLocaleString(
                       undefined,
@@ -142,7 +142,7 @@ export default function TierOne() {
                 </div>
               </div>
               <div className="flex justify-between">
-                <Label className="font-normal text-gray-600">This year</Label>
+                <Label className="font-normal text-white/70">This year</Label>
                 <Label className="font-normal text-green-500">
                   +£
                   {Number(
@@ -155,8 +155,8 @@ export default function TierOne() {
             <>
               <div className="flex gap-2">
                 <div>
-                  <Label className="font-normal text-gray-600">Total AUM</Label>
-                  <Label className="font-bold text-2xl text-[#2E5257]">
+                  <Label className="font-normal text-white/70">Total AUM</Label>
+                  <Label className="font-bold text-2xl text-[#C4AD93]">
                     £
                     {Number(user_profile?.total_monthly_aum ?? 0).toLocaleString(
                       undefined,
@@ -169,7 +169,7 @@ export default function TierOne() {
                 </div>
               </div>
               <div className="flex justify-between">
-                <Label className="font-normal text-gray-600">This year</Label>
+                <Label className="font-normal text-white/70">This year</Label>
                 <Label className="font-normal text-green-500">
                   +£
                   {Number(

@@ -22,8 +22,9 @@ export default function TrainingResources() {
   const total_event = events.length;
   return (
     <Card className="p-0 m-0 w-full">
-      <CardContent className="m-0 p-0 rounded-2xl">
-        <Label className="text-[16px] px-4 p-5">Training & Resources</Label>
+      <CardContent className="m-0 p-0 rounded-2xl flex flex-col h-full justify-between">
+        <div>
+          <Label className="text-[16px] px-4 p-5">Training & Resources</Label>
         <div className="px-4 flex flex-col gap-4">
           {events.slice(0, 3).map((item, index) => (
             <div
@@ -66,6 +67,7 @@ export default function TrainingResources() {
               </div>
             </div>
           ))}
+        </div>
         </div>
         <div className="w-full p-4">
           <Dialog>

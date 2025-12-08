@@ -103,7 +103,7 @@ export default function TierFive() {
         <div className="w-full h-[10%]">
           <Button
             onClick={navigateReferral}
-            className="text-[14px] text-white/70 font-normal h-10 w-full hover:underline cursor-pointer"
+            className="text-[14px] hover:bg-transparent hover:text-[#C4AD93] text-white/70 font-normal h-10 w-full hover:underline cursor-pointer"
             variant={"ghost"}
           >
             {loading && <SpinnerIcon strokeColor="#ddd" />}

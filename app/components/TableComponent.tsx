@@ -170,13 +170,13 @@ export default function TableComponent({
       {/* Percent Profit Loss */}
       <TableCell
         className={`${
-          item.profit_lost_by_percent > 0 ? "text-green-600" : "text-[red]"
+          item.profit_loss > 0 ? "text-green-600" : "text-[red]"
         }`}
       >
-        {item.profit_lost_by_percent > 0 && `${item.profit_lost_by_percent}%`}
+        {`${item.profit_loss}%`}
       </TableCell>
 
-      {/* Monthly Commission */}
+      {/* Current Monthly Payment */}
       <TableCell className="">
         £
         {item.monthly_commission.toLocaleString(undefined, {
@@ -346,7 +346,7 @@ export default function TableComponent({
             </TableCell>
             <TableCell>
               <div className="flex items-center gap-2">
-                Monthly Commission
+                Current Monthly Payment
                 <div>
                   <Button
                     variant={

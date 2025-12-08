@@ -29,7 +29,7 @@ const items = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "My Referrals", url: "/dashboard/referrals", icon: HandHelping },
   { title: "My Invites", url: "/dashboard/my-invites", icon: Users },
-  // { title: "Network Tree", url: "/dashboard/network-tree", icon: ListTree },
+  // { title: "Network Tracker", url: "/dashboard/network-tree", icon: ListTree },
 ];
 
 export function AppSidebarMobile() {

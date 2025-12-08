@@ -21,8 +21,8 @@ import { getNetworkTree } from "@/lib/services/getData";
 const column = [
   "Affiliate",
   "Level",
-  "Direct Assets",
-  "Network Assets",
+  "My Referrals Total Value",
+  "Network Referrals Total Value",
   "Clients",
   "Referrals",
   // "Contribution",
@@ -48,12 +48,12 @@ export default function NetworkTree() {
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
   const [selectedNodeId, setSelectedNodeId] = useState<number | null>(null);
   const [headerContent, setHeaderContent] = useState([
-    { title: "Direct Assets", value: 0 },
-    { title: "Network Assets", value: 0 },
+    { title: "My Referrals Total Value", value: 0 },
+    { title: "Network Referrals Total Value", value: 0 },
     { title: "Direct Referrals", value: 0 },
-    { title: "Monthly Commission", value: 0 },
+    { title: "Current Monthly Payment", value: 0 },
   ]);
-  // Flatten network tree and include children
+  // Flatten Network Tracker and include children
   const flattenTree = (node: any, parentId: number | null = null) => {
     const result: FlatNetworkNode[] = [];
 
@@ -143,11 +143,11 @@ export default function NetworkTree() {
 
     setHeaderContent([
       {
-        title: "Direct Assets",
+        title: "My Referrals Total Value",
         value: node.DirectAssets,
       },
       {
-        title: "Network Assets",
+        title: "Network Referrals Total Value",
         value: node.NetworkAssets,
       },
       {
@@ -155,7 +155,7 @@ export default function NetworkTree() {
         value: node.Referrals,
       },
       {
-        title: "Monthly Commission",
+        title: "Current Monthly Payment",
         value: node.Monthly, // or calculate dynamically
       },
     ]);
@@ -190,7 +190,7 @@ export default function NetworkTree() {
               </div>
               <Label
                 className={`block table-header-text text-[20px] text-center w-full font-bold break-words whitespace-normal ${
-                  item.title !== "Monthly Commission"
+                  item.title !== "Current Monthly Payment"
                     ? "text-[#C4AD93]"
                     : item.value >= 0
                     ? "text-green-500"
@@ -229,11 +229,11 @@ export default function NetworkTree() {
                       // Update header only
                       setHeaderContent([
                         {
-                          title: "Direct Assets",
+                          title: "My Referrals Total Value",
                           value: item.DirectAssets,
                         },
                         {
-                          title: "Network Assets",
+                          title: "Network Referrals Total Value",
                           value: item.NetworkAssets,
                         },
                         {
@@ -241,7 +241,7 @@ export default function NetworkTree() {
                           value: item.Referrals,
                         },
                         {
-                          title: "Monthly Commission",
+                          title: "Current Monthly Payment",
                           value: item.Monthly, // calculate if available
                         },
                       ]);

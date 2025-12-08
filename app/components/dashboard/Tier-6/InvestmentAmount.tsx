@@ -78,57 +78,58 @@ export default function InvestmentAmount() {
   console.log("RESULT: ", result);
   return (
     <Card className="p-0 m-0 w-full">
-      <CardContent className="m-0 p-0 rounded-2xl">
-        <Label className="text-[16px] px-4 p-5">Commission Calculator</Label>
-        <Separator></Separator>
-        <div className="flex flex-col p-4 gap-4">
-          <div className="flex flex-col gap-2">
-            <Label className="text-white/70">Investment Amount (£)</Label>
-            <Input
-              value={investmentAmount}
-              onChange={(e) => setInvestmentAmount(e.target.value)}
-              placeholder=""
-            ></Input>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label className="text-white/70">Annual Commission Rate</Label>
-            <Select
-              defaultValue={commissionRate}
-              onValueChange={setCommissionRate}
-            >
-              <SelectTrigger disabled className="w-full">
-                <SelectValue></SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                {/* <SelectItem value="0.4">0.4% (Vintage)</SelectItem> */}
-                <SelectItem value="0.5">0.5%</SelectItem>
-                {/* <SelectItem value="0.55">0.55% (Vintage Vault)</SelectItem>
+      <CardContent className="m-0 p-0 rounded-2xl flex flex-col justify-between h-full">
+        <div>
+          <Label className="text-[16px] px-4 p-5">Commission Calculator</Label>
+          <Separator></Separator>
+          <div className="flex flex-col p-4 gap-4">
+            <div className="flex flex-col gap-2">
+              <Label className="text-white/70">Investment Amount (£)</Label>
+              <Input
+                value={investmentAmount}
+                onChange={(e) => setInvestmentAmount(e.target.value)}
+                placeholder=""
+              ></Input>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="text-white/70">Annual Commission Rate</Label>
+              <Select
+                defaultValue={commissionRate}
+                onValueChange={setCommissionRate}
+              >
+                <SelectTrigger disabled className="w-full">
+                  <SelectValue></SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {/* <SelectItem value="0.4">0.4% (Vintage)</SelectItem> */}
+                  <SelectItem value="0.5">0.5%</SelectItem>
+                  {/* <SelectItem value="0.55">0.55% (Vintage Vault)</SelectItem>
                 <SelectItem value="0.6">0.6% (Vintage Enclosure)</SelectItem>
                 <SelectItem value="0.65">0.65% (Vintage Associate)</SelectItem> */}
-              </SelectContent>
-            </Select>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="text-white/70">Investment Term</Label>
+              <Select
+                defaultValue={investmentTerm}
+                onValueChange={setInvestmentTerm}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue></SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 Year</SelectItem>
+                  <SelectItem value="2">2 Year</SelectItem>
+                  <SelectItem value="3">3 Year</SelectItem>
+                  <SelectItem value="5">5 Year</SelectItem>
+                  <SelectItem value="10">10 Year</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <Label className="text-white/70">Investment Term</Label>
-            <Select
-              defaultValue={investmentTerm}
-              onValueChange={setInvestmentTerm}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue></SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="1">1 Year</SelectItem>
-                <SelectItem value="2">2 Year</SelectItem>
-                <SelectItem value="3">3 Year</SelectItem>
-                <SelectItem value="5">5 Year</SelectItem>
-                <SelectItem value="10">10 Year</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        <Separator></Separator>
-        {/* <div className="flex justify-between p-4">
+          <Separator></Separator>
+          {/* <div className="flex justify-between p-4">
           <div className="flex flex-col items-start gap-2">
             <Label className="text-white/70">Monthly Earnings</Label>
           </div>
@@ -138,21 +139,22 @@ export default function InvestmentAmount() {
             </Label>
           </div>
         </div> */}
-        <Separator></Separator>
-        <div className="flex justify-between gap-2 px-4 py-2 mt-2">
-          <Label className="text-white/70 font-bold">
-            Average Annual Growth
-          </Label>
-          <Label className="text-[#C4AD93] font-bold">
-            £{Math.round(Number(cleanedGrowth)).toLocaleString()}{" "}
-            {cleanedGrowth && "per year"}
-          </Label>
-        </div>
-        <div className="flex justify-between gap-2 px-4 py-2">
-          <Label className="text-white/70 font-bold">Total Growth</Label>
-          <Label className="text-[#C4AD93] font-bold">
-            £{Math.round(Number(result?.total_growth || 0)).toLocaleString()}
-          </Label>
+          <Separator></Separator>
+          <div className="flex justify-between gap-2 px-4 py-2 mt-2">
+            <Label className="text-white/70 font-bold">
+              Annual Commission
+            </Label>
+            <Label className="text-[#C4AD93] font-bold">
+              £{Math.round(Number(cleanedGrowth)).toLocaleString()}{" "}
+              {cleanedGrowth && "per year"}
+            </Label>
+          </div>
+          <div className="flex justify-between gap-2 px-4 py-2">
+            <Label className="text-white/70 font-bold">Total Commission (Based on Investment Term)</Label>
+            <Label className="text-[#C4AD93] font-bold">
+              £{Math.round(Number(result?.total_growth || 0)).toLocaleString()}
+            </Label>
+          </div>
         </div>
         <div className="p-4 w-full">
           <Button onClick={handleCalculate} className="w-full">

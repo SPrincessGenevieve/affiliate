@@ -71,7 +71,7 @@ export default function TierOne() {
               ></Circle>
             </div>
             <div>
-              <Label className="font-normal text-white/70">Next Payment</Label>
+              <Label className="font-normal text-white/70">Your Next Monthly Payment</Label>
               <Label className="font-bold text-2xl text-[#C4AD93]">
                 £
                 {Number(user_profile.next_payment).toLocaleString(undefined, {

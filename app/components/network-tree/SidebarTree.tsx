@@ -110,7 +110,7 @@ export default function SidebarTree({
   if (!network_details) {
     return (
       <div className="p-4 flex flex-col gap-2 bg-[#2A2C2D] rounded-xl w-full">
-        <Label className="font-semibold text-white/70 mb-2">Network Tree</Label>
+        <Label className="font-semibold text-white/70 mb-2">Network Tracker</Label>
         <p className="text-sm text-gray-500">No network data available.</p>
       </div>
     );
@@ -119,7 +119,7 @@ export default function SidebarTree({
   return (
     <div className="flex flex-col gap-2 bg-[#2A2C2D] rounded-xl w-full">
       <div className="border-b border-[#C4AD93] p-4">
-        <Label className="font-bold mb-2 text-[14px]">Network Tree</Label>
+        <Label className="font-bold mb-2 text-[14px]">Network Tracker</Label>
       </div>
       <div className="p-4">
         <TreeNode

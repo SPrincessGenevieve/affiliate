@@ -84,51 +84,52 @@ export default function InviteNewClients() {
   //
   return (
     <Card className="p-0 m-0 w-full">
-      <CardContent className="m-0 p-0 rounded-2xl">
-        <Label className="text-[16px] px-4 p-5">Invite New Clients</Label>
-
-        <Separator></Separator>
-        <div className="flex flex-col p-4 gap-4">
-          <div className="flex flex-col gap-2">
-            <Label className="text-white/70">Client Name</Label>
-            <Input
-              value={client_name}
-              onChange={(e) => setClientName(e.target.value)}
-              name="full_name"
-              placeholder="Full Name"
-            ></Input>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label className="text-white/70">Email Address</Label>
-            <Input
-              value={email_addres}
-              onChange={(e) => setEmailAddress(e.target.value)}
-              name="email"
-              placeholder="client@email.com"
-            ></Input>
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label className="text-white/70">Phone Number (Optional)</Label>
-            <Input
-              value={phone_number}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              name="phone_number"
-              placeholder="+44 1234 567890"
-            ></Input>
-          </div>
-          {/* <div className="flex flex-col gap-2">
+      <CardContent className="m-0 p-0 rounded-2xl flex flex-col justify-between h-full">
+        <div className="">
+          <Label className="text-[16px] px-4 p-5">Invite New Clients</Label>
+          <Separator></Separator>
+          <div className="flex flex-col p-4 gap-4">
+            <div className="flex flex-col gap-2">
+              <Label className="text-white/70">Client Name</Label>
+              <Input
+                value={client_name}
+                onChange={(e) => setClientName(e.target.value)}
+                name="full_name"
+                placeholder="Full Name"
+              ></Input>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="text-white/70">Email Address</Label>
+              <Input
+                value={email_addres}
+                onChange={(e) => setEmailAddress(e.target.value)}
+                name="email"
+                placeholder="client@email.com"
+              ></Input>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label className="text-white/70">Phone Number (Optional)</Label>
+              <Input
+                value={phone_number}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                name="phone_number"
+                placeholder="+44 1234 567890"
+              ></Input>
+            </div>
+            {/* <div className="flex flex-col gap-2">
             <Label className="text-white/70">Potential Investment</Label>
             <div className="relative flex items-center">
               <p className="absolute pl-2 text-white/70">£</p>
               <Input className="pl-5" placeholder="Amount"></Input>
             </div>
           </div> */}
-          {/* <div className="flex justify-center items-center flex-col gap-2">
+            {/* <div className="flex justify-center items-center flex-col gap-2">
             <div className="flex items-start w-full">
               <Label className="text-white/70">Referral Link</Label>
             </div>
             <CopyInput full_link={invitation_link}></CopyInput>
           </div> */}
+          </div>
         </div>
 
         <div className="w-full p-4">

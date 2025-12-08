@@ -10,7 +10,7 @@ import {
 import { Bot } from "lucide-react";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
-import Logo from "@/app/images/logo.png";
+import Logo from "@/app/images/gold-log.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import SpinnerIcon from "@/app/images/Spinner";

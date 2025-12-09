@@ -9,7 +9,7 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Switch } from "@/components/ui/switch";
 
 export default function TierOne() {
-  const { user_profile, aum_growth } = useUserContext();
+  const { user_profile, network_details } = useUserContext();
   // const currentLevel = user_profile.current_level;
   // const matchCurrentLevel = user_profile.levels_list.find(
   //   (level) => level.id === user_profile.current_level
@@ -158,7 +158,7 @@ export default function TierOne() {
                   <Label className="font-normal text-white/70">Total AUM</Label>
                   <Label className="font-bold text-2xl text-[#C4AD93]">
                     £
-                    {Number(user_profile?.total_monthly_aum ?? 0).toLocaleString(
+                    {Number(network_details?.network_tree.network_assets ?? 0).toLocaleString(
                       undefined,
                       {
                         minimumFractionDigits: 2,

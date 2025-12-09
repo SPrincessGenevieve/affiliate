@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import "@/app/globals.css";
-import Logo from "@/app/images/logo.png";
+import Logo from "@/app/images/gold-log.png";
 import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -94,7 +94,7 @@ export default function Home() {
       <div className=" w-full h-30 flex items-center justify-center">
         <Image
           src={Logo}
-          className="h-auto w-auto max-w-60"
+          className="h-auto w-auto max-w-24"
           width={400}
           height={400}
           alt="logo"

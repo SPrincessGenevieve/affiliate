@@ -84,13 +84,13 @@ export default function TierFive() {
                 ))
               ) : (
                 <div className="h-full w-full flex flex-col items-center justify-center">
-                  <DotLottieReact
+                  {/* <DotLottieReact
                     src="/empty.lottie"
                     loop
                     autoplay
                     className="h-52"
-                  ></DotLottieReact>
-                  <Label className="text-center">
+                  ></DotLottieReact> */}
+                  <Label className="text-center text-white/70">
                     You haven’t made any referrals yet. Share your link to get
                     started!
                   </Label>

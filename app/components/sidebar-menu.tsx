@@ -93,14 +93,14 @@ export function AppSidebar() {
               user_profile.profile_picture === null ? (
                 <>
                   <div className="relative w-full h-25 flex justify-center items-center">
-                    <DotLottieReact
+                    {/* <DotLottieReact
                       className={`p-0 m-0 absolute transition ease-in-out ${
                         collapsed ? "w-15 h-15" : "w-35 h-35"
                       }`}
                       src="/profile.lottie"
                       loop
                       autoplay
-                    />
+                    /> */}
                   </div>
                 </>
               ) : (

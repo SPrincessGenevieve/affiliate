@@ -106,11 +106,11 @@ export default function Header() {
                 user_profile.profile_picture === "" ? (
                   <>
                     <div className="relative w-10 h-10 flex items-center justify-center">
-                      <DotLottieReact
+                      {/* <DotLottieReact
                         className="absolute w-[70px] h-[70px]"
                         src="/profile.lottie"
                         autoplay
-                      />
+                      /> */}
                     </div>
                   </>
                 ) : (

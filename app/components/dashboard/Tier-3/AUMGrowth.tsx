@@ -212,13 +212,13 @@ export default function AUMGrowth() {
           </ChartContainer>
         ) : (
           <div className="h-full w-full flex flex-col items-center justify-center">
-            <DotLottieReact
+            {/* <DotLottieReact
               src="/empty.lottie"
               loop
               autoplay
               className="h-50"
-            />
-            <Label>There are currently no records.</Label>
+            /> */}
+            <Label className="text-white/70">There are currently no records.</Label>
           </div>
         )}
       </CardContent>

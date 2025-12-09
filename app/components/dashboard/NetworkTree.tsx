@@ -50,7 +50,7 @@ export default function NetworkTree() {
   const [headerContent, setHeaderContent] = useState([
     { title: "My Referrals Total Value", value: 0 },
     { title: "Network Referrals Total Value", value: 0 },
-    { title: "Direct Referrals", value: 0 },
+    { title: "My Referrals", value: 0 },
     { title: "Current Monthly Payment", value: 0 },
   ]);
   // Flatten Network Tracker and include children
@@ -151,7 +151,7 @@ export default function NetworkTree() {
         value: node.NetworkAssets,
       },
       {
-        title: "Direct Referrals",
+        title: "My Referrals",
         value: node.Referrals,
       },
       {
@@ -197,7 +197,7 @@ export default function NetworkTree() {
                     : "text-red-500"
                 }`}
               >
-                {item.title !== "Direct Referrals" && "£"}
+                {item.title !== "My Referrals" && "£"}
                 {Number(Number(item.value ?? 0).toFixed(2)).toLocaleString()}
               </Label>
             </div>
@@ -237,7 +237,7 @@ export default function NetworkTree() {
                           value: item.NetworkAssets,
                         },
                         {
-                          title: "Direct Referrals",
+                          title: "My Referrals",
                           value: item.Referrals,
                         },
                         {

@@ -74,7 +74,7 @@ export function AppSidebar() {
 
   return (
     <div className="max-w-[245px] h-full relative">
-      <Card className="bg-[#121416] h-full border border-[#C4AD93] ">
+      <Card className="bg-[#121416] h-full border border-white/30 ">
         <CardContent
           className={`rounded-3xl p-0 m-0 mt-0 h-auto  ${
             collapsed ? "w-16" : "w-60 sidebar_width transition-all ease-in-out"
@@ -105,7 +105,7 @@ export function AppSidebar() {
                 </>
               ) : (
                 <>
-                  <Avatar className="h-auto w-auto max-h-30 max-w-30 border border-[#C4AD93]">
+                  <Avatar className="h-auto w-auto max-h-30 max-w-30 border border-white/30">
                     <AvatarImage
                       src={user_profile.profile_picture || ""}
                     ></AvatarImage>
@@ -163,7 +163,7 @@ export function AppSidebar() {
                           } flex items-center gap-2 py-3 text-[14px] transition ease-in-out rounded-none 
         ${
           isActive
-            ? "bg-[#2A2C2D] text-black border-l-3 border-[#C4AD93]"
+            ? "bg-[#2A2C2D] text-black border-l-3 border-white/30"
             : "hover:bg-[#2A2C2D]"
         }`}
                         >

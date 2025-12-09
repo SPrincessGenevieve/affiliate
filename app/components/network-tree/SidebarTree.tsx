@@ -45,7 +45,7 @@ function TreeNode({
     <div className="flex flex-col items-start w-full">
       <div
         onClick={handleClick}
-        className="cursor-pointer border-l-4 border-[#C4AD93] flex items-center gap-2 bg-[#121416] hover:bg-[#121416] p-2 rounded-md w-full"
+        className="cursor-pointer border-l-4 border-white/30 flex items-center gap-2 bg-[#121416] hover:bg-[#121416] p-2 rounded-md w-full"
       >
         <div className="flex-shrink-0 w-3 flex justify-center pt-1">
           {hasChildren ? (
@@ -86,7 +86,7 @@ function TreeNode({
       </div>
 
       {hasChildren && isExpanded && (
-        <div className="mt-1 pl-6 gap-1 flex flex-col w-full border-l-2 border-[#C4AD93]">
+        <div className="mt-1 pl-6 gap-1 flex flex-col w-full border-l-2 border-white/30">
           {node.children.map((child) => (
             <TreeNode
               key={child.id}
@@ -118,7 +118,7 @@ export default function SidebarTree({
 
   return (
     <div className="flex flex-col gap-2 bg-[#2A2C2D] rounded-xl w-full">
-      <div className="border-b border-[#C4AD93] p-4">
+      <div className="border-b border-white/30 p-4">
         <Label className="font-bold mb-2 text-[14px]">Network Tracker</Label>
       </div>
       <div className="p-4">

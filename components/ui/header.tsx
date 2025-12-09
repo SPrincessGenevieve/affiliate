@@ -116,7 +116,7 @@ export default function Header() {
                 ) : (
                   <>
                     <div className="w-full flex gap-2 justify-center items-center">
-                      <Avatar className="w-[40px] h-[40px] shadow border border-[#C4AD93]">
+                      <Avatar className="w-[40px] h-[40px] shadow border border-white/30">
                         <AvatarImage
                           src={user_profile.profile_picture}
                         ></AvatarImage>

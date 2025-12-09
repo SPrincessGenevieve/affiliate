@@ -80,7 +80,7 @@ export function AppSidebarMobile() {
                               : ""
                           } flex items-center gap-2 py-3 text-[16px] transition ease-in-out rounded-none ${
                             isActive
-                              ? "bg-[#2A2C2D] text-white/70 border-b-3 border-[#C4AD93]"
+                              ? "bg-[#2A2C2D] text-white/70 border-b-3 border-white/30"
                               : "hover:bg-[#2A2C2D]"
                           }`}
                         >

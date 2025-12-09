@@ -78,17 +78,17 @@ export default function TableComponentInviteUser({
     <TableRow
       key={`${item.name}-${item.expires_at}`}
       onClick={onSelect}
-      className={`border-y border-[#C4AD93] text-white/70 h-10 cursor-pointer transition-colors ${
+      className={`border-y border-white/30 text-white/70 h-10 cursor-pointer transition-colors ${
         selected ? "bg-[#121416]" : "font-normal"
       }`}
     >
-      <TableCell className="border-b border-[#C4AD93]">{item.name}</TableCell>
-      <TableCell className="border-b border-[#C4AD93]">{item.email}</TableCell>
-      <TableCell className="border-b border-[#C4AD93]">{item.phone}</TableCell>
-      <TableCell className="border-b border-[#C4AD93] capitalize">
+      <TableCell className="border-b border-white/30">{item.name}</TableCell>
+      <TableCell className="border-b border-white/30">{item.email}</TableCell>
+      <TableCell className="border-b border-white/30">{item.phone}</TableCell>
+      <TableCell className="border-b border-white/30 capitalize">
         {item.status}
       </TableCell>
-      <TableCell className="border-b border-[#C4AD93]">
+      <TableCell className="border-b border-white/30">
         <div className="flex">
           <p>{item.expires_at?.slice(0, 10)}</p>
         </div>
@@ -101,7 +101,7 @@ export default function TableComponentInviteUser({
       <Table className="">
         {caption && <TableCaption>{caption}</TableCaption>}
         <TableHeader>
-          <TableRow className="text-white/70 border-y border-[#C4AD93]">
+          <TableRow className="text-white/70 border-y border-white/30">
             {/* <TableHead>Rank</TableHead> */}
             <TableCell>
               <div className="flex items-center gap-2">

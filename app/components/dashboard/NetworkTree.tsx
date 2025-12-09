@@ -168,16 +168,16 @@ export default function NetworkTree() {
 
   return (
     <div className="w-full h-full networking-cont flex flex-row gap-4 rounded-t-2xl">
-      <div className="net-sidebar w-[20%] min-w-80 h-full shadow-md bg-[#2A2C2D] border border-[#C4AD93] rounded-2xl">
+      <div className="net-sidebar w-[20%] min-w-80 h-full shadow-md bg-[#2A2C2D] border border-white/30 rounded-2xl">
         <SidebarTree onNodeClick={handleNodeClick} expandedIds={expandedIds} />
       </div>
 
-      <div className="net-table bg-[#2A2C2D] border border-[#C4AD93] shadow-md w-[80%] h-full flex flex-col rounded-2xl">
+      <div className="net-table bg-[#2A2C2D] border border-white/30 shadow-md w-[80%] h-full flex flex-col rounded-2xl">
         <div className="w-full flex flex-wrap gap-2 p-4 py-5">
           <Label className="text-[14px] font-bold">Network Overview</Label>
         </div>
 
-        <div className="flex flex-row gap-2 items-center justify-center border-y border-[#C4AD93] bg-[#121416]">
+        <div className="flex flex-row gap-2 items-center justify-center border-y border-white/30 bg-[#121416]">
           {headerContent.map((item, index) => (
             <div
               key={index}
@@ -206,7 +206,7 @@ export default function NetworkTree() {
 
         <div className="w-full p-4 h-auto min-h-[100px] flex flex-col bg-[#2A2C2D] rounded-b-xl overflow-auto">
           <Table className="">
-            <TableHeader className="border-b border-[#C4AD93] bg-[#2A2C2D]">
+            <TableHeader className="border-b border-white/30 bg-[#2A2C2D]">
               <TableRow>
                 {column.map((item) => (
                   <TableCell

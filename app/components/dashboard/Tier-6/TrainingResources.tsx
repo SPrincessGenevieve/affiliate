@@ -71,7 +71,7 @@ export default function TrainingResources() {
         </div>
         <div className="w-full p-4">
           <Dialog>
-            <DialogTrigger className="w-full text-[#C4AD93] hover:bg-[#C4AD93] hover:text-black bg-transparent border border-[#C4AD93] rounded-[10px] h-10 flex items-center justify-center">
+            <DialogTrigger className="w-full text-[#C4AD93] hover:bg-[#C4AD93] hover:text-black bg-transparent border border-white/30 rounded-[10px] h-10 flex items-center justify-center">
               Browse All Resources
             </DialogTrigger>
             <DialogContent>

@@ -97,7 +97,7 @@ export default function AUMGrowth() {
 
   return (
     <Card className="w-full h-full min-h-[400px] aum-cont">
-      <CardHeader className="flex-wrap border-b border-[#C4AD93] flex justify-between items-center py-1">
+      <CardHeader className="flex-wrap border-b border-white/30 flex justify-between items-center py-1">
         <div className="flex gap-1 flex-wrap bg-[#121416] p-1 rounded-4xl">
           <Button
             variant={isAUM ? "default" : "ghost"}

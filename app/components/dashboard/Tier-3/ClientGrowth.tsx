@@ -49,7 +49,7 @@ export default function ClientGrowth() {
 
   return (
     <Card className="w-full min-h-[400px]">
-      <CardHeader className="relative border-b border-[#C4AD93] flex justify-between items-center flex-wrap">
+      <CardHeader className="relative border-b border-white/30 flex justify-between items-center flex-wrap">
         <Label className="text-[16px] text-[#C4AD93]">Client Growth</Label>
         <div className="flex gap-2 flex-wrap">
           {filter.map((item, index) => (

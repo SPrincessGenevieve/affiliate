@@ -91,8 +91,8 @@ export default function TierFive() {
                     className="h-52"
                   ></DotLottieReact> */}
                   <Label className="text-center text-white/70">
-                    You haven’t made any referrals yet. Share your link to get
-                    started!
+                    You haven't made any referrals yet. Log into your app and
+                    start inviting.
                   </Label>
                 </div>
               )}

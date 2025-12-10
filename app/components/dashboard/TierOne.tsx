@@ -71,7 +71,9 @@ export default function TierOne() {
               ></Circle>
             </div>
             <div>
-              <Label className="font-normal text-white/70">Your Next Monthly Payment</Label>
+              <Label className="font-normal text-white/70">
+                Your Next Monthly Payment
+              </Label>
               <Label className="font-bold text-2xl text-[#C4AD93]">
                 £
                 {Number(user_profile.next_payment).toLocaleString(undefined, {
@@ -158,13 +160,12 @@ export default function TierOne() {
                   <Label className="font-normal text-white/70">Total AUM</Label>
                   <Label className="font-bold text-2xl text-[#C4AD93]">
                     £
-                    {Number(network_details?.network_tree.network_assets ?? 0).toLocaleString(
-                      undefined,
-                      {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      }
-                    )}
+                    {Number(
+                      user_profile?.total_monthly_aum ?? 0
+                    ).toLocaleString(undefined, {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                   </Label>
                 </div>
               </div>
